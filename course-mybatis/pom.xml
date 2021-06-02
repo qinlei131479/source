@@ -76,7 +76,7 @@
                     <include>**/*.xml</include>
                 </includes>
                 <!--默认是true-->
-                <!--<filtering>true</filtering>-->
+                <filtering>true</filtering>
             </resource>
         </resources>
     </build>

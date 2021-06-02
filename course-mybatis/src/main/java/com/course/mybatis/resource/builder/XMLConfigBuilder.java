@@ -71,7 +71,6 @@ public class XMLConfigBuilder {
 			if (id.equals(def)) {
 				parseDataSource(element);
 			}
-
 		}
 	}
 

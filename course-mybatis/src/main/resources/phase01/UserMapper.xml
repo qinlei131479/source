@@ -11,4 +11,5 @@
             resultType="com.course.mybatis.phase01.pojo.User">
 		SELECT * FROM user WHERE id = #{id}
 	</select>
+
 </mapper>

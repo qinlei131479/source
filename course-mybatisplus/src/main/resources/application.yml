@@ -21,6 +21,12 @@ spring:
     maxOpenPreparedStatements: 20
 
 mybatis-plus:
-   type-aliases-package: com.course.mybatis.plus.entity
-   configuration:
-    map-underscore-to-camel-case: true  
+  type-aliases-package: com.course.mybatis.plus.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      table-prefix: sys_

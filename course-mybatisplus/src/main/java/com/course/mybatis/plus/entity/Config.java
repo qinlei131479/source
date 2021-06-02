@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
-import java.util.Date;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -18,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author qinlei
- * @since 2021-05-28
+ * @since 2021-06-02
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -65,7 +63,7 @@ private static final long serialVersionUID=1L;
      * 创建时间
      */
     @TableField("createTime")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /**
      * 更新者
@@ -77,7 +75,7 @@ private static final long serialVersionUID=1L;
      * 更新时间
      */
     @TableField("updateTime")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /**
      * 备注

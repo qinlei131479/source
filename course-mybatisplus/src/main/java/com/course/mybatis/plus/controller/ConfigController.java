@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author qinlei
- * @since 2021-05-28
+ * @since 2021-06-02
  */
 @RestController
 @RequestMapping("/config")
 public class ConfigController {
-
 
 }
 

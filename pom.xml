@@ -16,6 +16,7 @@
         <module>course-spring</module>
         <module>course-springmvc</module>
         <module>course-springboot</module>
+        <module>course-design</module>
     </modules>
 
     <parent>

@@ -28,7 +28,7 @@ public class Student4 {
 
 	/**
 	 * 此处考验对synchronized知识点的掌握情况
-	 * 
+	 * 双重检查锁方式(DCL)
 	 * @return
 	 */
 	public static Student4 getSingletonInstance() {

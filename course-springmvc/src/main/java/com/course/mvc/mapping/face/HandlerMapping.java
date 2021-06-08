@@ -1,4 +1,4 @@
-package com.course.mvc.mapping;
+package com.course.mvc.mapping.face;
 
 import javax.servlet.http.HttpServletRequest;
 

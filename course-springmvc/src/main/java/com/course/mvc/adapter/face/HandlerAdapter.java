@@ -1,8 +1,9 @@
-package com.course.mvc.adapter;
+package com.course.mvc.adapter.face;
+
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author qinlei

@@ -11,5 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface HandlerAdapter {
 
+	boolean support(Object handler);
+
 	void handleRequest(Object handler, HttpServletRequest request, HttpServletResponse response) throws IOException;
 }

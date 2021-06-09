@@ -2,6 +2,8 @@ package com.course.springtest.factory.support;
 
 import java.util.List;
 
+import com.course.springtest.aware.Aware;
+import com.course.springtest.aware.BeanFactoryAware;
 import com.course.springtest.ioc.BeanDefinition;
 import com.course.springtest.ioc.PropertyValue;
 import com.course.springtest.ioc.RuntimeBeanReference;
@@ -97,6 +99,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	private void initMethod(Object bean, BeanDefinition beanDefinition) {
 		// TODO 判断Bean是否是实现了Aware接口
+		if (bean instanceof Aware) {
+			if (bean instanceof BeanFactoryAware) {
+				((BeanFactoryAware) bean).setBeanFactory(this);
+			}
+		}
 		// TODO
 		// 判断是否实现了InitilizingBean接口，如果实现，则直接调用该bean的afterPropertiesSet方法去初始化
 		// 调用通过bean标签指定的初始化方法，比如通过init-method标签属性指定的方法

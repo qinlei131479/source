@@ -13,6 +13,10 @@
     <artifactId>course-springmvc</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>course-spring</artifactId>
+        </dependency>
         <!-- servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>

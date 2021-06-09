@@ -1,4 +1,4 @@
-package com.course.springtest.utils;
+package com.course.common.utils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -10,7 +10,23 @@ import java.lang.reflect.Method;
  * @author qinlei
  * @date 2021/6/4 下午5:32
  */
-public class ReflectUtils {
+public class ReflectUtil {
+
+    /**
+	 * 装载一个类
+	 * 
+	 * @param className
+	 * @return
+	 */
+	public static Class<?> resolveType(String className) {
+		try {
+			Class<?> clazz = Class.forName(className);
+			return clazz;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/**
 	 * 使用构造器创建bean的实例
@@ -58,7 +74,7 @@ public class ReflectUtils {
 	 */
 	public static Class<?> getTypeByFieldName(String beanClassName, String name) {
 		try {
-			Class<?> clazz = Class.forName(beanClassName);
+			Class<?> clazz = resolveType(beanClassName);
 			Field field = clazz.getDeclaredField(name);
 			return field.getType();
 		} catch (Exception e) {

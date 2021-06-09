@@ -8,18 +8,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.course.springtest.ioc.BeanDefinition;
-import com.course.springtest.ioc.PropertyValue;
-import com.course.springtest.ioc.RuntimeBeanReference;
-import com.course.springtest.ioc.TypedStringValue;
-import com.course.springtest.pojo.User;
-import com.course.springtest.service.UserService;
+import com.course.common.utils.ReflectUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
 
+import com.course.springtest.ioc.BeanDefinition;
+import com.course.springtest.ioc.PropertyValue;
+import com.course.springtest.ioc.RuntimeBeanReference;
+import com.course.springtest.ioc.TypedStringValue;
+import com.course.springtest.pojo.User;
+import com.course.springtest.service.UserService;
 
 public class SpringTestV2 {
 	private Map<String, BeanDefinition> beanDefinitions = new HashMap<>();
@@ -240,7 +241,7 @@ public class SpringTestV2 {
 			if (clazzName == null || "".equals(clazzName)) {
 				return;
 			}
-			Class<?> clazzType = Class.forName(clazzName);
+			Class<?> clazzType = ReflectUtil.resolveType(clazzName);
 
 			// 获取init-method属性
 			String initMethod = beanElement.attributeValue("init-method");
@@ -263,7 +264,7 @@ public class SpringTestV2 {
 
 			// 注册BeanDefinition信息
 			this.beanDefinitions.put(beanName, beanDefinition);
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -293,7 +294,7 @@ public class SpringTestV2 {
 			// 因为spring配置文件中的value是String类型，而对象中的属性值是各种各样的，所以需要存储类型
 			TypedStringValue typeStringValue = new TypedStringValue(value);
 
-			Class<?> targetType = getTypeByFieldName(beanDefination.getClazzName(), name);
+			Class<?> targetType = ReflectUtil.getTypeByFieldName(beanDefination.getClazzName(), name);
 			typeStringValue.setTargetType(targetType);
 
 			pv = new PropertyValue(name, typeStringValue);
@@ -357,14 +358,4 @@ public class SpringTestV2 {
 
 	}
 
-	private Class<?> getTypeByFieldName(String beanClassName, String name) {
-		try {
-			Class<?> clazz = Class.forName(beanClassName);
-			Field field = clazz.getDeclaredField(name);
-			return field.getType();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 }

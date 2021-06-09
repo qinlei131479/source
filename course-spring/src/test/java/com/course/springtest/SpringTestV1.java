@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.course.common.utils.ReflectUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -99,7 +100,7 @@ public class SpringTestV1 {
 
 			// 获取beanName
 			String beanName = id == null ? name : id;
-			Class<?> clazzType = Class.forName(clazzName);
+			Class<?> clazzType = ReflectUtil.resolveType(clazzName);
 			beanName = beanName == null ? clazzType.getSimpleName() : beanName;
 			// 创建BeanDefinition对象
 			// 此次可以使用构建者模式进行优化
@@ -114,7 +115,7 @@ public class SpringTestV1 {
 
 			// 注册BeanDefinition信息
 			this.beanDefinitions.put(beanName, beanDefinition);
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -144,7 +145,7 @@ public class SpringTestV1 {
 			// 因为spring配置文件中的value是String类型，而对象中的属性值是各种各样的，所以需要存储类型
 			TypedStringValue typeStringValue = new TypedStringValue(value);
 
-			Class<?> targetType = getTypeByFieldName(beanDefination.getClazzName(), name);
+			Class<?> targetType = ReflectUtil.getTypeByFieldName(beanDefination.getClazzName(), name);
 			typeStringValue.setTargetType(targetType);
 
 			pv = new PropertyValue(name, typeStringValue);
@@ -157,17 +158,6 @@ public class SpringTestV1 {
 		} else {
 			return;
 		}
-	}
-
-	private Class<?> getTypeByFieldName(String beanClassName, String name) {
-		try {
-			Class<?> clazz = Class.forName(beanClassName);
-			Field field = clazz.getDeclaredField(name);
-			return field.getType();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	private void parseCustomElement(Element element) {

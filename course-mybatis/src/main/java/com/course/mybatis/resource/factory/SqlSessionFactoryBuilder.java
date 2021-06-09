@@ -9,7 +9,7 @@ import org.dom4j.Document;
 
 import com.course.mybatis.resource.builder.XMLConfigBuilder;
 import com.course.mybatis.resource.config.Configuration;
-import com.course.mybatis.resource.utils.DocumentUtils;
+import com.course.common.utils.DocumentUtil;
 
 /**
  * SqlSession工厂构建工具
@@ -55,7 +55,7 @@ public class SqlSessionFactoryBuilder {
 	}
 
 	public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
-		Document document = DocumentUtils.createDocument(inputStream);
+		Document document = DocumentUtil.createDocument(inputStream);
 		XMLConfigBuilder configBuilder = new XMLConfigBuilder();
 		Configuration configuration = configBuilder.parseConfiguration(document.getRootElement());
 

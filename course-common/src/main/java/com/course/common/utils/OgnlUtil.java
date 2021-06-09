@@ -1,4 +1,4 @@
-package com.course.mybatis.resource.utils;
+package com.course.common.utils;
 
 import java.math.BigDecimal;
 
@@ -9,7 +9,7 @@ import ognl.OgnlContext;
  * @author qinlei
  * @date 2021/5/31 下午4:05
  */
-public class OgnlUtils {
+public class OgnlUtil {
 
 	/**
 	 * 根据Ongl表达式，获取指定对象的参数值
@@ -44,7 +44,7 @@ public class OgnlUtils {
 	 * @return
 	 */
 	public static boolean evaluateBoolean(String expression, Object parameterObject) {
-		Object value = OgnlUtils.getValue(expression, parameterObject);
+		Object value = OgnlUtil.getValue(expression, parameterObject);
 		if (value instanceof Boolean) {
 			return (Boolean) value;
 		}

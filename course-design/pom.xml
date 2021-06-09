@@ -13,6 +13,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>course-common</artifactId>
+        </dependency>
+        <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
             <version>2.1</version>

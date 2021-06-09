@@ -2,6 +2,7 @@ package com.course.springtest.reader;
 
 import java.util.List;
 
+import com.course.common.utils.ReflectUtil;
 import org.dom4j.Element;
 
 import com.course.springtest.ioc.BeanDefinition;
@@ -9,7 +10,6 @@ import com.course.springtest.ioc.PropertyValue;
 import com.course.springtest.ioc.RuntimeBeanReference;
 import com.course.springtest.ioc.TypedStringValue;
 import com.course.springtest.registry.BeanDefinitionRegistry;
-import com.course.springtest.utils.ReflectUtils;
 
 /**
  * 需要按照spring语义来解析Document对象
@@ -74,7 +74,7 @@ public class XmlBeanDefinitionDocumentReader {
 
 			// 获取beanName
 			String beanName = id == null ? name : id;
-			Class<?> clazzType = Class.forName(clazzName);
+			Class<?> clazzType = ReflectUtil.resolveType(clazzName);
 			beanName = beanName == null ? clazzType.getSimpleName() : beanName;
 			// 创建BeanDefinition对象
 			// 此次可以使用构建者模式进行优化
@@ -89,7 +89,7 @@ public class XmlBeanDefinitionDocumentReader {
 
 			// 注册BeanDefinition信息
 			this.beanDefinitionRegistry.registerBeanDefinition(beanName, beanDefinition);
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -119,7 +119,7 @@ public class XmlBeanDefinitionDocumentReader {
 			// 因为spring配置文件中的value是String类型，而对象中的属性值是各种各样的，所以需要存储类型
 			TypedStringValue typeStringValue = new TypedStringValue(value);
 
-			Class<?> targetType = ReflectUtils.getTypeByFieldName(beanDefinition.getClazzName(), name);
+			Class<?> targetType = ReflectUtil.getTypeByFieldName(beanDefinition.getClazzName(), name);
 			typeStringValue.setTargetType(targetType);
 
 			pv = new PropertyValue(name, typeStringValue);

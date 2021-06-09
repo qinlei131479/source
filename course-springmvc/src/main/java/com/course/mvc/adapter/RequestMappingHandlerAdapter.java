@@ -10,10 +10,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.course.common.utils.JsonUtil;
 import com.course.mvc.adapter.face.HandlerAdapter;
 import com.course.mvc.annotations.ResponseBody;
 import com.course.mvc.handler.HandlerMethod;
-import com.course.mvc.utils.JsonUtil;
 
 /**
  * HttpRequestHandler的适配器

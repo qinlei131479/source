@@ -2,13 +2,13 @@ package com.course.springtest.factory.support;
 
 import java.util.List;
 
+import com.course.common.utils.ReflectUtil;
 import com.course.springtest.aware.Aware;
 import com.course.springtest.aware.BeanFactoryAware;
 import com.course.springtest.ioc.BeanDefinition;
 import com.course.springtest.ioc.PropertyValue;
 import com.course.springtest.ioc.RuntimeBeanReference;
 import com.course.springtest.ioc.TypedStringValue;
-import com.course.springtest.utils.ReflectUtils;
 
 /**
  * 默认自动解析初始化bean实现
@@ -48,7 +48,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// TODO 通过静态工厂方法方式去创建Bean实例，比如通过factory-method标签属性指的静态工厂方法去创建实例
 
 		// 构造方法去创建Bean实例（此处我们只针对无参构造进行操作）
-		Object bean = ReflectUtils.createObject(clazzType);
+		Object bean = ReflectUtil.createObject(clazzType);
 
 		return bean;
 	}
@@ -86,7 +86,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				}
 
 				// 通过反射去给bean实例去设置指定name的值
-				ReflectUtils.setProperty(bean, name, valueToUse);
+				ReflectUtil.setProperty(bean, name, valueToUse);
 			}
 		}
 	}
@@ -111,7 +111,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		if (initMethod == null) {
 			return;
 		}
-		ReflectUtils.invokeMethod(bean, initMethod);
+		ReflectUtil.invokeMethod(bean, initMethod);
 	}
 
 	@Override

@@ -3,6 +3,8 @@ package com.course.springtest.ioc;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import com.course.common.utils.ReflectUtil;
 import lombok.Data;
 
 /**
@@ -39,16 +41,7 @@ public class BeanDefinition {
 	public BeanDefinition(String clazzName, String beanName) {
 		this.beanName = beanName;
 		this.clazzName = clazzName;
-		this.clazzType = resolveClassName(clazzName);
-	}
-
-	private Class<?> resolveClassName(String clazzName) {
-		try {
-			return Class.forName(clazzName);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
+		this.clazzType = ReflectUtil.resolveType(clazzName);
 	}
 
 	public void addPropertyValue(PropertyValue propertyValue) {

@@ -1,4 +1,4 @@
-package com.course.mvc.utils;
+package com.course.common.utils;
 
 import java.util.List;
 

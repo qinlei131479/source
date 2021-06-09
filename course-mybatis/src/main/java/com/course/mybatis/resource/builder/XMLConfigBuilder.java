@@ -11,7 +11,7 @@ import org.dom4j.Element;
 
 import com.course.mybatis.resource.config.Configuration;
 import com.course.mybatis.resource.io.Resources;
-import com.course.mybatis.resource.utils.DocumentUtils;
+import com.course.common.utils.DocumentUtil;
 import com.course.mybatis.resource.utils.GenericTokenParserUtil;
 
 /**
@@ -33,7 +33,7 @@ public class XMLConfigBuilder {
 	}
 
 	public XMLConfigBuilder(InputStream inputStream, String environment, Properties props) throws IOException {
-		Document document = DocumentUtils.createDocument(inputStream);
+		Document document = DocumentUtil.createDocument(inputStream);
 		this.configuration = parseConfiguration(document.getRootElement());
 		this.environment = environment;
 		this.props = props;
@@ -85,7 +85,7 @@ public class XMLConfigBuilder {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			Document document = DocumentUtils.createDocument(inputStream);
+			Document document = DocumentUtil.createDocument(inputStream);
 			// 按照映射文件的语义进行解析
 			XMLMapperBuilder mapperBuilder = new XMLMapperBuilder(configuration);
 			mapperBuilder.parse(document.getRootElement());

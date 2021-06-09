@@ -13,6 +13,12 @@
     <artifactId>course-springmvc</artifactId>
 
     <dependencies>
+
+
+        <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>course-common</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.course</groupId>
             <artifactId>course-spring</artifactId>

@@ -1,4 +1,4 @@
-package com.course.mybatis.resource.utils;
+package com.course.common.utils;
 
 import java.io.InputStream;
 
@@ -9,7 +9,7 @@ import org.dom4j.io.SAXReader;
  * @author qinlei
  * @date 2021/5/31 下午3:26
  */
-public class DocumentUtils {
+public class DocumentUtil {
 
 	public static Document createDocument(InputStream inputStream) {
 		try {

@@ -1,7 +1,7 @@
 package com.course.mybatis.resource.sqlnode;
 
 import com.course.mybatis.resource.utils.GenericTokenParserUtil;
-import com.course.mybatis.resource.utils.OgnlUtils;
+import com.course.common.utils.OgnlUtil;
 import com.course.mybatis.resource.utils.SimpleTypeRegistry;
 import com.course.mybatis.resource.utils.TokenHandler;
 
@@ -63,7 +63,7 @@ public class TextSqlNode implements SqlNode {
 				return paramObject.toString();
 			}
 			// 如果是自定义的Java对象，则需要使用OGNL去入参对象中获取值，然后返回
-			Object value = OgnlUtils.getValue(content, paramObject);
+			Object value = OgnlUtil.getValue(content, paramObject);
 			return value.toString();
 		}
 

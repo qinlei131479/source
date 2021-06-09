@@ -1,6 +1,6 @@
 package com.course.mybatis.resource.sqlnode;
 
-import com.course.mybatis.resource.utils.OgnlUtils;
+import com.course.common.utils.OgnlUtil;
 
 /**
  * @author qinlei
@@ -23,7 +23,7 @@ public class IfSqlNode implements SqlNode {
 	@Override
 	public void apply(DynamicContext context) {
 		// 需要使用到Ognl工具类
-		boolean evaluateBoolean = OgnlUtils.evaluateBoolean(test, context.getBindings().get("_parameter"));
+		boolean evaluateBoolean = OgnlUtil.evaluateBoolean(test, context.getBindings().get("_parameter"));
 		if (evaluateBoolean) {
 			mixedSqlNode.apply(context);
 		}

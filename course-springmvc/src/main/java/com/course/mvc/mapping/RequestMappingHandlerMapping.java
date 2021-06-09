@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.course.common.utils.ReflectUtil;
 import com.course.mvc.annotations.Controller;
 import com.course.mvc.annotations.RequestMapping;
 import com.course.mvc.handler.HandlerMethod;
@@ -43,7 +44,7 @@ public class RequestMappingHandlerMapping implements HandlerMapping, BeanFactory
 	public void init() {
 		List<BeanDefinition> beanDefinitions = beanFactory.getBeanDefinitions();
 		for (BeanDefinition bd : beanDefinitions) {
-			Class<?> clazz = resolveClassName(bd.getClazzName());
+			Class<?> clazz = ReflectUtil.resolveType(bd.getClazzName());
 			if (isHandler(clazz)) {
 				RequestMapping classMapping = clazz.getAnnotation(RequestMapping.class);
 				Method[] methods = clazz.getDeclaredMethods();
@@ -73,12 +74,4 @@ public class RequestMappingHandlerMapping implements HandlerMapping, BeanFactory
 		return clazz.isAnnotationPresent(Controller.class) || clazz.isAnnotationPresent(RequestMapping.class);
 	}
 
-	private Class<?> resolveClassName(String clazzName) {
-		try {
-			return Class.forName(clazzName);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 }

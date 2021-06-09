@@ -34,7 +34,7 @@ public class TestResources {
 	public void testFindUserById() {
 		// 创建UserMapper对象
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		User user = sqlSession.selectOne("com.course.mybatis.phase02.mapper.UserMapper.findUserById", 1);
+		User user = sqlSession.selectOne("com.course.mybatis.phase02.mapper.UserMapper.findUserById", 1L);
 		// 调用UserMapper对象的API
 		System.out.println(user);
 	}

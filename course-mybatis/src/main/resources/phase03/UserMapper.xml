@@ -78,37 +78,37 @@
     </sql>
 
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.course.mybatis.phase03.pojo.UserExample">
-        select * from user
+        select * from sys_user
     </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
-        from user
+        from sys_user
         where id = #{id,jdbcType=INTEGER}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from user
+        delete from sys_user
         where id = #{id,jdbcType=INTEGER}
     </delete>
 
     <delete id="deleteByExample" parameterType="com.course.mybatis.phase03.pojo.UserExample">
-        delete from user
+        delete from sys_user
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
 
     <insert id="insert" parameterType="com.course.mybatis.phase03.pojo.User">
-        insert into user (id, username, birthday,
+        insert into sys_user (id, username, birthday,
           sex, address)
         values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
           #{sex,jdbcType=CHAR}, #{address,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" parameterType="com.course.mybatis.phase03.pojo.User">
-        insert into user
+        insert into sys_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -147,14 +147,14 @@
 
     <select id="countByExample" parameterType="com.course.mybatis.phase03.pojo.UserExample"
             resultType="java.lang.Integer">
-        select count(*) from user
+        select count(*) from sys_user
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
 
     <update id="updateByExampleSelective" parameterType="map">
-        update user
+        update sys_user
         <set>
             <if test="record.id != null">
                 id = #{record.id,jdbcType=INTEGER},
@@ -178,7 +178,7 @@
     </update>
 
     <update id="updateByExample" parameterType="map">
-        update user
+        update sys_user
         set id = #{record.id,jdbcType=INTEGER},
         username = #{record.username,jdbcType=VARCHAR},
         birthday = #{record.birthday,jdbcType=DATE},
@@ -190,7 +190,7 @@
     </update>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.course.mybatis.phase03.pojo.User">
-        update user
+        update sys_user
         <set>
             <if test="username != null">
                 username = #{username,jdbcType=VARCHAR},
@@ -209,7 +209,7 @@
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.course.mybatis.phase03.pojo.User">
-        update user
+        update sys_user
         set username = #{username,jdbcType=VARCHAR},
           birthday = #{birthday,jdbcType=DATE},
           sex = #{sex,jdbcType=CHAR},

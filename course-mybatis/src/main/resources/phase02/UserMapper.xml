@@ -7,7 +7,7 @@
 
     <select id="findUserById" parameterType="int"
             resultType="com.course.mybatis.phase02.pojo.User">
-		SELECT * FROM user WHERE id = #{id}
+		SELECT * FROM sys_user WHERE id = #{id}
 	</select>
 
 </mapper>

@@ -41,6 +41,24 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- jackson依赖 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.9.6</version>
+            </dependency>
+            <!-- 不添加，将使用默认版本2.11.3，造成版本不兼容，且tomact7不支持高版本 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.9.6</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.9.6</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.course</groupId>
                 <artifactId>course-spring</artifactId>

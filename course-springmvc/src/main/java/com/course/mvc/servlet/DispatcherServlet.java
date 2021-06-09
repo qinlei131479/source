@@ -67,7 +67,7 @@ public class DispatcherServlet extends AbstractHttpServlet {
 	}
 
 	@Override
-	public void doDispath(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void doDispath(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 1、查找处理器(交给处理器映射器去查找)
 		Object handler = getHandler(request);
 		// 2、执行处理器方法（先要找到处理器适配器，再委托给处理器适配器去执行处理器方法）

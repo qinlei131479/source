@@ -6,12 +6,15 @@
     <!-- 配置handler -->
     <bean name="/queryUser" class="com.course.mvc.handler.QueryUserHandler"></bean>
     <bean name="/addUser" class="com.course.mvc.handler.AddUserHandler"></bean>
+    <bean class="com.course.mvc.controller.DemoController"></bean>
 
     <!-- 配置处理器映射器 -->
     <bean class="com.course.mvc.mapping.BeanNameUrlHandlerMapping" init-method="init"></bean>
     <bean class="com.course.mvc.mapping.SimpleUrlHandlerMapping" init-method="init"></bean>
+    <bean class="com.course.mvc.mapping.RequestMappingHandlerMapping" init-method="init"></bean>
 
     <!-- 配置适配器 -->
     <bean class="com.course.mvc.adapter.HttpRequestHandlerAdapter"></bean>
     <bean class="com.course.mvc.adapter.SimpleControllerHandlerAdapter"></bean>
+    <bean class="com.course.mvc.adapter.RequestMappingHandlerAdapter"></bean>
 </beans>

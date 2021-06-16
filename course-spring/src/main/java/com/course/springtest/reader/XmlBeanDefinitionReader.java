@@ -2,10 +2,10 @@ package com.course.springtest.reader;
 
 import java.io.InputStream;
 
+import com.course.common.utils.DocumentUtil;
 import org.dom4j.Document;
 
 import com.course.springtest.registry.BeanDefinitionRegistry;
-import com.course.springtest.utils.DocumentUtil;
 
 /**
  * 对XML进行读取的BeanDefinition阅读器

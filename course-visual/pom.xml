@@ -9,12 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
-    <artifactId>course-common</artifactId>
-    <description>公共方法</description>
+    <artifactId>course-visual</artifactId>
 
     <modules>
-        <module>course-common-core</module>
-        <module>course-common-mybatis</module>
+        <module>course-generator</module>
     </modules>
 
 </project>

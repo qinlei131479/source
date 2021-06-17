@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>course-learn</artifactId>
+        <groupId>com.course</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>war</packaging>
+    <artifactId>course-springmvc</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>course-spring</artifactId>
+        </dependency>
+        <!-- servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- jackson依赖 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.6</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-annotations</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <!-- 最新版springboot不兼容低版本jackson -->
+        <!-- 不添加，将使用默认版本2.11.3，造成版本不兼容，且tomact7不支持高版本 -->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-annotations</artifactId>-->
+<!--            <version>2.9.6</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-core</artifactId>-->
+<!--            <version>2.9.6</version>-->
+<!--        </dependency>-->
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 配置Maven的JDK编译级别 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <!-- 通过反射获取方法参数时，需要设置以下参数才能保证获取到的方法参数是有意义的 -->
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <!-- 配置tomcat7插件，不需要安装本地tomcat -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>80</port>
+                    <path>/</path>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

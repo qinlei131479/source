@@ -1,0 +1,27 @@
+#加这个文件的目的是为了让logbaack-spring.xml及时读取到spring.application.name，否则一开始读取不到
+server:
+  port: 9350
+
+spring:
+  application:
+    name: @artifactId@
+  # 数据源
+  datasource:
+    username: root
+    password: iflash
+    url: jdbc:mysql://styn-mysql:3306/swine_main?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+
+# mybaits-plus配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      table-underline: false
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      table-prefix: sys_
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 配置slq打印日志

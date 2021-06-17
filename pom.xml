@@ -9,16 +9,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>学习课程</description>
+    <name>${project.artifactId}</name>
 
     <modules>
-        <module>course-mybatis</module>
-        <module>course-mybatisplus</module>
-        <module>course-spring</module>
-        <module>course-springmvc</module>
-        <module>course-springboot</module>
-        <module>course-design</module>
-        <module>course-jvm</module>
         <module>course-common</module>
+        <module>course-learn</module>
+        <module>course-visual</module>
     </modules>
 
     <parent>
@@ -35,18 +31,30 @@
         <mysql.version>5.1.47</mysql.version>
         <mybatis.version>3.5.5</mybatis.version>
         <pagehelper.version>5.1.6</pagehelper.version>
-        <druid.version>1.1.21</druid.version>
-        <mybatis-plus.version>3.1.1</mybatis-plus.version>
+        <druid.version>1.1.20</druid.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <velocity.version>2.1</velocity.version>
         <project.version>1.0-SNAPSHOT</project.version>
+        <hutool.version>5.4.7</hutool.version>
+        <spring-boot.version>2.4.0</spring-boot.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-
+            <!--hutool-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.course</groupId>
-                <artifactId>course-common</artifactId>
+                <artifactId>course-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.course</groupId>
+                <artifactId>course-common-mybatis</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -130,4 +138,48 @@
         </dependencies>
     </dependencyManagement>
 
+
+<!--    <repositories>-->
+<!--        &lt;!&ndash;阿里云主仓库，代理了maven central和jcenter仓库，上一个好像不行 &ndash;&gt;-->
+<!--        <repository>-->
+<!--            <id>public</id>-->
+<!--            <name>aliyun nexus</name>-->
+<!--            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+<!--            <releases>-->
+<!--                <enabled>true</enabled>-->
+<!--            </releases>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <configuration>
+                        <finalName>${project.build.finalName}</finalName>
+                        <layers>
+                            <enabled>true</enabled>
+                        </layers>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

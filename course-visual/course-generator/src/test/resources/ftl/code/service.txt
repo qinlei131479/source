@@ -1,6 +1,6 @@
 package ${package}.service;
 
-import ${package_entity}.service.UpService;
+import ${package_mybatisplus}.service.UpService;
 import ${package_entity}.entity.${className};
 
 /**

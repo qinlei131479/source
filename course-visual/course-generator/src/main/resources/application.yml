@@ -7,6 +7,7 @@ spring:
     name: @artifactId@
   # 数据源
   datasource:
+    driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: iflash
     url: jdbc:mysql://styn-mysql:3306/swine_main?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai

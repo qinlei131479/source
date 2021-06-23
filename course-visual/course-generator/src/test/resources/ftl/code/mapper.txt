@@ -2,7 +2,7 @@ package ${package}.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import ${package_entity}.mapper.UpMapper;
+import ${package_mybatisplus}.mapper.UpMapper;
 import ${package_entity}.entity.${className};
 
 /**

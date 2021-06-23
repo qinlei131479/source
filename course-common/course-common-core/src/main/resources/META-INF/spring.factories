@@ -1,3 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- com.course.common.utils.SpringContextHolder
+ com.course.common.utils.SpringContextHolder,\
+ com.course.common.config.JacksonConfig,\
+ com.course.common.config.TransactionAdvisor
 

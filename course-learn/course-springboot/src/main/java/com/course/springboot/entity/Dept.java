@@ -1,5 +1,6 @@
 package com.course.springboot.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -41,9 +42,9 @@ public class Dept extends Req<Dept> {
     
 	private String createBy;
     
-	private Date createTime;
+	private LocalDateTime createTime;
     
 	private String updateBy;
     
-	private Date updateTime;
+	private LocalDateTime updateTime;
 }

@@ -1,10 +1,11 @@
 package com.course.common.config;
 
-import com.course.common.entity.Req;
-import com.course.common.entity.Res;
+import javax.servlet.http.HttpServletRequest;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 
-import javax.servlet.http.HttpServletRequest;
+import com.course.common.entity.Req;
+import com.course.common.entity.Res;
 
 /**
  * 全局Service
@@ -21,8 +22,9 @@ public interface BaseGlobalService<T> {
 
 	/**
 	 * 获取配置值
-	 *
+	 * 
 	 * @param configCode
+	 * @return
 	 */
 	String getConfigValue(String configCode);
 

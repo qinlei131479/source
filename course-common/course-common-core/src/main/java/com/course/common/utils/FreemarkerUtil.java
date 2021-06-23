@@ -22,11 +22,6 @@ import freemarker.template.TemplateException;
  * @date 2020/3/26 下午2:57
  */
 public class FreemarkerUtil {
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-	}
 
 	/**
 	 * 通过文本模板，获取内容

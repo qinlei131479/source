@@ -14,11 +14,11 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.course.common.utils.FreemarkerUtil;
 import com.course.common.utils.HuToolUtil;
 import com.course.generator.GeneratorCodeApplication;
 import com.course.generator.entity.TableField;
 import com.course.generator.mapper.TableFieldMapper;
-import com.course.generator.util.FreemarkerUtil;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
@@ -26,7 +26,10 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  *
- * 代码自动生成器
+ * 代码自动生成器<br>
+ * 1、配置application数据库环境<br>
+ * 2、执行#testCreateAll方法，根据项目需求更改packageName、packageName_entity等字段<br>
+ * 3、到目标模块验证代码的生成<br>
  * 
  * @author qinlei
  * @date 2021/6/11 下午1:12
@@ -130,6 +133,7 @@ public class GeneratorCode {
 		String packageName_entity = "com.course.springboot";
 		// 数据库表前缀
 		String tableName_pre = "sys_";
+		// 表名称
 		List<String> classList = Arrays.asList("User", "Config", "Dept");
 		// 添加包和实体包
 		dataMap.put("package", packageName);

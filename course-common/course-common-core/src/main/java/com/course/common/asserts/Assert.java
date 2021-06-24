@@ -1,6 +1,6 @@
-package com.course.springboot.asserts;
+package com.course.common.asserts;
 
-import com.course.springboot.exception.BaseException;
+import com.course.common.exception.BaseException;
 
 /**
  * @author qinlei

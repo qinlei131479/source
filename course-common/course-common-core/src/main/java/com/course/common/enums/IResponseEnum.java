@@ -1,4 +1,4 @@
-package com.course.springboot.enums;
+package com.course.common.enums;
 
 /**
  * @author qinlei

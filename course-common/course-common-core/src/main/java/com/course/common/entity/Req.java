@@ -3,6 +3,7 @@ package com.course.common.entity;
 import java.util.List;
 
 import javax.validation.GroupSequence;
+import javax.validation.groups.Default;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.course.common.utils.HuToolUtil;

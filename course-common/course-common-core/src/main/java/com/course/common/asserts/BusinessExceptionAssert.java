@@ -1,8 +1,8 @@
-package com.course.springboot.asserts;
+package com.course.common.asserts;
 
-import com.course.springboot.enums.IResponseEnum;
-import com.course.springboot.exception.BaseException;
-import com.course.springboot.exception.BusinessException;
+import com.course.common.enums.IResponseEnum;
+import com.course.common.exception.BaseException;
+import com.course.common.exception.BusinessException;
 
 import java.text.MessageFormat;
 
@@ -16,13 +16,13 @@ public interface BusinessExceptionAssert extends IResponseEnum, Assert {
     default BaseException newException(Object... args) {
         String msg = MessageFormat.format(this.getMessage(), args);
 
-        return new BusinessException(this, args, msg);
+        return null;
     }
 
     @Override
     default BaseException newException(Throwable t, Object... args) {
         String msg = MessageFormat.format(this.getMessage(), args);
 
-        return new BusinessException(this, args, msg, t);
+        return null;
     }
 }

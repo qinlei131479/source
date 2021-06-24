@@ -1,17 +1,15 @@
-package com.course.springboot.enums;
-
-import com.course.springboot.asserts.BusinessExceptionAssert;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+package com.course.common.enums;
 
 /**
  * @author qinlei
- * @date 2021/6/15 下午4:20
+ * @date 2021/6/16 下午5:47
  */
-@Getter
-@AllArgsConstructor
-public enum ResponseEnum implements BusinessExceptionAssert {
+public enum ServletResponseEnum implements IResponseEnum {
+
+	SERVER_ERROR(9999, "server error."),
+
+	VALID_ERROR(9000, "valid error"),
+
 	/**
 	 * Bad licence type
 	 */
@@ -21,7 +19,7 @@ public enum ResponseEnum implements BusinessExceptionAssert {
 	 */
 	LICENCE_NOT_FOUND(7002, "Licence not found.");
 
-	ResponseEnum(int code, String message) {
+	ServletResponseEnum(int code, String message) {
 		this.code = code;
 		this.message = message;
 	}

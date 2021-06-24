@@ -2,6 +2,8 @@ server:
   port: 8888
 
 spring:
+  profiles:
+    active: dev
   application:
     name: @artifactId@
   # 数据源

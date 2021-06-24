@@ -1,10 +1,13 @@
-package com.course.springboot.enums;
+package com.course.common.enums;
+
+import lombok.Getter;
 
 /**
  * @author qinlei
- * @date 2021/6/16 下午5:47
+ * @date 2021/6/16 下午5:36
  */
-public enum ServletResponseEnum implements IResponseEnum {
+@Getter
+public enum CommonResponseEnum implements IResponseEnum {
 
 	SERVER_ERROR(9999, "server error."),
 
@@ -19,7 +22,7 @@ public enum ServletResponseEnum implements IResponseEnum {
 	 */
 	LICENCE_NOT_FOUND(7002, "Licence not found.");
 
-	ServletResponseEnum(int code, String message) {
+	CommonResponseEnum(int code, String message) {
 		this.code = code;
 		this.message = message;
 	}

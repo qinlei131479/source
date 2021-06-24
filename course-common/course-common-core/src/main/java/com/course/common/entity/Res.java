@@ -132,7 +132,7 @@ public class Res<T> {
 	 * @return
 	 */
 	public static <T extends Object> Res<T> fail(String msg, String field) {
-		return build(ResEnum.exception_999, msg, null, field);
+		return build(ResEnum.fail_500, msg, null, field);
 	}
 
 	/**

@@ -1,10 +1,10 @@
-package com.course.springboot.config;
+package com.course.common.config;
+
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Component;
@@ -19,35 +19,32 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import com.course.springboot.enums.CommonResponseEnum;
-import com.course.springboot.enums.ServletResponseEnum;
-import com.course.springboot.exception.BaseException;
-import com.course.springboot.exception.BusinessException;
+import com.course.common.constant.CommonConstants;
+import com.course.common.entity.Res;
+import com.course.common.enums.CommonResponseEnum;
+import com.course.common.enums.ServletResponseEnum;
+import com.course.common.exception.BaseException;
+import com.course.common.exception.BusinessException;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 全局异常处理器
+ * 
  * @author qinlei
  * @date 2021/6/15 下午5:05
  */
 @Slf4j
 @Component
-@ControllerAdvice
-@ConditionalOnWebApplication
-@ConditionalOnMissingBean(UnifiedExceptionHandler.class)
-public class UnifiedExceptionHandler {
-
-	/**
-	 * 生产环境
-	 */
-	private final static String ENV_PROD = "prod";
+@RestControllerAdvice
+public class GlobalExceptionHandler {
 
 	/**
 	 * 当前环境
@@ -63,26 +60,22 @@ public class UnifiedExceptionHandler {
 	 * @return 异常结果
 	 */
 	@ExceptionHandler(value = BusinessException.class)
-	@ResponseBody
-	public ErrorResponse handleBusinessException(BaseException e) {
+	public Res handleBusinessException(BaseException e) {
 		log.error(e.getMessage(), e);
-
-		return new ErrorResponse(e.getResponseEnum().getCode(), e.getMessage());
+		return Res.fail(e.getMessage());
 	}
 
 	/**
 	 * 自定义异常
 	 *
 	 * @param e
-	 *            异常
 	 * @return 异常结果
 	 */
 	@ExceptionHandler(value = BaseException.class)
 	@ResponseBody
-	public ErrorResponse handleBaseException(BaseException e) {
+	public Res handleBaseException(BaseException e) {
 		log.error(e.getMessage(), e);
-
-		return new ErrorResponse(e.getResponseEnum().getCode(), e.getMessage());
+		return Res.fail("");
 	}
 
 	/**
@@ -96,14 +89,10 @@ public class UnifiedExceptionHandler {
 			HttpMediaTypeNotSupportedException.class, MissingPathVariableException.class,
 			MissingServletRequestParameterException.class, TypeMismatchException.class,
 			HttpMessageNotReadableException.class, HttpMessageNotWritableException.class,
-			// BindException.class,
-			// MethodArgumentNotValidException.class
 			HttpMediaTypeNotAcceptableException.class, ServletRequestBindingException.class,
 			ConversionNotSupportedException.class, MissingServletRequestPartException.class,
 			AsyncRequestTimeoutException.class })
-	@ResponseBody
-	public ErrorResponse handleServletException(Exception e) {
-		log.error(e.getMessage(), e);
+	public Res handleServletException(Exception e) {
 		int code = CommonResponseEnum.SERVER_ERROR.getCode();
 		try {
 			ServletResponseEnum servletExceptionEnum = ServletResponseEnum.valueOf(e.getClass().getSimpleName());
@@ -111,87 +100,29 @@ public class UnifiedExceptionHandler {
 		} catch (IllegalArgumentException e1) {
 			log.error("class [{}] not defined in enum {}", e.getClass().getName(), ServletResponseEnum.class.getName());
 		}
-
-		if (ENV_PROD.equals(profile)) {
+		if (CommonConstants.ENV_PROD.equals(profile)) {
 			// 当为生产环境, 不适合把具体的异常信息展示给用户, 比如404.
 			code = CommonResponseEnum.SERVER_ERROR.getCode();
-			BaseException baseException = new BaseException(CommonResponseEnum.SERVER_ERROR);
-			return new ErrorResponse(code, baseException.getMessage());
+			return Res.fail("");
 		}
-
-		return new ErrorResponse(code, e.getMessage());
+		return Res.fail(e.getMessage());
 	}
 
-	/**
-	 * 参数绑定异常
-	 *
-	 * @param e
-	 *            异常
-	 * @return 异常结果
-	 */
-	@ExceptionHandler(value = BindException.class)
-	@ResponseBody
-	public ErrorResponse handleBindException(BindException e) {
-		log.error("参数绑定校验异常", e);
-
-		return wrapperBindingResult(e.getBindingResult());
-	}
-
-	/**
-	 * 参数校验异常，将校验失败的所有异常组合成一条错误信息
-	 *
-	 * @param e
-	 *            异常
-	 * @return 异常结果
-	 */
-	@ExceptionHandler(value = MethodArgumentNotValidException.class)
-	@ResponseBody
-	public ErrorResponse handleValidException(MethodArgumentNotValidException e) {
-		log.error("参数绑定校验异常", e);
-
-		return wrapperBindingResult(e.getBindingResult());
-	}
-
-	/**
-	 * 包装绑定异常结果
-	 *
-	 * @param bindingResult
-	 *            绑定结果
-	 * @return 异常结果
-	 */
-	private ErrorResponse wrapperBindingResult(BindingResult bindingResult) {
-		StringBuilder msg = new StringBuilder();
-
-		for (ObjectError error : bindingResult.getAllErrors()) {
-			msg.append(", ");
-			if (error instanceof FieldError) {
-				msg.append(((FieldError) error).getField()).append(": ");
-			}
-			msg.append(error.getDefaultMessage() == null ? "" : error.getDefaultMessage());
-
-		}
-		return new ErrorResponse(CommonResponseEnum.VALID_ERROR.getCode(), msg.substring(2));
-	}
 
 	/**
 	 * 未定义异常
 	 *
 	 * @param e
-	 *            异常
 	 * @return 异常结果
 	 */
 	@ExceptionHandler(value = Exception.class)
-	@ResponseBody
-	public ErrorResponse handleException(Exception e) {
+	public Res handleException(Exception e) {
 		log.error(e.getMessage(), e);
-
-		if (ENV_PROD.equals(profile)) {
-			// 当为生产环境, 不适合把具体的异常信息展示给用户, 比如数据库异常信息.
+		// 当为生产环境, 不适合把具体的异常信息展示给用户, 比如数据库异常信息.
+		if (CommonConstants.ENV_PROD.equals(profile)) {
 			int code = CommonResponseEnum.SERVER_ERROR.getCode();
-			BaseException baseException = new BaseException(CommonResponseEnum.SERVER_ERROR);
-			return new ErrorResponse(code, baseException.getMessage());
+			return Res.fail("");
 		}
-
-		return new ErrorResponse(CommonResponseEnum.SERVER_ERROR.getCode(), e.getMessage());
+		return Res.fail("");
 	}
 }

@@ -12,8 +12,10 @@ spring:
     username: root
     password: iflash
     url: jdbc:mysql://styn-mysql:3306/swine_main?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
-  freemarker:
-    check-template-location: false
+  redis:
+    host: styn-redis
+    database: 8
+    #password:
 
 # mybaits-plus配置
 mybatis-plus:

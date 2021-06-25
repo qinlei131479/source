@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.course.common.config.BaseGlobalService;
 import com.course.common.entity.Pg;
 import com.course.common.entity.Req;
 import com.course.common.entity.Res;
@@ -30,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DeptController {
 
 	private final DeptService deptService;
+	private final BaseGlobalService baseGlobalService;
 
 	/**
 	 * 分页查询
@@ -37,6 +39,7 @@ public class DeptController {
 	@GetMapping("/dept/list")
 	public Res list(Pg pg, Dept req) {
 		pg.addOrderDefault(OrderItem.desc("t.id"));
+		baseGlobalService.getConfigValue("sys.index.skinName");
 		return Res.succ(deptService.findPg(pg, req));
 	}
 

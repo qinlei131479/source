@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
 	/**
 	 * 当前环境
 	 */
-	@Value("${spring.profiles.active}")
+	@Value("${spring.profiles.active:dev}")
 	private String profile;
 
 	/**

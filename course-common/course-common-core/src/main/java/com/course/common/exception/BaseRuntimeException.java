@@ -1,6 +1,8 @@
 package com.course.common.exception;
 
 import com.course.common.entity.Res;
+import com.course.common.enums.IResponseEnum;
+
 import lombok.Data;
 
 /**
@@ -18,5 +20,18 @@ public class BaseRuntimeException extends RuntimeException {
 	public BaseRuntimeException(Res<?> res) {
 		super(res.getMsg());
 		this.res = res;
+	}
+
+	public BaseRuntimeException(IResponseEnum responseEnum) {
+		this(responseEnum, null);
+	}
+
+	public BaseRuntimeException(IResponseEnum responseEnum, String message) {
+		this(responseEnum, message, null);
+	}
+
+	public BaseRuntimeException(IResponseEnum responseEnum, String message, Throwable cause) {
+		super(responseEnum.getMessage());
+		res = Res.exception(responseEnum, message, cause);
 	}
 }

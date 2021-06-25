@@ -2,10 +2,12 @@ package com.course.common.entity;
 
 import java.util.Map;
 
+import com.course.common.enums.CommonResponseEnum;
+import com.course.common.enums.IResponseEnum;
 import com.course.common.enums.ResEnum;
+import com.course.common.exception.BaseRuntimeException;
 
 import cn.hutool.core.util.StrUtil;
-import com.course.common.exception.BaseRuntimeException;
 import lombok.Data;
 
 /**
@@ -20,6 +22,7 @@ public class Res<T> {
 	protected Integer code;
 	protected String msg;
 	protected String field;
+	protected String detail;
 	protected T data;
 	/**
 	 * 扩展对象
@@ -136,23 +139,13 @@ public class Res<T> {
 	}
 
 	/**
-	 * 操作没权限
-	 * 
-	 * @param msg
+	 * 异常返回数据
+	 *
 	 * @param <T>
 	 * @return
 	 */
-	public static <T extends Object> Res<T> failPower(String msg) {
-		return build(ResEnum.fail_403, null);
-	}
-
-	/**
-	 * 操作action无效
-	 * 
-	 * @return
-	 */
-	public static Res<?> failAction() {
-		return fail("操作类型action无效");
+	public static <T extends Object> Res<T> exception() {
+		return exception(CommonResponseEnum.SERVER_ERROR, null);
 	}
 
 	/**
@@ -163,7 +156,33 @@ public class Res<T> {
 	 * @return
 	 */
 	public static <T extends Object> Res<T> exception(String msg) {
-		return build(ResEnum.exception_999, msg);
+		return exception(CommonResponseEnum.SERVER_ERROR, msg);
+	}
+
+	/**
+	 * 异常返回数据
+	 *
+	 * @param msg
+	 * @param <T>
+	 * @return
+	 */
+	public static <T extends Object> Res<T> exception(IResponseEnum responseEnum, String msg) {
+		return exception(responseEnum, msg, null);
+	}
+
+	/**
+	 * 异常返回数据
+	 *
+	 * @param msg
+	 * @param <T>
+	 * @return
+	 */
+	public static <T extends Object> Res<T> exception(IResponseEnum responseEnum, String msg, Throwable cause) {
+		Res<T> res = new Res<T>();
+		res.setCode(responseEnum.getCode());
+		res.setMsg(StrUtil.isNotBlank(msg) ? msg : responseEnum.getMessage());
+		res.setDetail(cause != null ? cause.getMessage().substring(50) : null);
+		return res;
 	}
 
 	/**

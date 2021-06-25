@@ -1,6 +1,8 @@
 package com.course.common.constant;
 
 /**
+ * 全局魔法值变量设置
+ * 
  * @author qinlei
  * @date 2021/6/24 下午3:03
  */

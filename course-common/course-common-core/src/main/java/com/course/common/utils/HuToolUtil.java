@@ -180,9 +180,11 @@ public class HuToolUtil {
 	public static Object getFieldValueByOgnl(Object obj, String express) {
 		OgnlContext context = new OgnlContext();
 		context.put("obj", obj);
-		context.setRoot(obj);// 设置唯一的根对象
+		// 设置唯一的根对象
+		context.setRoot(obj);
 		try {
-			Object expressObj = Ognl.parseExpression(express);// 解析字符串，若没有#，则到根对象找。#是明确告诉OGNL从哪个对象中找。调用getName()方法
+			// 解析字符串，若没有#，则到根对象找。#是明确告诉OGNL从哪个对象中找。调用getName()方法
+			Object expressObj = Ognl.parseExpression(express);
 			return Ognl.getValue(expressObj, context, context.getRoot());
 		} catch (Exception e) {
 			// e.printStackTrace();
@@ -423,17 +425,17 @@ public class HuToolUtil {
 	 * @param expression
 	 * @return
 	 */
-	// public static Object eval(String expression) {
-	// Object obj = null;
-	// try {
-	// // 使用 OGNL 表达式来获取值
-	// obj = Ognl.getValue(expression, null);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// obj = null;
-	// }
-	// return obj;
-	// }
+	public static Object eval(String expression) {
+		Object obj = null;
+		try {
+			// 使用 OGNL 表达式来获取值
+			obj = Ognl.getValue(expression, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			obj = null;
+		}
+		return obj;
+	}
 
 	/**
 	 * 随机生成密码

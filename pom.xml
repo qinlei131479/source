@@ -20,7 +20,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dom4j.version>1.6.1</dom4j.version>
-        <junit.version>4.12</junit.version>
         <lombok.version>1.18.8</lombok.version>
         <dbcp.version>1.4</dbcp.version>
         <mysql.version>5.1.47</mysql.version>

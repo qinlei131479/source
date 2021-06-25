@@ -40,12 +40,6 @@
             <artifactId>pagehelper</artifactId>
         </dependency>
 
-        <!-- 单元测试 -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
         <!-- dbcp连接池依赖 -->
         <dependency>
             <groupId>commons-dbcp</groupId>

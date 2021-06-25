@@ -43,7 +43,7 @@ public class GlobalControllerAspect implements Ordered {
 		return Ordered.HIGHEST_PRECEDENCE + 2;
 	}
 
-	// private final BaseGlobalService baseGlobalService;
+	private final BaseGlobalService baseGlobalService;
 
 	/**
 	 * 定义切点Pointcut
@@ -65,7 +65,7 @@ public class GlobalControllerAspect implements Ordered {
 		long beginTime = System.currentTimeMillis();
 		String[] path_action = RequestUtil.calApiUrl(request);
 		String apiPath = path_action[0];
-		Object user = null;// baseGlobalService.getUser(request);
+		Object user = baseGlobalService.getUser(request);
 		Object res = null;
 		Req req = null;
 		Throwable error = null;
@@ -109,7 +109,7 @@ public class GlobalControllerAspect implements Ordered {
 			}
 			// 自动填充createUserId，updateUserId
 			if (user != null && req != null && isInit == false) {
-				Object userId = null;// baseGlobalService.getUserId(request);
+				Object userId = baseGlobalService.getUserId(request);
 				if (userId != null) {
 					HuToolUtil.setFieldValueIfExist(req, "createUserId", userId);
 					HuToolUtil.setFieldValueIfExist(req, "updateUserId", userId);
@@ -131,15 +131,14 @@ public class GlobalControllerAspect implements Ordered {
 			}
 		} catch (BaseRuntimeException e) {
 			error = e;
-			return res =e.getRes() ;
+			return res = e.getRes();
 		} catch (Exception e) {
 			error = e;
 			e.printStackTrace();
 			return res = Res.exception("系统异常");
 		} finally {
 			// 记录日志
-			// baseGlobalService.saveLog(api, user, apiPath, req, request, res,
-			// error, isInit, beginTime);
+			baseGlobalService.saveLog(api, user, apiPath, req, request, res, error, isInit, beginTime);
 		}
 		return res;
 	}

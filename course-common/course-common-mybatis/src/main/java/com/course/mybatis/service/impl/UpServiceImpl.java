@@ -161,8 +161,8 @@ public class UpServiceImpl<M extends UpMapper<T>, T extends Req> extends Service
 	@Override
 	public void createVoid(UpMapper mapper, Req req) {
 		// bean不能用注入的方式，否则依赖关系有问题
-		BaseGlobalService stynGlobalService = SpringContextHolder.getBean(BaseGlobalService.class);
-		HuToolUtil.setFieldValueIfExist(req, "id", stynGlobalService.nextId());
+		BaseGlobalService globalService = SpringContextHolder.getBean(BaseGlobalService.class);
+		HuToolUtil.setFieldValueIfExist(req, "id", globalService.nextId());
 		HuToolUtil.setFieldValueIfExist(req, "createTime", null);
 		HuToolUtil.setFieldValueIfExist(req, "updateTime", null);
 		mapper.insert(req);

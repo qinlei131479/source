@@ -1,4 +1,4 @@
-package com.course.common.utils;
+package com.course.mybatis.resource.utils;
 
 import java.math.BigDecimal;
 

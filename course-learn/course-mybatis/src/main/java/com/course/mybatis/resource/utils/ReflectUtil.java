@@ -1,4 +1,4 @@
-package com.course.common.utils;
+package com.course.mybatis.resource.utils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

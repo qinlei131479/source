@@ -1,9 +1,9 @@
 package com.course.mybatis.resource.sqlnode;
 
 import com.course.mybatis.resource.utils.GenericTokenParserUtil;
+import com.course.mybatis.resource.utils.OgnlUtil;
 import com.course.mybatis.resource.utils.SimpleTypeRegistry;
 import com.course.mybatis.resource.utils.TokenHandler;
-import com.course.common.utils.OgnlUtil;
 
 /**
  * 封装带有${}的SQL文本

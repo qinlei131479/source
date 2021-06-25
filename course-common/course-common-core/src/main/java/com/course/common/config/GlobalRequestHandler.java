@@ -3,14 +3,13 @@ package com.course.common.config;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+import cn.hutool.core.util.ReflectUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
-
-import com.course.common.utils.ReflectUtil;
 
 import cn.hutool.json.JSONUtil;
 
@@ -53,7 +52,8 @@ public class GlobalRequestHandler implements RequestBodyAdvice {
 	@Override
 	public Object handleEmptyBody(Object body, HttpInputMessage inputMessage, MethodParameter parameter,
 			Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-		body = JSONUtil.toBean("{}", ReflectUtil.resolveType(targetType.getTypeName()));
+		body = JSONUtil.toBean("{}", ReflectUtil.newInstance(targetType.getTypeName()));
 		return body;
+
 	}
 }

@@ -6,10 +6,10 @@ import java.io.Reader;
 import java.util.Properties;
 
 import com.course.mybatis.resource.config.Configuration;
+import com.course.mybatis.resource.utils.DocumentUtil;
 import org.dom4j.Document;
 
 import com.course.mybatis.resource.builder.XMLConfigBuilder;
-import com.course.common.utils.DocumentUtil;
 
 /**
  * SqlSession工厂构建工具

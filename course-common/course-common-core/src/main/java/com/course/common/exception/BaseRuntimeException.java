@@ -4,6 +4,7 @@ import com.course.common.entity.Res;
 import com.course.common.enums.IResponseEnum;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 自定义运行时异常
@@ -12,6 +13,7 @@ import lombok.Data;
  * @date 2021/6/23 下午12:36
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class BaseRuntimeException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

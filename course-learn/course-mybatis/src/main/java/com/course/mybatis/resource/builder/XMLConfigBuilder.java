@@ -7,12 +7,12 @@ import java.util.Properties;
 
 import com.course.mybatis.resource.config.Configuration;
 import com.course.mybatis.resource.io.Resources;
+import com.course.mybatis.resource.utils.DocumentUtil;
 import com.course.mybatis.resource.utils.GenericTokenParserUtil;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
-import com.course.common.utils.DocumentUtil;
 
 /**
  * XML Config构建工具

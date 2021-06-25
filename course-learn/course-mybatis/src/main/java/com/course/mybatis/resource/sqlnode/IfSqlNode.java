@@ -1,6 +1,7 @@
 package com.course.mybatis.resource.sqlnode;
 
-import com.course.common.utils.OgnlUtil;
+
+import com.course.mybatis.resource.utils.OgnlUtil;
 
 /**
  * @author qinlei

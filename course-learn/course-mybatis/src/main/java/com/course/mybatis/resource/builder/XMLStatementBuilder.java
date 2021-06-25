@@ -5,10 +5,10 @@ import java.util.Locale;
 import com.course.mybatis.resource.config.Configuration;
 import com.course.mybatis.resource.config.MappedStatement;
 import com.course.mybatis.resource.sqlsession.SqlSource;
+import com.course.mybatis.resource.utils.ReflectUtil;
 import org.apache.ibatis.type.TypeAliasRegistry;
 import org.dom4j.Element;
 
-import com.course.common.utils.ReflectUtil;
 
 /**
  * 专门用来解析select/insert/delete/update这些statement标签的

@@ -1,10 +1,11 @@
 package com.course.design.reflect;
 
+import com.course.design.util.ReflectUtil;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import com.course.common.utils.ReflectUtil;
 
 /**
  * 通过反射获取构造方法，并且创建对象 如何获取一个类的构造方法呢？ Class的成员方法 public Constructor<?>[]

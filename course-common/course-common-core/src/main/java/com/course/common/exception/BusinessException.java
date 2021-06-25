@@ -1,7 +1,7 @@
 package com.course.common.exception;
 
 import com.course.common.enums.IResponseEnum;
-import com.course.common.enums.ResponseEnum;
+import lombok.Data;
 
 /**
  * @author qinlei

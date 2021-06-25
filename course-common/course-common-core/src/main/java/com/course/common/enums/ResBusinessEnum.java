@@ -2,14 +2,13 @@ package com.course.common.enums;
 
 import com.course.common.asserts.BusinessExceptionAssert;
 
-import lombok.AllArgsConstructor;
-
 /**
+ * 接口返回对象Res枚举类型：业务异常
+ * 
  * @author qinlei
  * @date 2021/6/15 下午4:20
  */
-@AllArgsConstructor
-public enum ResponseEnum implements BusinessExceptionAssert {
+public enum ResBusinessEnum implements BusinessExceptionAssert {
 	/**
 	 * Bad licence type
 	 */
@@ -19,7 +18,7 @@ public enum ResponseEnum implements BusinessExceptionAssert {
 	 */
 	LICENCE_NOT_FOUND(7002, "Licence not found");
 
-	ResponseEnum(int code, String message) {
+	ResBusinessEnum(Integer code, String message) {
 		this.code = code;
 		this.message = message;
 	}
@@ -28,12 +27,12 @@ public enum ResponseEnum implements BusinessExceptionAssert {
 	private String message;
 
 	@Override
-	public int getCode() {
+	public Integer getCode() {
 		return this.code;
 	}
 
 	@Override
-	public String getMessage() {
+	public String getMsg() {
 		return this.message;
 	}
 }

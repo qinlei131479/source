@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.course.common.entity.Pg;
 import com.course.common.entity.Req;
 import com.course.common.entity.Res;
-import com.course.common.enums.ResponseEnum;
+import com.course.common.enums.ResBusinessEnum;
 import com.course.springboot.entity.Dept;
 import com.course.springboot.service.DeptService;
 
@@ -46,13 +46,12 @@ public class DeptController {
 	 */
 	@PostMapping("/dept/create")
 	public Res create(Pg pg, @RequestBody @Validated({ Req.Create.class }) Dept req, BindingResult result) {
-		log.error("controller");
 		if (pg.checkActionStatusInit()) {
 			return Res.succ((req.getId() == null) ? req : deptService.getById(req.getId()));
 		}
 		boolean test = true;
 		if (test) {
-			ResponseEnum.BAD_LICENCE_TYPE.assertNotNull(null);
+			ResBusinessEnum.BAD_LICENCE_TYPE.assertNotNull(null);
 		}
 		return deptService.create(req);
 	}

@@ -31,7 +31,7 @@ public class BaseRuntimeException extends RuntimeException {
 	}
 
 	public BaseRuntimeException(IResponseEnum responseEnum, String message, Throwable cause) {
-		super(responseEnum.getMessage());
+		super(responseEnum.getMsg());
 		res = Res.exception(responseEnum, message, cause);
 	}
 }

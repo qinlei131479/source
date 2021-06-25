@@ -2,9 +2,8 @@ package com.course.common.entity;
 
 import java.util.Map;
 
-import com.course.common.enums.CommonResponseEnum;
 import com.course.common.enums.IResponseEnum;
-import com.course.common.enums.ResEnum;
+import com.course.common.enums.ResCommonEnum;
 import com.course.common.exception.BaseRuntimeException;
 
 import cn.hutool.core.util.StrUtil;
@@ -30,11 +29,11 @@ public class Res<T> {
 	protected Map<String, Object> extMap;
 
 	public boolean checkSucc() {
-		return ResEnum.succ_200.getCode().equals(this.code);
+		return ResCommonEnum.SUCC.getCode().equals(this.code);
 	}
 
 	public boolean checkNotSucc() {
-		return ResEnum.succ_200.getCode().equals(this.code) == false;
+		return ResCommonEnum.SUCC.getCode().equals(this.code) == false;
 	}
 
 	/**
@@ -44,7 +43,7 @@ public class Res<T> {
 	 * @param <T>
 	 * @return
 	 */
-	private static <T extends Object> Res<T> build(ResEnum resEnum, String msg) {
+	private static <T extends Object> Res<T> build(IResponseEnum resEnum, String msg) {
 		return build(resEnum, msg, null);
 	}
 
@@ -56,7 +55,7 @@ public class Res<T> {
 	 * @param <T>
 	 * @return
 	 */
-	private static <T extends Object> Res<T> build(ResEnum resEnum, String msg, T obj) {
+	private static <T extends Object> Res<T> build(IResponseEnum resEnum, String msg, T obj) {
 		return build(resEnum, msg, obj, null);
 	}
 
@@ -69,7 +68,7 @@ public class Res<T> {
 	 * @param <T>
 	 * @return
 	 */
-	private static <T extends Object> Res<T> build(ResEnum resEnum, String msg, T obj, String field) {
+	private static <T extends Object> Res<T> build(IResponseEnum resEnum, String msg, T obj, String field) {
 		Res<T> res = new Res<T>();
 		res.setCode(resEnum.getCode());
 		res.setMsg(StrUtil.isNotBlank(msg) ? msg : resEnum.getMsg());
@@ -96,7 +95,7 @@ public class Res<T> {
 	 * @return
 	 */
 	public static <T extends Object> Res<T> succ(T data) {
-		return build(ResEnum.succ_200, "", data);
+		return build(ResCommonEnum.SUCC, "", data);
 	}
 
 	/**
@@ -135,7 +134,7 @@ public class Res<T> {
 	 * @return
 	 */
 	public static <T extends Object> Res<T> fail(String msg, String field) {
-		return build(ResEnum.fail_500, msg, null, field);
+		return build(ResCommonEnum.FAIL, msg, null, field);
 	}
 
 	/**
@@ -145,7 +144,7 @@ public class Res<T> {
 	 * @return
 	 */
 	public static <T extends Object> Res<T> exception() {
-		return exception(CommonResponseEnum.SERVER_ERROR, null);
+		return exception(ResCommonEnum.SERVER_ERROR, null);
 	}
 
 	/**
@@ -156,7 +155,7 @@ public class Res<T> {
 	 * @return
 	 */
 	public static <T extends Object> Res<T> exception(String msg) {
-		return exception(CommonResponseEnum.SERVER_ERROR, msg);
+		return exception(ResCommonEnum.SERVER_ERROR, msg);
 	}
 
 	/**
@@ -178,9 +177,7 @@ public class Res<T> {
 	 * @return
 	 */
 	public static <T extends Object> Res<T> exception(IResponseEnum responseEnum, String msg, Throwable cause) {
-		Res<T> res = new Res<T>();
-		res.setCode(responseEnum.getCode());
-		res.setMsg(StrUtil.isNotBlank(msg) ? msg : responseEnum.getMessage());
+		Res<T> res = build(responseEnum, msg);
 		res.setDetail(cause != null ? cause.getMessage().substring(50) : null);
 		return res;
 	}

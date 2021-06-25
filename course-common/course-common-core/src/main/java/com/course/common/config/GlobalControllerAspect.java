@@ -131,7 +131,7 @@ public class GlobalControllerAspect implements Ordered {
 			}
 		} catch (BaseRuntimeException e) {
 			error = e;
-			return res = e.getRes();
+			return res =e.getRes() ;
 		} catch (Exception e) {
 			error = e;
 			e.printStackTrace();

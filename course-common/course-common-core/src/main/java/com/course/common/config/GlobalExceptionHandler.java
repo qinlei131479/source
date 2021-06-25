@@ -5,7 +5,6 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.stereotype.Component;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
@@ -21,7 +19,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.course.common.constant.CommonConstants;
 import com.course.common.entity.Res;
-import com.course.common.enums.CommonResponseEnum;
+import com.course.common.enums.ResCommonEnum;
 import com.course.common.exception.BaseRuntimeException;
 import com.course.common.exception.BusinessException;
 
@@ -49,8 +47,8 @@ public class GlobalExceptionHandler {
 	 * @param e
 	 * @return 异常结果
 	 */
-	@ExceptionHandler({ BaseRuntimeException.class, BusinessException.class,Throwable.class })
-	public Res handleBaseException(BusinessException e) {
+	@ExceptionHandler({ BaseRuntimeException.class, BusinessException.class })
+	public Res handleBaseException(BaseRuntimeException e) {
 		log.error(e.getMessage(), e);
 		return e.getRes();
 	}
@@ -74,7 +72,7 @@ public class GlobalExceptionHandler {
 			// 当为生产环境, 不适合把具体的异常信息展示给用户, 比如404.
 			return Res.exception();
 		}
-		return Res.exception(CommonResponseEnum.SERVER_ERROR, e.getMessage());
+		return Res.exception(ResCommonEnum.SERVER_ERROR, e.getMessage());
 	}
 
 	/**
@@ -90,6 +88,6 @@ public class GlobalExceptionHandler {
 		if (CommonConstants.ENV_PROD.equals(profile)) {
 			return Res.exception();
 		}
-		return Res.exception(CommonResponseEnum.SERVER_ERROR, e.getMessage());
+		return Res.exception(ResCommonEnum.SERVER_ERROR, e.getMessage());
 	}
 }

@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * 枚举类型 - 查询方式
  *
- * @author channing
+ * @author qinlei
  * @date 2020/3/26 下午2:57
  */
 @Getter

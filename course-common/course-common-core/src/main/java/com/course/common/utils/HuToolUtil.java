@@ -25,7 +25,7 @@ import ognl.OgnlContext;
 /**
  * HuTool的二次包装类
  *
- * @author channing
+ * @author qinlei
  * @date 2020/3/26 下午2:57
  */
 public class HuToolUtil {

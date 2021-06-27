@@ -18,7 +18,7 @@ import freemarker.template.TemplateException;
 /**
  * Freemarker工具类
  *
- * @author channing
+ * @author qinlei
  * @date 2020/3/26 下午2:57
  */
 public class FreemarkerUtil {

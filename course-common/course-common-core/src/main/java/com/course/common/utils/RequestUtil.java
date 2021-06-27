@@ -13,7 +13,7 @@ import cn.hutool.core.util.StrUtil;
 /**
  * 工具类：request
  *
- * @author channing
+ * @author qinlei
  * @date 2020/3/26 下午2:57
  */
 public class RequestUtil {

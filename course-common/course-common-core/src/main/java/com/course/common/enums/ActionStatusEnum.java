@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * 接口返回对象Res枚举类型
  *
- * @author channing
+ * @author qinlei
  * @date 2020/3/26 下午2:57
  */
 @Getter

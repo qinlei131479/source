@@ -50,12 +50,12 @@ public class GeneratorCode {
 	 * 公共包路径,参考ftl模板配置
 	 */
 	public static String packageName_core = "com.course.common";
-	public static String packageName_mybatisplus = "com.course.mybatis";
+	public static String packageName_mybatis_plus = "com.course.mybatis";
 	public static Map<String, Object> dataMap = new HashMap<String, Object>();
 
 	static {
 		dataMap.put("package_core", packageName_core);
-		dataMap.put("package_mybatisplus", packageName_mybatisplus);
+		dataMap.put("package_mybatisplus", packageName_mybatis_plus);
 		dataMap.put("author", "qinlei");
 	}
 

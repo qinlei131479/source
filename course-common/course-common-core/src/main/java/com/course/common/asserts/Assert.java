@@ -9,11 +9,19 @@ import com.course.common.exception.BaseRuntimeException;
 public interface Assert {
 
 	/**
-	 * 创建异常
+	 * 
 	 * 
 	 * @return
 	 */
 	BaseRuntimeException newException();
+
+	/**
+	 * 创建异常
+	 * 
+	 * @param message
+	 * @return
+	 */
+	BaseRuntimeException newException(String message);
 
 	/**
 	 * 创建异常

@@ -1,14 +1,18 @@
 package com.course.common.enums;
 
+import com.course.common.asserts.BusinessExceptionAssert;
+
 /**
  * 接口返回对象Res枚举类型：公共异常
  * 
  * @author qinlei
  * @date 2021/6/16 下午5:36
  */
-public enum ResCommonEnum implements IResponseEnum {
+public enum ResCommonEnum implements BusinessExceptionAssert {
 	/** 服务器已成功处理了请求 */
 	SUCC(200, "SUCCESS"),
+	/** 对象为空 */
+	OBJECT_NULL(300,"object is null"),
 	/** 未登录，客户端没有提供认证信息或者认证信息不正确 */
 	NO_LOGIN(401, "未登录"),
 	/** 客户端的权限不足，前台通常无法处理，可以直接提示 */

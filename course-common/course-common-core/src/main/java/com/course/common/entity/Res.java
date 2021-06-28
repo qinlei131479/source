@@ -138,6 +138,17 @@ public class Res<T> {
 	}
 
 	/**
+	 * 失败 - 返回错误信息
+	 *
+	 * @param responseEnum
+	 * @param <T>
+	 * @return
+	 */
+	public static <T extends Object> Res<T> fail(IResponseEnum responseEnum) {
+		return build(responseEnum, null);
+	}
+
+	/**
 	 * 异常返回数据
 	 *
 	 * @param <T>

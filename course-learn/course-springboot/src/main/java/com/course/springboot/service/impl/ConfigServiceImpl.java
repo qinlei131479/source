@@ -1,5 +1,7 @@
 package com.course.springboot.service.impl;
 
+import java.util.Date;
+
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -9,8 +11,14 @@ import com.course.common.entity.Res;
 import com.course.common.enums.RedisKeyEnum;
 import com.course.mybatis.service.impl.UpServiceImpl;
 import com.course.springboot.entity.Config;
+import com.course.springboot.entity.config.ApiConfig;
+import com.course.springboot.enums.ApiRunModeEnum;
+import com.course.springboot.enums.ConfigEnum;
 import com.course.springboot.mapper.ConfigMapper;
 import com.course.springboot.service.ConfigService;
+
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.json.JSONUtil;
 
 /**
  * service实现类：参数配置表
@@ -56,37 +64,31 @@ public class ConfigServiceImpl extends UpServiceImpl<ConfigMapper, Config> imple
 	@Override
 	@CacheEvict(value = RedisKeyEnum.CONFIG_KEY, key = "'" + RedisKeyEnum.CONFIG_APICONFIG_KEY + "'")
 	public void updateApiVersion_local(String version) {
-		// Config req = this.baseMapper
-		// .selectOne(Wrappers.<Config> query().lambda().eq(Config::getCode,
-		// ConfigEnum.apiConfig.getCode()));
-		// if (req != null) {
-		// ApiConfig config = JsonUtil.jsonStringToBean(req.getValue(),
-		// ApiConfig.class);
-		// if (config != null) {
-		// config.setVersionLocal(version);
-		// req.setValue(JsonUtil.beanToJsonStringPretty(config));
-		// this.update(req);
-		// }
-		// }
+		Config req = this.baseMapper
+				.selectOne(Wrappers.<Config> query().lambda().eq(Config::getCode, ConfigEnum.apiConfig.getCode()));
+		if (req != null) {
+			ApiConfig config = JSONUtil.toBean(req.getValue(), ApiConfig.class);
+			if (config != null) {
+				config.setVersionLocal(version);
+				req.setValue(JSONUtil.toJsonPrettyStr(config));
+				this.update(req);
+			}
+		}
 	}
 
 	@Override
 	@CacheEvict(value = RedisKeyEnum.CONFIG_KEY, key = "'" + RedisKeyEnum.CONFIG_APICONFIG_KEY + "'")
 	public void updateApiVersion_product() {
-		// Config req = this.baseMapper
-		// .selectOne(Wrappers.<Config> query().lambda().eq(Config::getCode,
-		// ConfigEnum.apiConfig.getCode()));
-		// if (req != null) {
-		// ApiConfig config = JsonUtil.jsonStringToBean(req.getValue(),
-		// ApiConfig.class);
-		// if (config != null &&
-		// RunModeEnum.product.getCode().equals(config.getRunMode())) {
-		// // 生产模式
-		// config.setVersionProduct(DateUtil.format(new Date(),
-		// "yyyyMMddHHmmssSSS"));
-		// req.setValue(JsonUtil.beanToJsonStringPretty(config));
-		// this.update(req);
-		// }
-		// }
+		Config req = this.baseMapper
+				.selectOne(Wrappers.<Config> query().lambda().eq(Config::getCode, ConfigEnum.apiConfig.getCode()));
+		if (req != null) {
+			ApiConfig config = JSONUtil.toBean(req.getValue(), ApiConfig.class);
+			if (config != null && ApiRunModeEnum.product.getCode().equals(config.getRunMode())) {
+				// 生产模式
+				config.setVersionProduct(DateUtil.format(new Date(), "yyyyMMddHHmmssSSS"));
+				req.setValue(JSONUtil.toJsonPrettyStr(config));
+				this.update(req);
+			}
+		}
 	}
 }

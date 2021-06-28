@@ -17,6 +17,8 @@ public interface BaseGlobalService<T> {
 
 	/**
 	 * 下一个主键
+	 * 
+	 * @return
 	 */
 	Long nextId();
 

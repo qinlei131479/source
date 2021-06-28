@@ -22,4 +22,9 @@ public interface BusinessExceptionAssert extends IResponseEnum, Assert {
 		String msg = MessageFormat.format(this.getMsg(), args);
 		return new BusinessException(this, msg, t);
 	}
+
+	@Override
+	default BaseRuntimeException newException(String message) {
+		return new BusinessException(this, message);
+	}
 }

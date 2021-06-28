@@ -134,7 +134,7 @@ public class GeneratorCode {
 		// 数据库表前缀
 		String tableName_pre = "sys_";
 		// 表名称
-		List<String> classList = Arrays.asList("User", "Config", "Dept");
+		List<String> classList = Arrays.asList("Menu", "MenuApi");
 		// 添加包和实体包
 		dataMap.put("package", packageName);
 		dataMap.put("package_entity", packageName_entity);

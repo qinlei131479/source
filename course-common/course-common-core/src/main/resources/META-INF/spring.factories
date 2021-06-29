@@ -8,4 +8,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
  com.course.common.config.ValidatorConfig,\
  com.course.common.config.GlobalControllerAspect,\
  com.course.common.config.RedisTemplateConfig,\
- com.course.common.component.RedisUtil
+ com.course.common.component.RedisUtil,\
+ com.course.common.component.InstanceConfig

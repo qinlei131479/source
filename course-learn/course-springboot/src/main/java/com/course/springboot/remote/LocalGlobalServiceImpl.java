@@ -95,7 +95,7 @@ public class LocalGlobalServiceImpl implements BaseGlobalService<Object> {
 		if (FlagEnum.checkNo(api.getNeedPowerFlag())) {
 			return Res.succ(api);
 		}
-		return Res.fail(ResCommonEnum.NO_POWER);
+		return Res.succ(api);
 	}
 
 	@Override

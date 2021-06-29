@@ -72,12 +72,11 @@ public class GlobalControllerAspect implements Ordered {
 		try {
 			List<Valid> validList = null;
 			// 检查权限
-			// Res checkRes = globalService.checkPower(point, request, user,
-			// apiPath);
-			// api = checkRes.getObj();
-			// if (checkRes.checkNotSucc()) {
-			// return res = checkRes;
-			// }
+			Res checkRes = baseGlobalService.checkPower(point, request, user, apiPath);
+			api = checkRes.getData();
+			if (checkRes.checkNotSucc()) {
+				return res = checkRes;
+			}
 			// 判断是否需要保存日志
 			ValidArg arg = ValidUtil.getArgAndAnnotation.apply(point, RequestBody.class);
 			if (arg != null) {

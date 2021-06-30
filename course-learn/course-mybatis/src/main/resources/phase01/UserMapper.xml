@@ -8,7 +8,7 @@
     <!-- 2：如果parameterType为POJO类型，#{}中的参数名称必须和POJO中的属性名称一致 -->
     <!-- 3：如果resultType为POJO类型，SELECT中的列名和POJO中的属性名称一致 -->
     <select id="findUserById" parameterType="int"
-            resultType="com.course.common.mybatis.phase01.pojo.User">
+            resultType="com.course.mybatis.phase01.pojo.User">
 		SELECT * FROM sys_user WHERE id = #{id}
 	</select>
 

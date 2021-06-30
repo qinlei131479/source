@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: @profiles.active@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS-HOST:styn-register}:${NACOS-PORT:8848}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        group: star
+        file-extension: yml
+        shared-configs[0]:
+          group: star
+          dataId: styn-application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          refresh: true

@@ -13,6 +13,7 @@
 
     <modules>
         <module>course-generator</module>
+        <module>course-xxx-job-admin</module>
     </modules>
 
 </project>

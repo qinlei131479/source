@@ -32,3 +32,9 @@ mybatis-plus:
     map-underscore-to-camel-case: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 配置slq打印日志
 
+# 分布式定时任务xxl-job配置
+xxl:
+  job:
+    admin:
+      addresses: http://styn-xxl-job-admin:9350/xxl-job-admin
+

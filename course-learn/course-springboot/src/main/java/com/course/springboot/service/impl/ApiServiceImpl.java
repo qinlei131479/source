@@ -14,7 +14,7 @@ import com.course.common.entity.Res;
 import com.course.common.enums.FlagEnum;
 import com.course.common.enums.RedisKeyEnum;
 import com.course.common.utils.HuToolUtil;
-import com.course.mybatis.service.impl.UpServiceImpl;
+import com.course.common.mybatis.service.impl.UpServiceImpl;
 import com.course.springboot.entity.Api;
 import com.course.springboot.enums.ApiDefaultNameEnum;
 import com.course.springboot.mapper.ApiMapper;

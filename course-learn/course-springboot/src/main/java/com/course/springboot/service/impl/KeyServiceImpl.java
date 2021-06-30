@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.course.common.component.RedisUtil;
 import com.course.common.enums.FlagEnum;
-import com.course.mybatis.service.impl.UpServiceImpl;
+import com.course.common.mybatis.service.impl.UpServiceImpl;
 import com.course.springboot.entity.Key;
 import com.course.springboot.mapper.KeyMapper;
 import com.course.springboot.service.KeyService;

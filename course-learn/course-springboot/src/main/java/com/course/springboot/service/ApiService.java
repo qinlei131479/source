@@ -1,6 +1,6 @@
 package com.course.springboot.service;
 
-import com.course.mybatis.service.UpService;
+import com.course.common.mybatis.service.UpService;
 import com.course.springboot.entity.Api;
 
 /**

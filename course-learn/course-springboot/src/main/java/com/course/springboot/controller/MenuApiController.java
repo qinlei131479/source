@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 
 import lombok.RequiredArgsConstructor;
-import com.course.common.entity.Req;
-import com.course.common.entity.Res;
-import com.course.common.entity.Pg;
+import com.course.common.core.entity.Req;
+import com.course.common.core.entity.Res;
+import com.course.common.core.entity.Pg;
 import com.course.springboot.entity.MenuApi;
 import com.course.springboot.service.MenuApiService;
 

@@ -3,9 +3,9 @@ package com.course.springboot.entity.config;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.course.common.annotation.ValidExpress;
-import com.course.common.entity.Req;
-import com.course.common.valid.ReqFieldExpress;
+import com.course.common.core.annotation.ValidExpress;
+import com.course.common.core.entity.Req;
+import com.course.common.core.valid.ReqFieldExpress;
 import com.course.springboot.enums.ApiRunModeEnum;
 
 import lombok.Data;

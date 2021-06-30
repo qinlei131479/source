@@ -14,8 +14,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.course.common.utils.FreemarkerUtil;
-import com.course.common.utils.HuToolUtil;
+import com.course.common.core.utils.FreemarkerUtil;
+import com.course.common.core.utils.HuToolUtil;
 import com.course.generator.GeneratorCodeApplication;
 import com.course.generator.entity.TableField;
 import com.course.generator.mapper.TableFieldMapper;
@@ -49,8 +49,8 @@ public class GeneratorCode {
 	/**
 	 * 公共包路径,参考ftl模板配置
 	 */
-	public static String packageName_core = "com.course.common";
-	public static String packageName_mybatis_plus = "com.course.mybatis";
+	public static String packageName_core = "com.course.common.core";
+	public static String packageName_mybatis_plus = "com.course.common.mybatis";
 	public static Map<String, Object> dataMap = new HashMap<String, Object>();
 
 	static {
@@ -134,7 +134,7 @@ public class GeneratorCode {
 		// 数据库表前缀
 		String tableName_pre = "sys_";
 		// 表名称
-		List<String> classList = Arrays.asList("Menu", "MenuApi");
+		List<String> classList = Arrays.asList("Role");
 		// 添加包和实体包
 		dataMap.put("package", packageName);
 		dataMap.put("package_entity", packageName_entity);

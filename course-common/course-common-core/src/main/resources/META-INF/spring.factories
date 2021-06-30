@@ -1,12 +1,12 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
- com.course.common.utils.SpringContextHolder,\
- com.course.common.config.JacksonConfig,\
- com.course.common.config.TransactionAdvisor,\
- com.course.common.config.GlobalRequestHandler,\
- com.course.common.config.GlobalHttpMessageConverter,\
- com.course.common.config.GlobalExceptionHandler,\
- com.course.common.config.ValidatorConfig,\
- com.course.common.config.GlobalControllerAspect,\
- com.course.common.config.RedisTemplateConfig,\
- com.course.common.component.RedisUtil,\
- com.course.common.component.InstanceConfig
+ com.course.common.core.utils.SpringContextHolder,\
+ com.course.common.core.config.JacksonConfig,\
+ com.course.common.core.config.TransactionAdvisor,\
+ com.course.common.core.config.GlobalRequestHandler,\
+ com.course.common.core.config.GlobalHttpMessageConverter,\
+ com.course.common.core.config.GlobalExceptionHandler,\
+ com.course.common.core.config.ValidatorConfig,\
+ com.course.common.core.config.GlobalControllerAspect,\
+ com.course.common.core.config.RedisTemplateConfig,\
+ com.course.common.core.component.RedisUtil,\
+ com.course.common.core.component.InstanceConfig

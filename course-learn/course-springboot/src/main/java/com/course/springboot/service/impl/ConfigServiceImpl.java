@@ -7,8 +7,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.course.common.entity.Res;
-import com.course.common.enums.RedisKeyEnum;
+import com.course.common.core.entity.Res;
+import com.course.common.core.enums.RedisKeyEnum;
 import com.course.common.mybatis.service.impl.UpServiceImpl;
 import com.course.springboot.entity.Config;
 import com.course.springboot.entity.config.ApiConfig;

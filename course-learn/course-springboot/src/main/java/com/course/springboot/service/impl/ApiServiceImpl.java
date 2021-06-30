@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.course.common.entity.Req;
-import com.course.common.entity.Res;
-import com.course.common.enums.FlagEnum;
-import com.course.common.enums.RedisKeyEnum;
-import com.course.common.utils.HuToolUtil;
+import com.course.common.core.entity.Req;
+import com.course.common.core.entity.Res;
+import com.course.common.core.enums.FlagEnum;
+import com.course.common.core.enums.RedisKeyEnum;
+import com.course.common.core.utils.HuToolUtil;
 import com.course.common.mybatis.service.impl.UpServiceImpl;
 import com.course.springboot.entity.Api;
 import com.course.springboot.enums.ApiDefaultNameEnum;

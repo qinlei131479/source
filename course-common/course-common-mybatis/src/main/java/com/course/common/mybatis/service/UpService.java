@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.course.common.entity.Req;
-import com.course.common.entity.Res;
+import com.course.common.core.entity.Req;
+import com.course.common.core.entity.Res;
 import com.course.common.mybatis.mapper.UpMapper;
 
 /**

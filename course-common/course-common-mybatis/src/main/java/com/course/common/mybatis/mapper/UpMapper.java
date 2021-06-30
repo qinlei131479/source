@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.course.common.entity.Req;
+import com.course.common.core.entity.Req;
 
 /**
  * 扩展mapper基础功能

@@ -6,7 +6,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.course.common.entity.Req;
+import com.course.common.core.entity.Req;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

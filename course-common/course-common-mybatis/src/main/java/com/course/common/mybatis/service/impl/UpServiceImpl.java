@@ -5,11 +5,11 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.course.common.config.BaseGlobalService;
-import com.course.common.entity.Req;
-import com.course.common.entity.Res;
-import com.course.common.utils.HuToolUtil;
-import com.course.common.utils.SpringContextHolder;
+import com.course.common.core.config.BaseGlobalService;
+import com.course.common.core.utils.SpringContextHolder;
+import com.course.common.core.entity.Req;
+import com.course.common.core.entity.Res;
+import com.course.common.core.utils.HuToolUtil;
 import com.course.common.mybatis.mapper.UpMapper;
 import com.course.common.mybatis.service.UpService;
 

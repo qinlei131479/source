@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Service;
 
-import com.course.common.config.BaseGlobalService;
-import com.course.common.entity.Req;
-import com.course.common.entity.Res;
+import com.course.common.core.config.BaseGlobalService;
+import com.course.common.core.entity.Req;
+import com.course.common.core.entity.Res;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

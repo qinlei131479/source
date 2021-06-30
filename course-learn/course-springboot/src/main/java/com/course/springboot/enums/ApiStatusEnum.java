@@ -1,6 +1,5 @@
 package com.course.springboot.enums;
 
-import com.course.common.entity.CodeName;
 import lombok.Getter;
 
 /**

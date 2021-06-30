@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.course.mybatis.phase03.mapper.UserMapper">
+<mapper namespace="com.course.common.mybatis.phase03.mapper.UserMapper">
 
-    <resultMap id="BaseResultMap" type="com.course.mybatis.phase03.pojo.User">
+    <resultMap id="BaseResultMap" type="com.course.common.mybatis.phase03.pojo.User">
         <id column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="birthday" property="birthday"/>
@@ -77,7 +77,7 @@
         id, username, birthday, sex, address
     </sql>
 
-    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.course.mybatis.phase03.pojo.UserExample">
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.course.common.mybatis.phase03.pojo.UserExample">
         select * from sys_user
     </select>
 
@@ -93,21 +93,21 @@
         where id = #{id,jdbcType=INTEGER}
     </delete>
 
-    <delete id="deleteByExample" parameterType="com.course.mybatis.phase03.pojo.UserExample">
+    <delete id="deleteByExample" parameterType="com.course.common.mybatis.phase03.pojo.UserExample">
         delete from sys_user
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
 
-    <insert id="insert" parameterType="com.course.mybatis.phase03.pojo.User">
+    <insert id="insert" parameterType="com.course.common.mybatis.phase03.pojo.User">
         insert into sys_user (id, username, birthday,
           sex, address)
         values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
           #{sex,jdbcType=CHAR}, #{address,jdbcType=VARCHAR})
     </insert>
 
-    <insert id="insertSelective" parameterType="com.course.mybatis.phase03.pojo.User">
+    <insert id="insertSelective" parameterType="com.course.common.mybatis.phase03.pojo.User">
         insert into sys_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -145,7 +145,7 @@
         </trim>
     </insert>
 
-    <select id="countByExample" parameterType="com.course.mybatis.phase03.pojo.UserExample"
+    <select id="countByExample" parameterType="com.course.common.mybatis.phase03.pojo.UserExample"
             resultType="java.lang.Integer">
         select count(*) from sys_user
         <if test="_parameter != null">
@@ -189,7 +189,7 @@
         </if>
     </update>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.course.mybatis.phase03.pojo.User">
+    <update id="updateByPrimaryKeySelective" parameterType="com.course.common.mybatis.phase03.pojo.User">
         update sys_user
         <set>
             <if test="username != null">
@@ -208,7 +208,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.course.mybatis.phase03.pojo.User">
+    <update id="updateByPrimaryKey" parameterType="com.course.common.mybatis.phase03.pojo.User">
         update sys_user
         set username = #{username,jdbcType=VARCHAR},
           birthday = #{birthday,jdbcType=DATE},

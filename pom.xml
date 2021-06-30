@@ -32,10 +32,22 @@
         <hutool.version>5.4.7</hutool.version>
         <spring-boot.version>2.4.0</spring-boot.version>
         <swagger.core.version>1.5.24</swagger.core.version>
+        <xxl-job.version>2.2.0</xxl-job.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.course</groupId>
+                <artifactId>course-common-job</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- xxl-job-core -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
+            </dependency>
             <!-- spring boot 依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

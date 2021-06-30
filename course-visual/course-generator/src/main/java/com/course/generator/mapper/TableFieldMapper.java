@@ -2,7 +2,7 @@ package com.course.generator.mapper;
 
 import java.util.List;
 
-import com.course.mybatis.mapper.UpMapper;
+import com.course.common.mybatis.mapper.UpMapper;
 import com.course.generator.entity.TableField;
 import org.apache.ibatis.annotations.Mapper;
 

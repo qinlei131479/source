@@ -15,6 +15,7 @@
     <modules>
         <module>course-common-core</module>
         <module>course-common-mybatis</module>
+        <module>course-common-job</module>
     </modules>
 
 </project>

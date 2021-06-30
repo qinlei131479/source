@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.course.mybatis.phase02.mapper.UserMapper">
+<mapper namespace="com.course.common.mybatis.phase02.mapper.UserMapper">
 
     <select id="findUserById" parameterType="int"
-            resultType="com.course.mybatis.phase02.pojo.User">
+            resultType="com.course.common.mybatis.phase02.pojo.User">
 		SELECT * FROM sys_user WHERE id = #{id}
 	</select>
 

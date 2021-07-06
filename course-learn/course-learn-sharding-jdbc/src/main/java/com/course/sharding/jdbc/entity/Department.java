@@ -15,9 +15,7 @@ import lombok.ToString;
  * @date 2021/7/6 下午6:01
  */
 @Data
-@ToString
 @Builder
-@TableName("department")
 @EqualsAndHashCode(callSuper = false)
 public class Department extends Model<Department> {
 

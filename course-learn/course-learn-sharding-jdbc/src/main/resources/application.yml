@@ -2,8 +2,16 @@
 spring:
   profiles:
     # readWrite 只有读写分离 jdbc 只有分库分表配置  jdbcAndReadWrite   读写分离和分库分表配合使用
-    active: dev,readWrite
-
+    active: jdbc
+  main:
+    # 当遇到同一个实体类同时映射多个相同的表名字的时候，是否允许覆盖注册
+    allow-bean-definition-overriding: true
+server:
+  # 端口
+  port: 8084
+  # 访问路径
+  servlet:
+    context-path: /share
 #mybatis 配置
 mybatis-plus:
   #  xml存放地址
@@ -18,8 +26,8 @@ mybatis-plus:
     #驼峰下划线转换
     db-column-underline: true
     #刷新mapper 调试神器
-    refresh-mapper: true
-    refresh: true
+    #refresh-mapper: true
+    #refresh: true
     #数据库大写下划线转换
     #capital-mode: true
     #序列接口实现类配置
@@ -39,3 +47,4 @@ mybatis-plus:
     callSettersOnNulls: true
     # 可以参考生产环境可以注释掉该项（打印sql执行日志）
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

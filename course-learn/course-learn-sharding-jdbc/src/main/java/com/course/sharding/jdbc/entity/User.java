@@ -17,7 +17,6 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @Builder
-@TableName("user")
 @EqualsAndHashCode(callSuper = false)
 public class User extends Model<User> {
 

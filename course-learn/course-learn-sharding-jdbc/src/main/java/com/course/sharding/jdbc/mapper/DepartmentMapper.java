@@ -14,5 +14,11 @@ import com.course.sharding.jdbc.entity.Department;
  */
 @Mapper
 public interface DepartmentMapper extends BaseMapper<Department> {
+	/**
+	 * 模糊查询
+	 * 
+	 * @param name
+	 * @return
+	 */
 	List<Department> listByParam(@Param("name") String name);
 }

@@ -40,7 +40,7 @@ public class UserController extends ResponseBuilder {
 
 	@GetMapping("/add")
 	public Object add() {
-		for (int m = 0; m < 20; m++) {
+		for (int m = 0; m < 120; m++) {
 			long deptId = IdWorker.getId();
 			// 分库分表测试
 			Department dept = Department.builder().deptId(deptId).createTime(buildCreateTime()).id(IdWorker.getId())

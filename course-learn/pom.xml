@@ -19,5 +19,6 @@
         <module>course-spring</module>
         <module>course-springboot</module>
         <module>course-springmvc</module>
+        <module>course-learn-sharding-jdbc</module>
     </modules>
 </project>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.sharding.jdbc.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.course.sharding.jdbc.entity.User">
+        <id column="id" property="id"/>
+        <result column="corp_id" property="corpId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="avatar" property="avatar"/>
+        <result column="flag" property="flag"/>
+        <result column="is_admin" property="isAdmin"/>
+        <result column="is_manager" property="isManager"/>
+        <result column="name" property="name"/>
+        <result column="open_id" property="openId"/>
+        <result column="password" property="password"/>
+        <result column="phone" property="phone"/>
+        <result column="post" property="post"/>
+        <result column="username" property="username"/>
+        <result column="work_unit" property="workUnit"/>
+        <result column="dept_id" property="deptId"/>
+    </resultMap>
+
+    <select id="getDeptByUserId" resultType="com.course.sharding.jdbc.entity.Department">
+        SELECT P.* FROM user U LEFT JOIN department P ON U.dept_id=P.dept_id WHERE 1=1
+        <if test="userId != null and userId != ''">
+            AND U.id = #{userId}
+        </if>
+    </select>
+
+</mapper>

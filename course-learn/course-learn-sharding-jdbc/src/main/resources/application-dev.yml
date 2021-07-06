@@ -1,0 +1,18 @@
+server:
+  port: 8084
+#  servlet:
+#      context-path: /sharding-jdbc
+
+#spring:
+##redis连接配置
+#  redis:
+#    database: 32
+#    host:
+#    port: 6379
+#    password: dg_scgl
+#    app:  sharding-jdbc
+
+
+
+
+

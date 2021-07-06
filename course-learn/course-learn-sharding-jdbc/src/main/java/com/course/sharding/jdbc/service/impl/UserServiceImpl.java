@@ -2,7 +2,6 @@ package com.course.sharding.jdbc.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +11,8 @@ import com.course.sharding.jdbc.entity.User;
 import com.course.sharding.jdbc.mapper.UserMapper;
 import com.course.sharding.jdbc.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -20,10 +21,10 @@ import com.course.sharding.jdbc.service.UserService;
  */
 @Service
 @Transactional(rollbackFor = { Exception.class })
+@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-	@Autowired
-	private UserMapper userMapper;
+	private final UserMapper userMapper;
 
 	@Override
 	public List<Department> getDeptByUserId(String userId) {

@@ -1,9 +1,9 @@
 package com.course.sharding.jdbc.mapper;
 
-import com.course.sharding.jdbc.entity.Menu;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.course.sharding.jdbc.entity.Menu;
 
 /**
  * <p>

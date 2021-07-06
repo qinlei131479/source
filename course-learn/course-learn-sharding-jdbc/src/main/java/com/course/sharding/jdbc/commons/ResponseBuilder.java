@@ -48,8 +48,7 @@ public class ResponseBuilder {
 	/**
 	 * 设置响应代码
 	 */
-	private static ResponseVO responseEntity(CustomHttpStatus code, Object data,
-			String msg) {
+	private static ResponseVO responseEntity(CustomHttpStatus code, Object data, String msg) {
 		ResponseVO vo = new ResponseVO();
 		if (null != data) {
 			vo.setData(data);

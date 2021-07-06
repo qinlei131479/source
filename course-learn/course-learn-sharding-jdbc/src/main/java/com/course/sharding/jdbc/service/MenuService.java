@@ -1,6 +1,5 @@
 package com.course.sharding.jdbc.service;
 
-
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.course.sharding.jdbc.entity.Menu;
 

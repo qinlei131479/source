@@ -2,12 +2,12 @@ package com.course.sharding.jdbc.mapper;
 
 import java.util.List;
 
-import com.course.sharding.jdbc.entity.Department;
-import com.course.sharding.jdbc.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.course.sharding.jdbc.entity.Department;
+import com.course.sharding.jdbc.entity.User;
 
 /**
  * <p>
@@ -20,5 +20,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-    List<Department> getDeptByUserId(@Param("userId") String userId);
+	/**
+	 * 按userId查询
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	List<Department> getDeptByUserId(@Param("userId") String userId);
 }

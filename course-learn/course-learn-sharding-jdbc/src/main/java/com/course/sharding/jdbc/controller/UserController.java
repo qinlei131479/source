@@ -3,7 +3,6 @@ package com.course.sharding.jdbc.controller;
 import java.util.List;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +21,7 @@ import com.course.sharding.jdbc.service.UserService;
 import com.google.common.collect.ImmutableMap;
 
 import cn.hutool.core.date.DateUtil;
+import lombok.RequiredArgsConstructor;
 
 /**
  * User
@@ -31,14 +31,12 @@ import cn.hutool.core.date.DateUtil;
  */
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController extends ResponseBuilder {
 
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private DepartmentService departmentService;
-	@Autowired
-	private MenuService menuService;
+	private final UserService userService;
+	private final DepartmentService departmentService;
+	private final MenuService menuService;
 
 	@GetMapping("/add")
 	public Object add() {

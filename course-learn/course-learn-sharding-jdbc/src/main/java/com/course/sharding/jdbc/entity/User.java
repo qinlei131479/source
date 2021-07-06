@@ -21,27 +21,26 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class User extends Model<User> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
- private Long id;
- private Long corpId;
- private String createTime;
- private Integer isDelete;
- private String updateTime;
- private String avatar;
- private String deptArray;
- private Long deptId;
- private String flag;
- private String isAdmin;
- private String name;
- private String openId;
- private String password;
- private String phone;
- private String post;
- private String username;
- private String workUnit;
- private String isManager;
- private Integer isDeptHead;
-
+	private Long id;
+	private Long corpId;
+	private String createTime;
+	private Integer isDelete;
+	private String updateTime;
+	private String avatar;
+	private String deptArray;
+	private Long deptId;
+	private String flag;
+	private String isAdmin;
+	private String name;
+	private String openId;
+	private String password;
+	private String phone;
+	private String post;
+	private String username;
+	private String workUnit;
+	private String isManager;
+	private Integer isDeptHead;
 
 }

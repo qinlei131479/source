@@ -13,7 +13,12 @@ import com.course.sharding.jdbc.entity.User;
  * @date 2021/7/6 下午6:01
  */
 public interface UserService extends IService<User> {
-
+	/**
+	 * 根据userId查询
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	List<Department> getDeptByUserId(String userId);
 
 }

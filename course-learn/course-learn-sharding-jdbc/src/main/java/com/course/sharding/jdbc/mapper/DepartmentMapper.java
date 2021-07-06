@@ -2,11 +2,11 @@ package com.course.sharding.jdbc.mapper;
 
 import java.util.List;
 
-import com.course.sharding.jdbc.entity.Department;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.course.sharding.jdbc.entity.Department;
 
 /**
  * @author qinlei
@@ -14,5 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 @Mapper
 public interface DepartmentMapper extends BaseMapper<Department> {
-    List<Department> listByParam(@Param("name") String name);
+	List<Department> listByParam(@Param("name") String name);
 }

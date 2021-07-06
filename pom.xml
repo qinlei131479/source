@@ -19,33 +19,22 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dom4j.version>1.6.1</dom4j.version>
         <lombok.version>1.18.8</lombok.version>
-        <dbcp.version>1.4</dbcp.version>
         <mysql.version>5.1.47</mysql.version>
-        <mybatis.version>3.5.5</mybatis.version>
-        <pagehelper.version>5.1.6</pagehelper.version>
-        <druid.version>1.1.20</druid.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
+        <pagehelper.version>5.1.6</pagehelper.version>
+        <druid.version>1.1.22</druid.version>
+
         <velocity.version>2.1</velocity.version>
-        <project.version>1.0-SNAPSHOT</project.version>
         <hutool.version>5.4.7</hutool.version>
         <spring-boot.version>2.4.0</spring-boot.version>
         <swagger.core.version>1.5.24</swagger.core.version>
         <xxl-job.version>2.2.0</xxl-job.version>
-        <sharding-jdbc.version>4.0.0</sharding-jdbc.version>
         <sharding-sphere.version>4.0.0-RC1</sharding-sphere.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- https://mvnrepository.com/artifact/org.apache.shardingsphere/sharding-jdbc-core -->
-            <dependency>
-                <groupId>org.apache.shardingsphere</groupId>
-                <artifactId>sharding-jdbc-core</artifactId>
-                <version>4.1.1</version>
-            </dependency>
-
             <dependency>
                 <groupId>com.course</groupId>
                 <artifactId>course-common-job</artifactId>
@@ -114,43 +103,22 @@
                 <version>${druid.version}</version>
             </dependency>
 
-            <!-- mybatis依赖 -->
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>${mybatis.version}</version>
-            </dependency>
-
             <!-- 分页插件 -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper</artifactId>
                 <version>${pagehelper.version}</version>
             </dependency>
-            <!-- DOM4J依赖 -->
-            <dependency>
-                <groupId>dom4j</groupId>
-                <artifactId>dom4j</artifactId>
-                <version>${dom4j.version}</version>
-            </dependency>
             <!-- 单元测试 -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
             </dependency>
-
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <!-- <scope>provided</scope>-->
-            </dependency>
-
-            <!-- dbcp连接池依赖 -->
-            <dependency>
-                <groupId>commons-dbcp</groupId>
-                <artifactId>commons-dbcp</artifactId>
-                <version>${dbcp.version}</version>
             </dependency>
             <!-- mysql依赖 -->
             <dependency>
@@ -162,17 +130,17 @@
     </dependencyManagement>
 
 
-<!--    <repositories>-->
-<!--        &lt;!&ndash;阿里云主仓库，代理了maven central和jcenter仓库，上一个好像不行 &ndash;&gt;-->
-<!--        <repository>-->
-<!--            <id>public</id>-->
-<!--            <name>aliyun nexus</name>-->
-<!--            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
-<!--            <releases>-->
-<!--                <enabled>true</enabled>-->
-<!--            </releases>-->
-<!--        </repository>-->
-<!--    </repositories>-->
+    <repositories>
+        <!--阿里云主仓库，代理了maven central和jcenter仓库，上一个好像不行 -->
+        <repository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
     <build>
         <finalName>${project.name}</finalName>

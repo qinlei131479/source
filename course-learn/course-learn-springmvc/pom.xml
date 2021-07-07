@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.course</groupId>
-            <artifactId>course-spring</artifactId>
+            <artifactId>course-learn-spring</artifactId>
         </dependency>
         <!-- servlet -->
         <dependency>

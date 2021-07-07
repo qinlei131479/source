@@ -21,6 +21,7 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
+            <version>${swagger.core.version}</version>
         </dependency>
         <!--server-api-->
         <dependency>
@@ -49,7 +50,8 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
+            <version>${hutool.version}</version>
         </dependency>
         <!-- ognl -->
         <dependency>

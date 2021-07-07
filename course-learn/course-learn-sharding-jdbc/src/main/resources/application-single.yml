@@ -1,0 +1,30 @@
+# 单库配置
+spring:
+  shardingsphere:
+    # 配置多个数据源
+    datasource:
+      names: ds-master
+      ds-master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url:  jdbc:mysql://139.186.153.56:3306/ds-master-3?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password:  qinlei131479@QQ!!
+        initial-size: 4 # 初始化时建立物理连接的个数
+        min-idle: 1   # 最小连接池数量
+        max-active: 40 #  最大连接数量
+        query-timeout: 60000 #查询超时
+        filters: stat,config # stat表示sql合并
+        testOnBorrow: false  # 申请连接时执行validationQuery检测连接是否有效
+
+    sharding:
+      # 设置默认的库
+      default-data-source-name: ds-master
+
+    props:
+      sql.show: true  #   显示sql
+
+
+
+
+

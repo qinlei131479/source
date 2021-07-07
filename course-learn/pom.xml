@@ -12,13 +12,13 @@
     <artifactId>course-learn</artifactId>
 
     <modules>
-        <module>course-design</module>
-        <module>course-jvm</module>
-        <module>course-mybatis</module>
-        <module>course-mybatisplus</module>
-        <module>course-spring</module>
-        <module>course-springboot</module>
-        <module>course-springmvc</module>
+        <module>course-learn-design</module>
+        <module>course-learn-jvm</module>
+        <module>course-learn-mybatis</module>
+        <module>course-learn-mybatisplus</module>
+        <module>course-learn-spring</module>
+        <module>course-learn-springboot</module>
+        <module>course-learn-springmvc</module>
         <module>course-learn-sharding-jdbc</module>
     </modules>
 </project>

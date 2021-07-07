@@ -21,7 +21,9 @@ import com.xxl.job.core.util.GsonTool;
 import com.xxl.job.core.util.XxlJobRemotingUtil;
 
 /**
- * Created by xuxueli on 17/5/10.
+ *
+ * @author xuxueli
+ * @date 17/5/10
  */
 @Controller
 @RequestMapping("/api")
@@ -29,9 +31,14 @@ public class JobApiController {
 
 	@Resource
 	private AdminBiz adminBiz;
+	private static final String POST = "POST";
+	private static final String CALLBACK = "callback";
+	private static final String REGISTRY = "registry";
+	private static final String REGISTRY_REMOVE = "registryRemove";
 
 	/**
 	 * api
+	 * 
 	 * @param uri
 	 * @param data
 	 * @return
@@ -40,10 +47,10 @@ public class JobApiController {
 	@ResponseBody
 	@PermissionLimit(limit = false)
 	public ReturnT<String> api(HttpServletRequest request, @PathVariable("uri") String uri,
-                               @RequestBody(required = false) String data) {
+			@RequestBody(required = false) String data) {
 
 		// valid
-		if (!"POST".equalsIgnoreCase(request.getMethod())) {
+		if (!POST.equalsIgnoreCase(request.getMethod())) {
 			return new ReturnT<String>(ReturnT.FAIL_CODE, "invalid request, HttpMethod not support.");
 		}
 		if (uri == null || uri.trim().length() == 0) {
@@ -57,20 +64,17 @@ public class JobApiController {
 		}
 
 		// services mapping
-		if ("callback".equals(uri)) {
+		if (CALLBACK.equals(uri)) {
 			List<HandleCallbackParam> callbackParamList = GsonTool.fromJson(data, List.class,
 					HandleCallbackParam.class);
 			return adminBiz.callback(callbackParamList);
-		}
-		else if ("registry".equals(uri)) {
+		} else if (REGISTRY.equals(uri)) {
 			RegistryParam registryParam = GsonTool.fromJson(data, RegistryParam.class);
 			return adminBiz.registry(registryParam);
-		}
-		else if ("registryRemove".equals(uri)) {
+		} else if (REGISTRY_REMOVE.equals(uri)) {
 			RegistryParam registryParam = GsonTool.fromJson(data, RegistryParam.class);
 			return adminBiz.registryRemove(registryParam);
-		}
-		else {
+		} else {
 			return new ReturnT<String>(ReturnT.FAIL_CODE, "invalid request, uri-mapping(" + uri + ") not found.");
 		}
 

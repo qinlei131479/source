@@ -30,18 +30,6 @@ spring:
         query-timeout: 60000 #查询超时
         filters: stat,config # stat表示sql合并
         testOnBorrow: false  # 申请连接时执行validationQuery检测连接是否有效
-      #        ds_slave1:
-      #          type: com.alibaba.druid.pool.DruidDataSource
-      #          driver-class-name: com.mysql.cj.jdbc.Driver
-      #          url: jdbc:mysql://127.0.0.1:3306/jdbc_slave1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
-      #          username: root
-      #          password: 123456
-      #          initial-size: 4 # 初始化时建立物理连接的个数
-      #          min-idle: 1   # 最小连接池数量
-      #          max-active: 40 #  最大连接数量
-      #          query-timeout: 60000 #查询超时
-      #          filters: stat,config # stat表示sql合并
-      #          testOnBorrow: false  # 申请连接时执行validationQuery检测连接是否有效
 
       # 配置读写分离规则
     masterslave:

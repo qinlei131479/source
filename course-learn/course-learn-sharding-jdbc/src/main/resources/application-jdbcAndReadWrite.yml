@@ -161,6 +161,12 @@ spring:
       default-key-generator:
         type: SNOWFLAKE
         column: id
+      # 分库分片策略自定义
+      default-database-strategy:
+        standard:
+          sharding-column: id
+          precise-algorithm-class-name: com.course.sharding.jdbc.algorithm.CoursePreciseAlgorithm
+
       # 读写分离规则，每个主库对应从库
       master-slave-rules:
         ds-master0:

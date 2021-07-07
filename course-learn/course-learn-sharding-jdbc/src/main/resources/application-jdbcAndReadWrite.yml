@@ -165,7 +165,7 @@ spring:
       default-database-strategy:
         standard:
           sharding-column: id
-          precise-algorithm-class-name: com.course.sharding.jdbc.algorithm.CoursePreciseAlgorithm
+          precise-algorithm-class-name: com.course.mybatis.shardingjdbc.algorithm.CoursePreciseAlgorithm
 
       # 读写分离规则，每个主库对应从库
       master-slave-rules:

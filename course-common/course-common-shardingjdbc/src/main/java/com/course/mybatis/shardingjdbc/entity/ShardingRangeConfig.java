@@ -1,4 +1,4 @@
-package com.course.sharding.jdbc.algorithm;
+package com.course.mybatis.shardingjdbc.entity;
 
 import java.util.List;
 

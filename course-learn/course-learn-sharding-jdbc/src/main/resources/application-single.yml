@@ -6,7 +6,7 @@ spring:
       names: ds-master
       ds-master:
         type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
         url:  jdbc:mysql://139.186.153.56:3306/ds-master-3?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password:  qinlei131479@QQ!!

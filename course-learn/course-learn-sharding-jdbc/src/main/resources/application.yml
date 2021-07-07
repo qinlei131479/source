@@ -4,7 +4,7 @@ spring:
     name: @artifactId@
   profiles:
     # readWrite 只有读写分离 jdbc 只有分库分表配置  jdbcAndReadWrite 读写分离和分库分表配合使用 single 单库单表
-    active: single
+    active: readWrite
   main:
     # 当遇到同一个实体类同时映射多个相同的表名字的时候，是否允许覆盖注册
     allow-bean-definition-overriding: true

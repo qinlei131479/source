@@ -1,10 +1,11 @@
-package com.course.sharding.jdbc.algorithm;
+package com.course.mybatis.shardingjdbc.algorithm;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import com.course.mybatis.shardingjdbc.entity.ShardingRangeConfig;
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;
 

@@ -65,6 +65,11 @@
                 <artifactId>course-common-mybatis</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.course</groupId>
+                <artifactId>course-common-shardingjdbc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- course learn依赖包，正式环境无用 -->
             <dependency>

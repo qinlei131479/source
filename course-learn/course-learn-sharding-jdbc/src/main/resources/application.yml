@@ -1,17 +1,24 @@
 # 系统配置
 spring:
+  application:
+    name: @artifactId@
   profiles:
     # readWrite 只有读写分离 jdbc 只有分库分表配置  jdbcAndReadWrite 读写分离和分库分表配合使用 single 单库单表
     active: single
   main:
     # 当遇到同一个实体类同时映射多个相同的表名字的时候，是否允许覆盖注册
     allow-bean-definition-overriding: true
+  redis:
+    host: styn-redis
+    database: 8
+    #password:
 server:
   # 端口
   port: 8084
   # 访问路径
   servlet:
     context-path: /share
+
 #mybatis 配置
 mybatis-plus:
   #  xml存放地址
@@ -19,22 +26,14 @@ mybatis-plus:
   #typeEnumsPackage: com.baomidou.springboot.entity.enums
   #type-aliases-package: com.example.sharding.domain.entity.*
   global-config:
-    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
-    id-type: 1
-    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
-    field-strategy: 2
+    # 关闭图标
+    banner: false
     #驼峰下划线转换
     db-column-underline: true
-    #刷新mapper 调试神器
-    #refresh-mapper: true
-    #refresh: true
-    #数据库大写下划线转换
-    #capital-mode: true
-    #序列接口实现类配置
-    #key-generator: com.baomidou.springboot.xxx
     #逻辑删除配置
-    logic-delete-value: 0
-    logic-not-delete-value: 1
+    logic-delete-value: 1
+    logic-not-delete-value: 0
+    #table-prefix: sys_
     #自定义填充策略接口实现
     #meta-object-handler: com.baomidou.springboot.xxx
     #自定义SQL注入器

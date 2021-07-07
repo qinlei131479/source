@@ -12,6 +12,11 @@
     <artifactId>course-learn-spring</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- dbcp连接池依赖 -->
         <dependency>
             <groupId>commons-dbcp</groupId>

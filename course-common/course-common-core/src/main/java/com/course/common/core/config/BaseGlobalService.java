@@ -20,7 +20,9 @@ public interface BaseGlobalService<T> {
 	 * 
 	 * @return
 	 */
-	Long nextId();
+	default Long nextId() {
+		return -1L;
+	}
 
 	/**
 	 * 获取配置值
@@ -28,7 +30,9 @@ public interface BaseGlobalService<T> {
 	 * @param configCode
 	 * @return
 	 */
-	String getConfigValue(String configCode);
+	default String getConfigValue(String configCode) {
+		return null;
+	}
 
 	/**
 	 * 获取用户
@@ -36,7 +40,9 @@ public interface BaseGlobalService<T> {
 	 * @param request
 	 * @return
 	 */
-	T getUser(HttpServletRequest request);
+	default T getUser(HttpServletRequest request) {
+		return null;
+	}
 
 	/**
 	 * 获取用户id
@@ -44,7 +50,9 @@ public interface BaseGlobalService<T> {
 	 * @param request
 	 * @return
 	 */
-	Object getUserId(HttpServletRequest request);
+	default Object getUserId(HttpServletRequest request) {
+		return null;
+	}
 
 	/**
 	 * 检查权限
@@ -55,7 +63,9 @@ public interface BaseGlobalService<T> {
 	 * @param apiPath
 	 * @return
 	 */
-	Res<?> checkPower(ProceedingJoinPoint point, HttpServletRequest request, T user, String apiPath);
+	default Res<?> checkPower(ProceedingJoinPoint point, HttpServletRequest request, T user, String apiPath) {
+		return Res.succ();
+	}
 
 	/**
 	 * 记录日志
@@ -70,6 +80,8 @@ public interface BaseGlobalService<T> {
 	 * @param isInit
 	 * @param beginTime
 	 */
-	void saveLog(Object api, T user, String apiPath, Req req, HttpServletRequest request, Object res, Throwable error,
-			boolean isInit, long beginTime);
+	default void saveLog(Object api, T user, String apiPath, Req req, HttpServletRequest request, Object res,
+			Throwable error, boolean isInit, long beginTime) {
+
+	}
 }

@@ -34,6 +34,21 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--数据库-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!-- spring boot 依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- course核心包依赖 -->
             <dependency>
                 <groupId>com.course</groupId>
@@ -51,15 +66,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- spring boot 依赖 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            
             <!-- course learn依赖包，正式环境无用 -->
             <dependency>
                 <groupId>com.course</groupId>

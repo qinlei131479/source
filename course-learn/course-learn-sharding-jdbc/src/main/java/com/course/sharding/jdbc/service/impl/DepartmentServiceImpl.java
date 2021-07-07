@@ -3,7 +3,6 @@ package com.course.sharding.jdbc.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.course.sharding.jdbc.entity.Department;
@@ -17,7 +16,6 @@ import lombok.RequiredArgsConstructor;
  * @date 2021/7/6 下午6:01
  */
 @Service
-@Transactional(rollbackFor = { Exception.class })
 @RequiredArgsConstructor
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements DepartmentService {
 

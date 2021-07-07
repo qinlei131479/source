@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>course-xxx-job-admin</artifactId>
+    <artifactId>course-visual-xxx-job-admin</artifactId>
 
 
     <dependencies>

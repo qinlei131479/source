@@ -1,6 +1,6 @@
 package com.course.springboot.enums;
 
-import com.course.common.core.enums.RedisKeyEnum;
+import com.course.common.cache.enums.RedisKeyEnum;
 import lombok.Getter;
 
 /**

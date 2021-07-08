@@ -7,6 +7,4 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
  com.course.common.core.config.GlobalExceptionHandler,\
  com.course.common.core.config.ValidatorConfig,\
  com.course.common.core.config.GlobalControllerAspect,\
- com.course.common.core.config.RedisTemplateConfig,\
- com.course.common.core.component.RedisUtil,\
  com.course.common.core.component.InstanceConfig

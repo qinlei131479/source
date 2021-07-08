@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.course</groupId>
-            <artifactId>course-common-core</artifactId>
+            <artifactId>course-common-cache</artifactId>
         </dependency>
         <dependency>
             <groupId>com.course</groupId>

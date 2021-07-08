@@ -1,4 +1,4 @@
-package com.course.common.core.config;
+package com.course.common.cache.config;
 
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -68,7 +68,7 @@ public class RedisTemplateConfig {
 	}
 
 	@Bean
-	public ValueOperations<String, String> valueOperations(RedisTemplate<String, String> redisTemplate) {
+	public ValueOperations<String, Object> valueOperations(RedisTemplate<String, Object> redisTemplate) {
 		return redisTemplate.opsForValue();
 	}
 

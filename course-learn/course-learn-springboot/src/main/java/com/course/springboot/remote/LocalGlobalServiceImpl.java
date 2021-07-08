@@ -1,22 +1,27 @@
 package com.course.springboot.remote;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
+import com.course.common.cache.utils.RedisUtil;
 import com.course.common.core.component.InstanceConfig;
-import com.course.common.core.component.RedisUtil;
 import com.course.common.core.config.BaseGlobalService;
 import com.course.common.core.entity.Req;
 import com.course.common.core.entity.Res;
+import com.course.common.core.entity.Valid;
 import com.course.common.core.enums.FlagEnum;
 import com.course.common.core.enums.RequestAttrEnum;
 import com.course.common.core.enums.RequestHeaderEnum;
 import com.course.common.core.enums.ResCommonEnum;
 import com.course.common.core.utils.HuToolUtil;
 import com.course.common.core.utils.RequestUtil;
+import com.course.common.core.utils.ValidUtil;
+import com.course.common.mybatis.entity.Pg;
 import com.course.springboot.entity.Api;
 import com.course.springboot.entity.ApiLog;
 import com.course.springboot.enums.ApiStatusEnum;
@@ -123,6 +128,16 @@ public class LocalGlobalServiceImpl implements BaseGlobalService<Object> {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public boolean checkActionStatusInit(ProceedingJoinPoint point, Req req, List<Valid> validList) {
+		Pg pg = ValidUtil.getArgByClass(point, Pg.class);
+		if (pg != null && pg.checkActionStatusInit()) {
+			validList = ValidUtil.handleValidList(point, req);
+			return true;
+		}
+		return false;
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.course.common.core.entity;
+package com.course.common.mybatis.entity;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

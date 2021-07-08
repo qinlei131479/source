@@ -2,12 +2,12 @@ package com.course.springboot.job;
 
 import java.util.List;
 
+import com.course.common.cache.enums.RedisKeyEnum;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import com.course.common.core.entity.Res;
-import com.course.common.core.enums.RedisKeyEnum;
 import com.course.common.core.utils.SpringContextHolder;
 import com.course.springboot.entity.ApiLog;
 import com.course.springboot.entity.Key;

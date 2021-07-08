@@ -1,10 +1,7 @@
 package com.course.common.core.entity;
 
-import java.util.List;
-
 import javax.validation.GroupSequence;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.course.common.core.utils.HuToolUtil;
 
 import lombok.Data;
@@ -32,17 +29,6 @@ public class Req<T> {
 
 	public interface Delete {
 	}
-
-	/**
-	 * 多个Id
-	 */
-	@TableField(exist = false)
-	protected List<Long> idList;
-	/**
-	 * elastic-查询字段
-	 */
-	@TableField(exist = false)
-	protected String queryField;
 
 	/**
 	 * 计算id

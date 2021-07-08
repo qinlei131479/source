@@ -5,11 +5,7 @@ spring:
   profiles:
     # readWrite 只有读写分离 jdbc 只有分库分表配置  jdbcAndReadWrite 读写分离和分库分表配合使用 single 单库单表
     active: single
-  # redis 配置
-  redis:
-    host: styn-redis
-    database: 8
-    #password:
+
 server:
   # 端口
   port: 8084

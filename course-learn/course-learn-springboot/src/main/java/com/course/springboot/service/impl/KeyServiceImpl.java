@@ -1,8 +1,8 @@
 package com.course.springboot.service.impl;
 
+import com.course.common.cache.utils.RedisUtil;
 import org.springframework.stereotype.Service;
 
-import com.course.common.core.component.RedisUtil;
 import com.course.common.core.enums.FlagEnum;
 import com.course.common.mybatis.service.impl.UpServiceImpl;
 import com.course.springboot.entity.Key;

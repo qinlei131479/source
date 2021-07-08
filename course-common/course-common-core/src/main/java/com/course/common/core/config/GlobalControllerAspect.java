@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.course.common.core.entity.*;
-import com.course.common.core.exception.BaseRuntimeException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -19,6 +17,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.course.common.core.constant.CommonConstants;
+import com.course.common.core.entity.*;
+import com.course.common.core.exception.BaseRuntimeException;
 import com.course.common.core.utils.HuToolUtil;
 import com.course.common.core.utils.RequestUtil;
 import com.course.common.core.utils.ValidUtil;
@@ -84,11 +84,8 @@ public class GlobalControllerAspect implements Ordered {
 			}
 			if (req != null) {
 				// 处理校验，初始化状态下，获取validList，非初始化，返回报错信息
-				Pg pg = ValidUtil.getArgByClass(point, Pg.class);
-				if (pg != null && pg.checkActionStatusInit()) {
-					validList = ValidUtil.handleValidList(point, req);
-					isInit = true;
-				} else {
+				isInit = baseGlobalService.checkActionStatusInit(point, req, validList);
+				if (!isInit) {
 					BindingResult bindingResult = ValidUtil.getArgByClass(point, BindingResult.class);
 					if (bindingResult != null) {
 						// 获取验证group数组

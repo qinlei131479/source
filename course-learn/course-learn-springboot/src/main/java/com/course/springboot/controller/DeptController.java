@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.course.common.core.entity.Pg;
+import com.course.common.mybatis.entity.Pg;
 import com.course.common.core.entity.Req;
 import com.course.common.core.entity.Res;
 import com.course.springboot.entity.Dept;

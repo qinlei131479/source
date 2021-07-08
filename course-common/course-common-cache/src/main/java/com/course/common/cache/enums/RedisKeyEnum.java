@@ -1,4 +1,4 @@
-package com.course.common.core.enums;
+package com.course.common.cache.enums;
 
 import lombok.Getter;
 

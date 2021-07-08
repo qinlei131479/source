@@ -17,6 +17,7 @@
         <module>course-common-mybatis</module>
         <module>course-common-job</module>
         <module>course-common-shardingjdbc</module>
+        <module>course-common-cache</module>
     </modules>
 
 </project>

@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import lombok.RequiredArgsConstructor;
 import com.course.common.core.entity.Req;
 import com.course.common.core.entity.Res;
-import com.course.common.core.entity.Pg;
+import com.course.common.mybatis.entity.Pg;
 import com.course.springboot.entity.User;
 import com.course.springboot.service.UserService;
 

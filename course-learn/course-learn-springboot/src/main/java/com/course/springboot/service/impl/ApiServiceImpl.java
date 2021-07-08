@@ -3,6 +3,7 @@ package com.course.springboot.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.course.common.cache.enums.RedisKeyEnum;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.course.common.core.entity.Req;
 import com.course.common.core.entity.Res;
 import com.course.common.core.enums.FlagEnum;
-import com.course.common.core.enums.RedisKeyEnum;
 import com.course.common.core.utils.HuToolUtil;
 import com.course.common.mybatis.service.impl.UpServiceImpl;
 import com.course.springboot.entity.Api;

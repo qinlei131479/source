@@ -4,7 +4,7 @@ spring:
     name: @artifactId@
   profiles:
     # readWrite 只有读写分离 jdbc 只有分库分表配置  jdbcAndReadWrite 读写分离和分库分表配合使用 single 单库单表
-    active: single
+    active: jdbc
   freemarker:
     check-template-location: false
 
@@ -14,31 +14,22 @@ server:
   # 访问路径
   servlet:
     context-path: /share
+
 #mybatis 配置
 mybatis-plus:
   #  xml存放地址
   mapper-locations: classpath:/mappers/*.xml
-  #typeEnumsPackage: com.baomidou.springboot.entity.enums
-  #type-aliases-package: com.example.sharding.domain.entity.*
   global-config:
     # 关闭图标
     banner: false
-    #驼峰下划线转换
-    db-column-underline: true
-    #逻辑删除配置
-    logic-delete-value: 1
-    logic-not-delete-value: 0
-    #table-prefix: sys_
-    #自定义填充策略接口实现
-    #meta-object-handler: com.baomidou.springboot.xxx
-    #自定义SQL注入器
-    #sql-injector: com.baomidou.springboot.xxx
+    db-config:
+      #逻辑删除配置
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      # 表前缀
+      table-prefix: tb_
   configuration:
     map-underscore-to-camel-case: true
-    #<!-- 这个配置使全局的映射器启用或禁用缓存 -->
-    cache-enabled: false
-    #设置查询resultType为map时空字段允许查出来
-    callSettersOnNulls: true
     # 可以参考生产环境可以注释掉该项（打印sql执行日志）
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

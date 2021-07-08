@@ -26,7 +26,7 @@
     </resultMap>
 
     <select id="listByParam" resultType="com.course.sharding.jdbc.entity.Department">
-        SELECT * FROM department WHERE  `name` LIKE  '${name}%'
+        SELECT * FROM tb_department WHERE  `name` LIKE  '${name}%'
     </select>
 
 </mapper>

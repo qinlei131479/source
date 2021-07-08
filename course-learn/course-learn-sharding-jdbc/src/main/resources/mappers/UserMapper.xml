@@ -26,11 +26,11 @@
     <select id="findPg" resultType="com.course.sharding.jdbc.entity.User">
         SELECT
         t.*
-        FROM User t
+        FROM tb_User t
     </select>
 
     <select id="getDeptByUserId" resultType="com.course.sharding.jdbc.entity.Department">
-        SELECT P.* FROM user U LEFT JOIN department P ON U.dept_id=P.dept_id WHERE 1=1
+        SELECT P.* FROM tb_user U LEFT JOIN tb_department P ON U.dept_id=P.dept_id WHERE 1=1
         <if test="userId != null and userId != ''">
             AND U.id = #{userId}
         </if>

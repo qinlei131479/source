@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.sharding.jdbc.mapper.ConfigMapper">
+
+  <select id="findPg" resultType="com.course.sharding.jdbc.entity.Config">
+    SELECT
+    t.*
+    FROM tb_Config t
+  </select>
+
+</mapper>

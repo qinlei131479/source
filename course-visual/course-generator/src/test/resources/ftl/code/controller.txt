@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import lombok.RequiredArgsConstructor;
 import ${package_core}.entity.Req;
 import ${package_core}.entity.Res;
-import ${package_core}.entity.Pg;
+import ${package_mybatisplus}.entity.Pg;
 import ${package_entity}.entity.${className};
 import ${package}.service.${className}Service;
 

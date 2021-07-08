@@ -2,6 +2,7 @@ package com.course.generator.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.course.common.core.entity.Valid;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ import com.course.common.core.entity.Res;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 /**
  * 该类主要作用是继承BaseGlobalService，否则调用core模块GlobalControllerAspect#BaseGlobalService将抛出异常
@@ -51,5 +54,10 @@ public class LocalGlobalServiceImpl implements BaseGlobalService<Object> {
 	public void saveLog(Object api, Object user, String apiPath, Req req, HttpServletRequest request, Object res,
 			Throwable error, boolean isInit, long beginTime) {
 
+	}
+
+	@Override
+	public boolean checkActionStatusInit(ProceedingJoinPoint point, Req req, List<Valid> validList) {
+		return false;
 	}
 }

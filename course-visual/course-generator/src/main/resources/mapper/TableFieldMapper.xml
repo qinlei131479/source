@@ -3,7 +3,7 @@
 <mapper namespace="com.course.generator.mapper.TableFieldMapper">
 
   <select id="findTableFieldListByTableName" resultType="com.course.generator.entity.TableField">
-    show fields  from  ${dbName}.${tableName_pre}${className}
+    show fields  from  `${dbName}`.${tableName_pre}${className}
   </select>
 
   <select id="findTableComment" resultType="java.lang.String">

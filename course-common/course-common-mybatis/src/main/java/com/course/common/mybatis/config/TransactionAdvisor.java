@@ -1,4 +1,4 @@
-package com.course.common.core.config;
+package com.course.common.mybatis.config;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;

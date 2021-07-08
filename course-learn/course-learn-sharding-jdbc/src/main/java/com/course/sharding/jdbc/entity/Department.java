@@ -1,5 +1,7 @@
 package com.course.sharding.jdbc.entity;
 
+import java.util.Date;
+
 import com.course.common.core.entity.Req;
 
 import lombok.Data;
@@ -18,9 +20,9 @@ public class Department extends Req<Department> {
 	private Long id;
 	private Long deptId;
 	private Long corpId;
-	private String createTime;
+	private Date createTime;
 	private Integer isDelete;
-	private String updateTime;
+	private Date updateTime;
 	private String code;
 	private String deptArray;
 	private Integer level;

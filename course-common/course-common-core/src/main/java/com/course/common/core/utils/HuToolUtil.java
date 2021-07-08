@@ -18,6 +18,7 @@ import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
+import cn.hutool.json.JSONUtil;
 import lombok.SneakyThrows;
 import ognl.Ognl;
 import ognl.OgnlContext;
@@ -485,5 +486,25 @@ public class HuToolUtil {
 	 */
 	public static String hashpw(String plaintext) {
 		return BCrypt.hashpw(plaintext, BCrypt.gensalt());
+	}
+
+	/**
+	 * json字符串直接转换为对象，其中对象字符串需要转换为对象
+	 * 
+	 * @param jsonString
+	 * @param className
+	 * @return
+	 */
+	public static Object jsonStringToBean(String jsonString, String className) {
+		if (StrUtil.isBlank(jsonString)) {
+			return null;
+		}
+		try {
+			Class beanClass = Class.forName(className);
+			return JSONUtil.toBean(jsonString, beanClass);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

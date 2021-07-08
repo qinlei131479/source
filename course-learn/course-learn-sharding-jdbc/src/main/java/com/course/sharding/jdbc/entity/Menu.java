@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Date;
+
 /**
  * <p>
  * 系统菜单
@@ -23,13 +25,13 @@ public class Menu extends Req<Menu> {
 	@TableField("corp_id")
 	private String corpId;
 	@TableField("create_time")
-	private String createTime;
+	private Date createTime;
 	@TableField("all_path")
 	private String allPath;
 	@TableField("is_delete")
 	private Integer isDelete;
 	@TableField("update_time")
-	private String updateTime;
+	private Date updateTime;
 	private String code;
 	private String icon;
 	private String name;

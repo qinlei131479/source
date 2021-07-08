@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Date;
+
 /**
  * <p>
  * 系统用户
@@ -20,9 +22,9 @@ public class User extends Req<Menu> {
 
 	private Long id;
 	private Long corpId;
-	private String createTime;
+	private Date createTime;
 	private Integer isDelete;
-	private String updateTime;
+	private Date updateTime;
 	private String avatar;
 	private String deptArray;
 	private Long deptId;

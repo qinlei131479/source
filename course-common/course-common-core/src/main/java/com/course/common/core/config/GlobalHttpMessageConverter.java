@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import com.course.common.core.constant.CommonConstants;
-import com.course.common.core.entity.Req;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -14,6 +12,11 @@ import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Component;
+
+import com.course.common.core.constant.CommonConstants;
+import com.course.common.core.entity.Req;
+import com.course.common.core.enums.RequestAttrEnum;
+import com.course.common.core.utils.RequestUtil;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -71,7 +74,7 @@ public class GlobalHttpMessageConverter extends AbstractHttpMessageConverter<Obj
 			baos.write(i);
 		}
 		String bodyString = baos.toString(CommonConstants.UTF8);
-		// RequestUtil.setAttr(RequestAttrEnum.bodyString, bodyString);
+		RequestUtil.setAttr(RequestAttrEnum.bodyString, bodyString);
 		Object requestBodyObject = null;
 		if (StrUtil.isNotBlank(bodyString)) {
 			bodyString = bodyString.trim();
@@ -87,7 +90,7 @@ public class GlobalHttpMessageConverter extends AbstractHttpMessageConverter<Obj
 		if (requestBodyObject == null) {
 			requestBodyObject = JSONUtil.toBean("{}", clazz);
 		}
-		// RequestUtil.setAttr(RequestAttrEnum.bodyObject, requestBodyObject);
+		RequestUtil.setAttr(RequestAttrEnum.bodyObject, requestBodyObject);
 		return requestBodyObject;
 	}
 

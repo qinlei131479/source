@@ -3,7 +3,6 @@ package com.course.common.core.config;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-import cn.hutool.core.util.ReflectUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -11,7 +10,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
-import cn.hutool.json.JSONUtil;
+import com.course.common.core.enums.RequestAttrEnum;
+import com.course.common.core.utils.HuToolUtil;
+import com.course.common.core.utils.RequestUtil;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 全局入参处理,配合GlobalHttpMessageConverter处理参数
@@ -19,6 +22,7 @@ import cn.hutool.json.JSONUtil;
  * @author qinlei
  * @date 2021/6/23 下午10:14
  */
+@Slf4j
 @ControllerAdvice
 public class GlobalRequestHandler implements RequestBodyAdvice {
 	@Override
@@ -52,7 +56,9 @@ public class GlobalRequestHandler implements RequestBodyAdvice {
 	@Override
 	public Object handleEmptyBody(Object body, HttpInputMessage inputMessage, MethodParameter parameter,
 			Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-		body = JSONUtil.toBean("{}", ReflectUtil.newInstance(targetType.getTypeName()));
+		RequestUtil.setAttr(RequestAttrEnum.bodyString, null);
+		body = HuToolUtil.jsonStringToBean("{}", targetType.getTypeName());
+		RequestUtil.setAttr(RequestAttrEnum.bodyObject, body);
 		return body;
 
 	}

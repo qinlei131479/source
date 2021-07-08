@@ -2,7 +2,7 @@ package com.course.sharding.jdbc.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.course.common.mybatis.mapper.UpMapper;
 import com.course.sharding.jdbc.entity.Menu;
 
 /**
@@ -14,6 +14,6 @@ import com.course.sharding.jdbc.entity.Menu;
  * @date 2021/7/6 下午6:01
  */
 @Mapper
-public interface MenuMapper extends BaseMapper<Menu> {
+public interface MenuMapper extends UpMapper<Menu> {
 
 }

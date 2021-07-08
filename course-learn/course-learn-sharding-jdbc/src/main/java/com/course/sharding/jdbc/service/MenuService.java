@@ -1,6 +1,6 @@
 package com.course.sharding.jdbc.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.course.common.mybatis.service.UpService;
 import com.course.sharding.jdbc.entity.Menu;
 
 /**
@@ -11,6 +11,6 @@ import com.course.sharding.jdbc.entity.Menu;
  * @author qinlei
  * @date 2021/7/6 下午6:01
  */
-public interface MenuService extends IService<Menu> {
+public interface MenuService extends UpService<Menu> {
 
 }

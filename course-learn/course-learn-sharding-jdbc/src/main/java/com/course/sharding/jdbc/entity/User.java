@@ -1,7 +1,6 @@
 package com.course.sharding.jdbc.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.course.common.core.entity.Req;
 
 import lombok.Builder;
 import lombok.Data;
@@ -16,11 +15,8 @@ import lombok.EqualsAndHashCode;
  * @date 2021/7/6 下午6:01
  */
 @Data
-@Builder
 @EqualsAndHashCode(callSuper = false)
-public class User extends Model<User> {
-
-	private static final long serialVersionUID = 1L;
+public class User extends Req<Menu> {
 
 	private Long id;
 	private Long corpId;

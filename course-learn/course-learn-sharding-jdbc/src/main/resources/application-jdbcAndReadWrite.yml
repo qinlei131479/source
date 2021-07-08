@@ -13,6 +13,9 @@
 #   主库和从库的库名一次对应
 # 实现分库分表 + 读写分离
 spring:
+  main:
+    # 当遇到同一个实体类同时映射多个相同的表名字的时候，是否允许覆盖注册
+    allow-bean-definition-overriding: true
   shardingsphere:
     # 配置数据库4主4从
     datasource:

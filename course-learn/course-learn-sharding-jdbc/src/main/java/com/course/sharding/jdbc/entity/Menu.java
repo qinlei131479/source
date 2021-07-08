@@ -1,7 +1,7 @@
 package com.course.sharding.jdbc.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.course.common.core.entity.Req;
 
 import lombok.Builder;
 import lombok.Data;
@@ -15,12 +15,9 @@ import lombok.EqualsAndHashCode;
  * @author qinlei
  * @date 2021/7/6 下午6:01
  */
-@Builder
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Menu extends Model<Menu> {
-
-	private static final long serialVersionUID = 1L;
+public class Menu extends Req<Menu> {
 
 	private Long id;
 	@TableField("corp_id")

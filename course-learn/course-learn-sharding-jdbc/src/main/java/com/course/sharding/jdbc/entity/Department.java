@@ -1,12 +1,9 @@
 package com.course.sharding.jdbc.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.course.common.core.entity.Req;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * 部门
@@ -15,9 +12,8 @@ import lombok.ToString;
  * @date 2021/7/6 下午6:01
  */
 @Data
-@Builder
 @EqualsAndHashCode(callSuper = false)
-public class Department extends Model<Department> {
+public class Department extends Req<Department> {
 
 	private Long id;
 	private Long deptId;

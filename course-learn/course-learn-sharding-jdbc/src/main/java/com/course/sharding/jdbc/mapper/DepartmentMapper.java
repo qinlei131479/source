@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.course.common.mybatis.mapper.UpMapper;
 import com.course.sharding.jdbc.entity.Department;
 
 /**
@@ -13,7 +13,7 @@ import com.course.sharding.jdbc.entity.Department;
  * @date 2021/7/6 下午6:01
  */
 @Mapper
-public interface DepartmentMapper extends BaseMapper<Department> {
+public interface DepartmentMapper extends UpMapper<Department> {
 	/**
 	 * 模糊查询
 	 * 

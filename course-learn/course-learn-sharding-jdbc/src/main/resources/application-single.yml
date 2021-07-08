@@ -1,5 +1,8 @@
 # 单库配置
 spring:
+  main:
+    # 当遇到同一个实体类同时映射多个相同的表名字的时候，是否允许覆盖注册
+    allow-bean-definition-overriding: true
   shardingsphere:
     # 配置多个数据源
     datasource:

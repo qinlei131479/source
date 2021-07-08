@@ -2,6 +2,9 @@
 #        配置过程中可能会出现一些问题 ，细心查看     其中一个问题的解决方案 ： https://blog.csdn.net/weixin_37998647/article/details/79950133
 #sharding-jdbcReadWrite 实现读写分离的配置 master/slave   master 主要写数据   slave实现读数据  这是sharding-jdbc 通过执行的sql 来判断的
 spring:
+  main:
+    # 当遇到同一个实体类同时映射多个相同的表名字的时候，是否允许覆盖注册
+    allow-bean-definition-overriding: true
   shardingsphere:
     # 配置多个数据源
     datasource:

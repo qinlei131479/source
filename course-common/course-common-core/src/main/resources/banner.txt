@@ -1,2 +1,1 @@
-JUST CLEAR SPRING BOOT
 Spring Boot Version: ${spring-boot.version}

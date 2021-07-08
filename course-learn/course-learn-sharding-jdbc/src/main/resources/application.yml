@@ -5,6 +5,8 @@ spring:
   profiles:
     # readWrite 只有读写分离 jdbc 只有分库分表配置  jdbcAndReadWrite 读写分离和分库分表配合使用 single 单库单表
     active: single
+  freemarker:
+    check-template-location: false
 
 server:
   # 端口
@@ -12,7 +14,6 @@ server:
   # 访问路径
   servlet:
     context-path: /share
-
 #mybatis 配置
 mybatis-plus:
   #  xml存放地址

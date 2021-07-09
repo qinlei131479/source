@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-   com.course.common.mybatis.config.TransactionAdvisor,\
-   com.course.common.mybatis.config.MyBatisPlusConfig
+  com.course.common.mybatis.config.TransactionAdvisor,\
+  com.course.common.mybatis.config.MyBatisPlusConfig,\
+  com.course.common.mybatis.config.DataAutoFill

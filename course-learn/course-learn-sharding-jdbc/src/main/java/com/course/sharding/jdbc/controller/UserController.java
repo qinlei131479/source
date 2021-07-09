@@ -1,14 +1,21 @@
 package com.course.sharding.jdbc.controller;
 
+import java.util.Random;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.course.common.mybatis.entity.Pg;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.course.common.core.entity.Req;
 import com.course.common.core.entity.Res;
+import com.course.common.mybatis.entity.Pg;
+import com.course.sharding.jdbc.entity.Department;
+import com.course.sharding.jdbc.entity.Menu;
 import com.course.sharding.jdbc.entity.User;
+import com.course.sharding.jdbc.service.DepartmentService;
+import com.course.sharding.jdbc.service.MenuService;
 import com.course.sharding.jdbc.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +32,8 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserService userService;
+	private final DepartmentService departmentService;
+	private final MenuService menuService;
 
 	/**
 	 * 分页查询
@@ -46,7 +55,31 @@ public class UserController {
 		if (pg.checkActionStatusInit()) {
 			return Res.succ((req.getId() == null) ? req : userService.getById(req.getId()));
 		}
-		return userService.create(req);
+		String name = "test";
+		for (int m = 0; m < 20; m++) {
+			String test = name + m;
+			long deptId = IdWorker.getId();
+			// 分库分表测试
+			Department dept = new Department();
+			dept.setId(IdWorker.getId());
+			dept.setDeptId(deptId);
+			dept.setName(test);
+			departmentService.create(dept);
+
+			User user = new User();
+			user.setId(IdWorker.getId());
+			user.setDeptId(deptId);
+			user.setName(test);
+			user.setPhone(String.valueOf(new Random().nextLong()));
+			userService.create(user);
+
+			Menu menu = new Menu();
+			menu.setId(IdWorker.getId());
+			menu.setName(test);
+			menuService.create(menu);
+		}
+
+		return Res.succ();
 	}
 
 	/**

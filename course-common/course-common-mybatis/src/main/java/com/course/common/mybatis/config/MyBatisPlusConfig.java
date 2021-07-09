@@ -1,12 +1,14 @@
 package com.course.common.mybatis.config;
 
-import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
-import org.springframework.context.annotation.Configuration;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 分页插件注入
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * @author qinlei
  * @date 2021/6/17 上午11:19
  */
+@Slf4j
 @Configuration
 public class MyBatisPlusConfig {
 
@@ -32,4 +35,21 @@ public class MyBatisPlusConfig {
 	public ConfigurationCustomizer configurationCustomizer() {
 		return configuration -> configuration.setUseDeprecatedExecutor(false);
 	}
+
+	/**
+	 * 自定义主键
+	 * 
+	 * @return
+	 */
+	// @Bean
+	// public IdentifierGenerator idGenerator() {
+	// return new IdentifierGenerator() {
+	// @Override
+	// public Number nextId(Object entity) {
+	// // 自定义主键的生成规则,代码自实现
+	// log.error("IdentifierGenerator");
+	// return IdWorker.getId(entity);
+	// }
+	// };
+	// }
 }

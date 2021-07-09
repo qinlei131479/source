@@ -3,10 +3,9 @@ package com.course.common.mybatis.service.impl;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.course.common.core.config.BaseGlobalService;
-import com.course.common.core.utils.SpringContextHolder;
 import com.course.common.core.entity.Req;
 import com.course.common.core.entity.Res;
 import com.course.common.core.utils.HuToolUtil;
@@ -161,8 +160,7 @@ public class UpServiceImpl<M extends UpMapper<T>, T extends Req> extends Service
 	@Override
 	public void createVoid(UpMapper mapper, Req req) {
 		// bean不能用注入的方式，否则依赖关系有问题
-		BaseGlobalService globalService = SpringContextHolder.getBean(BaseGlobalService.class);
-		HuToolUtil.setFieldValueIfExist(req, "id", globalService.nextId());
+		HuToolUtil.setFieldValueIfExist(req, "id", IdWorker.getId());
 		HuToolUtil.setFieldValueIfExist(req, "createTime", null);
 		HuToolUtil.setFieldValueIfExist(req, "updateTime", null);
 		mapper.insert(req);

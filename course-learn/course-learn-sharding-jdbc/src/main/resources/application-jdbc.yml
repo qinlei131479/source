@@ -22,7 +22,7 @@ spring:
       ds1:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url:  jdbc:mysql://139.186.153.56:3306/ds_master0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        url:  jdbc:mysql://139.186.153.56:3306/ds_master1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password:  qinlei131479@QQ!!
         initial-size: 4 # 初始化时建立物理连接的个数
@@ -45,7 +45,7 @@ spring:
         #用户表
         user:
           #数据节点 注意 只分库不分表
-          actual-data-nodes: ds$->{['0','1']}.user
+          actual-data-nodes: ds$->{['0','1']}.tb_user
           # 配置主键策略
           key-generator-column-name: id
           key-generator:
@@ -63,7 +63,7 @@ spring:
           #    algorithm-expression: user_$->{dept_id % 3}  #按模运算分配
         department:
           # 配置分库数据源(分库分表处理)
-          actual-data-nodes: ds$->{['0','1']}.department_${['0','1','2']}  #数据节点 即分库也分表
+          actual-data-nodes: ds$->{['0','1']}.tb_department${['0','1','2']}  #数据节点 即分库也分表
           # 配置主键策略
           key-generator-column-name: id
           key-generator:
@@ -79,7 +79,7 @@ spring:
             # inline 表达式配置分表
             inline:
               sharding-column: dept_id  #分表字段
-              algorithm-expression: department_$->{dept_id % 3}  # 多张表进行取模运算
+              algorithm-expression: tb_department$->{dept_id % 3}  # 多张表进行取模运算
 
       # 如果有关联表没配置绑定有可能会出现笛卡尔积
       #binding-tables: user,department

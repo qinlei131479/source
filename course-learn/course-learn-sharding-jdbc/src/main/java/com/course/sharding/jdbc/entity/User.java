@@ -1,12 +1,13 @@
 package com.course.sharding.jdbc.entity;
 
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.course.common.core.entity.Req;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.Date;
 
 /**
  * <p>
@@ -18,7 +19,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class User extends Req<Menu> {
+public class User extends Req<User> {
 
 	private Long id;
 	private Long corpId;
@@ -32,7 +33,9 @@ public class User extends Req<Menu> {
 	private String isAdmin;
 	private String name;
 	private String openId;
+	@TableField(fill = FieldFill.INSERT)
 	private String password;
+
 	private String phone;
 	private String post;
 	private String username;

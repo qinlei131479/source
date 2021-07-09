@@ -6,7 +6,7 @@ spring:
   shardingsphere:
     # 配置多个数据源
     datasource:
-      names: ds0,ds1
+      names: ds0,ds1,ds2,ds3
       ds0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -31,21 +31,45 @@ spring:
         query-timeout: 60000 #查询超时
         filters: stat,config # stat表示sql合并
         testOnBorrow: false  # 申请连接时执行validationQuery检测连接是否有效
+      ds2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url:  jdbc:mysql://139.186.153.56:3306/ds_master2?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password:  qinlei131479@QQ!!
+        initial-size: 4 # 初始化时建立物理连接的个数
+        min-idle: 1   # 最小连接池数量
+        max-active: 40 #  最大连接数量
+        query-timeout: 60000 #查询超时
+        filters: stat,config # stat表示sql合并
+        testOnBorrow: false  # 申请连接时执行validationQuery检测连接是否有效
+      ds3:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url:  jdbc:mysql://139.186.153.56:3306/ds_master3?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password:  qinlei131479@QQ!!
+        initial-size: 4 # 初始化时建立物理连接的个数
+        min-idle: 1   # 最小连接池数量
+        max-active: 40 #  最大连接数量
+        query-timeout: 60000 #查询超时
+        filters: stat,config # stat表示sql合并
+        testOnBorrow: false  # 申请连接时执行validationQuery检测连接是否有效
     sharding:
       tables:
         #菜单表
-        menu:
+        tb_menu:
           # 配置单表数据源(该表只会存在于一个数据库中) 既不分库也不分表  只存在当前配置的库中
-          actual-data-nodes: ds1.menu
+          actual-data-nodes: ds0.tb_menu
           # 配置主键策略
           key-generator-column-name: id
           key-generator:
             type: SNOWFLAKE
             column: id
         #用户表
-        user:
+        tb_user:
           #数据节点 注意 只分库不分表
-          actual-data-nodes: ds$->{['0','1']}.tb_user
+          actual-data-nodes: ds$->{['0','1','2','3']}.tb_user
           # 配置主键策略
           key-generator-column-name: id
           key-generator:
@@ -55,15 +79,15 @@ spring:
           database-strategy:
             inline:  #行表达式
               sharding-column: dept_id  #列名称，多个列以逗号分隔
-              algorithm-expression: ds$->{dept_id % 2}  #按模运算分配
+              algorithm-expression: ds$->{dept_id % 4}  #按模运算分配
           #分表策略
           #table-strategy:
           #  inline: #行表达式
           #    sharding-column: dept_id  #分表字段
           #    algorithm-expression: user_$->{dept_id % 3}  #按模运算分配
-        department:
+        tb_department:
           # 配置分库数据源(分库分表处理)
-          actual-data-nodes: ds$->{['0','1']}.tb_department${['0','1','2']}  #数据节点 即分库也分表
+          actual-data-nodes: ds$->{['0','1','2','3']}.tb_department${['0','1','2','3']}  #数据节点 即分库也分表
           # 配置主键策略
           key-generator-column-name: id
           key-generator:
@@ -73,21 +97,21 @@ spring:
           database-strategy:
             inline:
               sharding-column: id  #分库字段
-              algorithm-expression: ds$->{id % 2} # 多个库进行取模运算
+              algorithm-expression: ds$->{id % 4} # 多个库进行取模运算
           # 分表策略
           table-strategy:
             # inline 表达式配置分表
             inline:
               sharding-column: dept_id  #分表字段
-              algorithm-expression: tb_department$->{dept_id % 3}  # 多张表进行取模运算
+              algorithm-expression: tb_department$->{dept_id % 4}  # 多张表进行取模运算
 
       # 如果有关联表没配置绑定有可能会出现笛卡尔积
-      #binding-tables: user,department
+      binding-tables: tb_user,tb_department
       #广播规则表配置： 解释-- 每一条数据都会向每个数据源里面的改表进行同步的 crud操作，每个库里面的该表的数据是同步的
       # 此处添加的表明在 每个库里面都应该存在表，并且数据是同步的 ，一般多表用于关联查询时的解决方案
-      #broadcast-tables:
+      broadcast-tables: tb_config
       # 默认的库配置以及主键生成策略(雪花算法生成主键)
-      default-data-source-name: ds1
+      default-data-source-name: ds0
       #default-database-strategy:
       #  none:
       default-key-generator:

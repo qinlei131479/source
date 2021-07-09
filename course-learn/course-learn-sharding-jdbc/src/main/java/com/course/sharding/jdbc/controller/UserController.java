@@ -56,7 +56,7 @@ public class UserController {
 			return Res.succ((req.getId() == null) ? req : userService.getById(req.getId()));
 		}
 		String name = "test";
-		for (int m = 0; m < 20; m++) {
+		for (int m = 0; m < 120; m++) {
 			String test = name + m;
 			long deptId = IdWorker.getId();
 			// 分库分表测试

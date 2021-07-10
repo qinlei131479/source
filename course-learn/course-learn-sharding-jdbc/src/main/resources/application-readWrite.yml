@@ -12,7 +12,7 @@ spring:
       ds-master:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url:  jdbc:mysql://139.186.153.56:3306/ds_master0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        url:  jdbc:mysql://47.100.173.179:3306/ds_master0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password:  qinlei131479@QQ!!
         initial-size: 4 # 初始化时建立物理连接的个数
@@ -24,7 +24,7 @@ spring:
       ds-slave0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://139.186.161.146:3306/ds_master0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+        url: jdbc:mysql://121.89.200.198:3306/ds_master0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: qinlei131479@QQ!!
         initial-size: 4 # 初始化时建立物理连接的个数

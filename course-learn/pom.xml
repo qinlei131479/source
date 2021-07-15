@@ -20,5 +20,6 @@
         <module>course-learn-springboot</module>
         <module>course-learn-springmvc</module>
         <module>course-learn-sharding-jdbc</module>
+        <module>course-learn-redis</module>
     </modules>
 </project>

@@ -123,4 +123,58 @@ public class RedisUtil {
 			}
 		}, serializer);
 	}
+
+	/**
+	 * bitmap使用场景：日活统计、bloomfilter、点赞
+	 * 
+	 * @param key
+	 * @param id
+	 * @param flag
+	 */
+	public void setBitmap(String key, Long id, Boolean flag) {
+		redisTemplate.opsForValue().setBit(key, id, flag);
+	}
+
+	/**
+	 * 获取bitmap
+	 * 
+	 * @param key
+	 * @param id
+	 * @return
+	 */
+	public Boolean getBitmap(String key, Long id) {
+		return redisTemplate.opsForValue().getBit(key, id);
+	}
+
+	/**
+	 * 获取bitmap
+	 *
+	 * @param key
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public Long bitCount(String key, Long start, Long end) {
+		return redisTemplate.execute((RedisCallback<Long>) con -> con.bitCount(key.getBytes(), start, end));
+	}
+
+	public void pfAdd(String key, Long id) {
+		redisTemplate.opsForHyperLogLog().add(key, id);
+	}
+
+	public Long pfCount(String key) {
+		return redisTemplate.opsForHyperLogLog().size(key);
+	}
+
+	/**
+	 * 合并一个新的mergeKey
+	 * 
+	 * @param mergeKey
+	 * @param key
+	 * @return
+	 */
+	public boolean merge(String mergeKey, String... key) {
+		// pfmerge mergeKey key1 key2 ---> 将key1 key2 合并成一个新的mergeKey
+		return redisTemplate.opsForHyperLogLog().union(mergeKey, key) > 0;
+	}
 }

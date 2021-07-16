@@ -129,4 +129,27 @@ public class RedisTemplateConfig {
 	public ZSetOperations<String, Object> zSetOperations(RedisTemplate<String, Object> redisTemplate) {
 		return redisTemplate.opsForZSet();
 	}
+
+	/**
+	 * 基于bitmap实现；用途：记录网站ip注册数、每日访问ip数、页面实时UV、在线用户人数
+	 * 
+	 * @param redisTemplate
+	 * @return
+	 */
+	@Bean
+	public HyperLogLogOperations<String, Object> hyperLogLogOperations(RedisTemplate<String, Object> redisTemplate) {
+		return redisTemplate.opsForHyperLogLog();
+	}
+
+	/**
+	 * 地理位置
+	 * 
+	 * @param redisTemplate
+	 * @return
+	 */
+	@Bean
+	public GeoOperations<String, Object> geoOperations(RedisTemplate<String, Object> redisTemplate) {
+		return redisTemplate.opsForGeo();
+	}
+
 }

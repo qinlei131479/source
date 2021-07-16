@@ -1,10 +1,17 @@
 package com.course.common.cache.utils;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisStringCommands;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.types.Expiration;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
 import com.course.common.cache.enums.RedisKeyEnum;
@@ -33,6 +40,13 @@ public class RedisUtil {
 	 */
 	public Object get(String key) {
 		return key == null ? null : redisTemplate.opsForValue().get(key);
+	}
+
+	/**
+	 * 删除缓存key
+	 */
+	public Boolean del(String key) {
+		return redisTemplate.delete(key);
 	}
 
 	/**
@@ -88,4 +102,25 @@ public class RedisUtil {
 		return (String) this.redisTemplate.boundListOps(RedisKeyEnum.key.getKey()).leftPop();
 	}
 
+	/**
+	 * 批量处理pipeline
+	 * 
+	 * @param map
+	 * @param seconds
+	 */
+	public void executePipelined(Map map, long seconds) {
+		RedisSerializer serializer = redisTemplate.getStringSerializer();
+		redisTemplate.executePipelined(new RedisCallback() {
+			@Override
+			public Object doInRedis(RedisConnection connection) throws DataAccessException {
+				if (map != null) {
+					map.forEach((key, value) -> {
+						connection.set(serializer.serialize(key), serializer.serialize(value),
+								Expiration.seconds(seconds), RedisStringCommands.SetOption.UPSERT);
+					});
+				}
+				return null;
+			}
+		}, serializer);
+	}
 }

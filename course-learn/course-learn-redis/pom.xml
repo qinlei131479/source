@@ -14,15 +14,15 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>course-common-cache</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
             <version>3.16.0</version>
         </dependency>
-        <!--redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>

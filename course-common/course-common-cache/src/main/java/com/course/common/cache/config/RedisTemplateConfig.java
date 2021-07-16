@@ -11,8 +11,8 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import lombok.RequiredArgsConstructor;
@@ -34,10 +34,10 @@ public class RedisTemplateConfig {
 	@Bean
 	public RedisTemplate<String, Object> redisTemplate() {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-		redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
-		redisTemplate.setHashValueSerializer(new JdkSerializationRedisSerializer());
+		redisTemplate.setKeySerializer(keySerializer());
+		redisTemplate.setHashKeySerializer(keySerializer());
+		redisTemplate.setValueSerializer(valueSerializer());
+		redisTemplate.setHashValueSerializer(valueSerializer());
 		redisTemplate.setConnectionFactory(factory);
 		return redisTemplate;
 	}
@@ -47,19 +47,62 @@ public class RedisTemplateConfig {
 	 */
 	@Bean
 	public CacheManager cacheManager(RedisConnectionFactory factory) {
-		GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
-		StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 		// 配置序列化
 		RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
 		RedisCacheConfiguration redisCacheConfiguration = config
 				// 变双冒号为单冒号
 				.computePrefixWith(name -> name + ":")
 				// 键序列化方式 redis字符串序列化
-				.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(stringRedisSerializer))
+				.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(keySerializer()))
 				// 值序列化方式 简单json序列化
-				.serializeValuesWith(
-						RedisSerializationContext.SerializationPair.fromSerializer(genericJackson2JsonRedisSerializer));
+				.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer()));
 		return RedisCacheManager.builder(factory).cacheDefaults(redisCacheConfiguration).build();
+	}
+
+	/**
+	 * key 类型序列化
+	 *
+	 * @return
+	 */
+	@Bean
+	public RedisSerializer<String> keySerializer() {
+		return new StringRedisSerializer();
+	}
+
+	/**
+	 * 值采用JSON序列化 解决LocalDateTime无法redis序列化问题
+	 *
+	 * @return
+	 */
+	@Bean
+	public RedisSerializer<Object> valueSerializer() {
+		// ObjectMapper om = new ObjectMapper();
+		// om.setVisibility(PropertyAccessor.ALL,
+		// JsonAutoDetect.Visibility.ANY);
+		// om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
+		// ObjectMapper.DefaultTyping.NON_FINAL,
+		// JsonTypeInfo.As.PROPERTY);
+		// // om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+		//
+		// // LocalDatetime序列化
+		// DateTimeFormatter date =
+		// DateTimeFormatter.ofPattern(CommonConstants.DATE_FORMATTER);
+		// DateTimeFormatter dateTime =
+		// DateTimeFormatter.ofPattern(CommonConstants.DATETIME_FORMATTER);
+		//
+		// JavaTimeModule timeModule = new JavaTimeModule();
+		// timeModule.addDeserializer(LocalDate.class, new
+		// LocalDateDeserializer(date));
+		// timeModule.addDeserializer(LocalDateTime.class, new
+		// LocalDateTimeDeserializer(dateTime));
+		// timeModule.addSerializer(LocalDate.class, new
+		// LocalDateSerializer(date));
+		// timeModule.addSerializer(LocalDateTime.class, new
+		// LocalDateTimeSerializer(dateTime));
+		//
+		// om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		// om.registerModule(timeModule);
+		return new GenericJackson2JsonRedisSerializer();
 	}
 
 	@Bean

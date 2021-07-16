@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.core.RedisCallback;
@@ -14,6 +15,7 @@ import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
+import com.course.common.cache.RedisTopic;
 import com.course.common.cache.enums.RedisKeyEnum;
 
 /**
@@ -176,5 +178,31 @@ public class RedisUtil {
 	public boolean merge(String mergeKey, String... key) {
 		// pfmerge mergeKey key1 key2 ---> 将key1 key2 合并成一个新的mergeKey
 		return redisTemplate.opsForHyperLogLog().union(mergeKey, key) > 0;
+	}
+
+	/**
+	 * 消息发送
+	 * 
+	 * @param channel
+	 * @param msg
+	 */
+	public void convertAndSend(String channel, Object msg) {
+		redisTemplate.convertAndSend(channel, msg);
+	}
+
+	/**
+	 * channel消息解析
+	 * 
+	 * @param message
+	 * @return
+	 */
+	public Object parseMessage(Message message) {
+		byte[] body = message.getBody();
+		byte[] channel = message.getChannel();
+		String topic = (String) redisTemplate.getStringSerializer().deserialize(channel);
+		if (!topic.equals(RedisTopic.topic)) {
+			return null;
+		}
+		return redisTemplate.getValueSerializer().deserialize(body);
 	}
 }

@@ -1,7 +1,7 @@
 package com.course.common.cache.config;
 
-import com.course.common.cache.RedisTopic;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -18,6 +18,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import com.course.common.cache.RedisTopic;
 
 import lombok.RequiredArgsConstructor;
 
@@ -157,6 +159,7 @@ public class RedisTemplateConfig {
 	}
 
 	@Bean
+	@ConditionalOnBean(MessageListenerAdapter.class)
 	RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
 			MessageListenerAdapter listenerAdapter) {
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();

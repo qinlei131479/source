@@ -17,17 +17,8 @@
             <groupId>com.course</groupId>
             <artifactId>course-common-cache</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.16.0</version>
-        </dependency>
 
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>3.6.1</version>
-        </dependency>
+
         <!--lettuce.pool缓存连接池-->
         <dependency>
             <groupId>org.apache.commons</groupId>

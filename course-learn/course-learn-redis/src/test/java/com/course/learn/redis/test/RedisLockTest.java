@@ -1,6 +1,6 @@
 package com.course.learn.redis.test;
 
-import com.course.learn.redis.lock.DistributedRedisLock;
+import com.course.learn.redis.test.config.DistributedRedisLock;
 
 import lombok.extern.slf4j.Slf4j;
 

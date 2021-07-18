@@ -1,11 +1,9 @@
-package com.course.learn.redis.lock;
+package com.course.learn.redis.test.config;
 
 import java.util.concurrent.TimeUnit;
 
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-
-import com.course.learn.redis.config.RedissonConfig;
 
 import lombok.extern.slf4j.Slf4j;
 

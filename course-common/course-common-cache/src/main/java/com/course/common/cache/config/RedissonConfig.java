@@ -38,18 +38,20 @@ public class RedissonConfig {
 		Integer database = redisProperties.getDatabase() == null ? 0 : redisProperties.getDatabase();
 		if ((cluster = redisProperties.getCluster()) != null && CollUtil.isNotEmpty(cluster.getNodes())) {
 			config.useClusterServers().addNodeAddress(listToArray(cluster.getNodes()))
-					.setPassword(redisProperties.getPassword()).setScanInterval(5000);
+					.setPassword(redisProperties.getPassword())
+					.setPingConnectionInterval(redisProperties.getConnectTimeout()).setScanInterval(5000);
 
 		} else if ((sentinel = redisProperties.getSentinel()) != null && CollUtil.isNotEmpty(sentinel.getNodes())) {
 			// 哨兵模式
 			config.useSentinelServers().addSentinelAddress(listToArray(sentinel.getNodes()))
 					.setCheckSentinelsList(false).setPassword(redisProperties.getPassword())
-					.setMasterName(sentinel.getMaster()).setDatabase(database);
+					.setMasterName(sentinel.getMaster()).setPingConnectionInterval(redisProperties.getConnectTimeout())
+					.setDatabase(database);
 		} else {
 			StringBuffer sb = new StringBuffer();
 			sb.append(REDIS_PREFIX).append(redisProperties.getHost()).append(":").append(redisProperties.getPort());
 			config.useSingleServer().setAddress(sb.toString()).setPassword(redisProperties.getPassword())
-					.setDatabase(database);
+					.setPingConnectionInterval(redisProperties.getConnectTimeout()).setDatabase(database);
 		}
 		return Redisson.create(config);
 	}

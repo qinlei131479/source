@@ -27,4 +27,5 @@ spring:
         max-active: 16 #连接池最大连接数（使用负值表示没有限制）
         max-idle: 16  #连接池中的最大空闲连接
         min-idle: 16 #连接池中的最小空闲连接
+    connect-timeout: 1000
 

@@ -33,6 +33,12 @@ public class RedisProperties {
 	 * 单机端口
 	 */
 	private Integer port;
+
+	/**
+	 * 超时（redisson超时报错）
+	 */
+	private Integer connectTimeout;
+
 	/**
 	 * redis集群，必须new对象，否则无法初始化
 	 */

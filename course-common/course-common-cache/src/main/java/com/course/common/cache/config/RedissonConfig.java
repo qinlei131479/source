@@ -6,12 +6,14 @@ import java.util.stream.Collectors;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.course.common.cache.properties.RedisProperties;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -21,6 +23,7 @@ import lombok.RequiredArgsConstructor;
  * @date 2021/7/18 下午3:18
  */
 @Configuration
+@ConditionalOnClass(RedisProperties.class)
 @RequiredArgsConstructor
 public class RedissonConfig {
 	/**
@@ -35,23 +38,24 @@ public class RedissonConfig {
 		RedisProperties.Cluster cluster = null;
 		RedisProperties.Sentinel sentinel = null;
 		// 单机模式
-		Integer database = redisProperties.getDatabase() == null ? 0 : redisProperties.getDatabase();
 		if ((cluster = redisProperties.getCluster()) != null && CollUtil.isNotEmpty(cluster.getNodes())) {
 			config.useClusterServers().addNodeAddress(listToArray(cluster.getNodes()))
 					.setPassword(redisProperties.getPassword())
-					.setPingConnectionInterval(redisProperties.getConnectTimeout()).setScanInterval(5000);
+					.setPingConnectionInterval(redisProperties.getConnectTimeout())
+					.setScanInterval(redisProperties.getScanInterval());
 
 		} else if ((sentinel = redisProperties.getSentinel()) != null && CollUtil.isNotEmpty(sentinel.getNodes())) {
 			// 哨兵模式
 			config.useSentinelServers().addSentinelAddress(listToArray(sentinel.getNodes()))
 					.setCheckSentinelsList(false).setPassword(redisProperties.getPassword())
 					.setMasterName(sentinel.getMaster()).setPingConnectionInterval(redisProperties.getConnectTimeout())
-					.setDatabase(database);
+					.setDatabase(redisProperties.getDatabase()).setScanInterval(redisProperties.getScanInterval());
 		} else {
 			StringBuffer sb = new StringBuffer();
-			sb.append(REDIS_PREFIX).append(redisProperties.getHost()).append(":").append(redisProperties.getPort());
+			sb.append(prefixAddress(redisProperties.getHost())).append(":").append(redisProperties.getPort());
 			config.useSingleServer().setAddress(sb.toString()).setPassword(redisProperties.getPassword())
-					.setPingConnectionInterval(redisProperties.getConnectTimeout()).setDatabase(database);
+					.setPingConnectionInterval(redisProperties.getConnectTimeout())
+					.setDatabase(redisProperties.getDatabase());
 		}
 		return Redisson.create(config);
 	}
@@ -63,7 +67,20 @@ public class RedissonConfig {
 	 * @return
 	 */
 	private String[] listToArray(List<String> list) {
-		List<String> doneList = list.stream().map(item -> item = REDIS_PREFIX + item).collect(Collectors.toList());
+		List<String> doneList = list.stream().map(address -> prefixAddress(address)).collect(Collectors.toList());
 		return doneList.toArray(new String[doneList.size()]);
+	}
+
+	/**
+	 * redis服务地址补充redis://
+	 * 
+	 * @param address
+	 * @return
+	 */
+	private String prefixAddress(String address) {
+		if (StrUtil.isNotBlank(address) && !address.startsWith(REDIS_PREFIX)) {
+			return REDIS_PREFIX + address;
+		}
+		return address;
 	}
 }

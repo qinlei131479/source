@@ -3,6 +3,7 @@ package com.course.common.cache.properties;
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.Data;
@@ -24,7 +25,7 @@ public class RedisProperties {
 	/**
 	 * 使用redis库下标
 	 */
-	private Integer database;
+	private Integer database = 0;
 	/**
 	 * 单机host
 	 */
@@ -32,25 +33,30 @@ public class RedisProperties {
 	/**
 	 * 单机端口
 	 */
-	private Integer port;
+	private Integer port = 6379;
 
 	/**
 	 * 超时（redisson超时报错）
 	 */
-	private Integer connectTimeout;
+	private Integer connectTimeout = 1000;
+
+	/**
+	 * 扫描（redisson超时报错）
+	 */
+	private Integer scanInterval = 5000;
 
 	/**
 	 * redis集群，必须new对象，否则无法初始化
 	 */
+	@NestedConfigurationProperty
 	private Cluster cluster = new Cluster();
 	/**
 	 * 哨兵配置，必须new对象，否则无法初始化
 	 */
+	@NestedConfigurationProperty
 	private Sentinel sentinel = new Sentinel();
 
 	@Data
-	@Configuration
-	@ConfigurationProperties(prefix = "spring.redis.cluster")
 	public class Cluster {
 
 		private List<String> nodes;
@@ -59,8 +65,6 @@ public class RedisProperties {
 	}
 
 	@Data
-	@Configuration
-	@ConfigurationProperties(prefix = "spring.redis.sentinel")
 	public class Sentinel {
 
 		private String master;

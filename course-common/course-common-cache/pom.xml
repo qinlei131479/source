@@ -33,7 +33,14 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
-<!--            <scope>provided</scope>-->
+            <!--            <scope>provided</scope>-->
+        </dependency>
+        <!--yml文件提示自定义字段必须引入此文件和spring-configuration-metadata.json -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

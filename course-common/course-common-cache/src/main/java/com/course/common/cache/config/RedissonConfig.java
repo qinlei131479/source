@@ -35,10 +35,11 @@ public class RedissonConfig {
 	@Bean
 	public RedissonClient redissonClient() {
 		Config config = new Config();
+		config.setLockWatchdogTimeout(redisProperties.getLockWatchdogTimeout());
 		RedisProperties.Cluster cluster = null;
 		RedisProperties.Sentinel sentinel = null;
-		// 单机模式
 		if ((cluster = redisProperties.getCluster()) != null && CollUtil.isNotEmpty(cluster.getNodes())) {
+			// 集群模式
 			config.useClusterServers().addNodeAddress(listToArray(cluster.getNodes()))
 					.setPassword(redisProperties.getPassword())
 					.setPingConnectionInterval(redisProperties.getConnectTimeout())
@@ -51,10 +52,12 @@ public class RedissonConfig {
 					.setMasterName(sentinel.getMaster()).setPingConnectionInterval(redisProperties.getConnectTimeout())
 					.setDatabase(redisProperties.getDatabase()).setScanInterval(redisProperties.getScanInterval());
 		} else {
+			// 单机模式
 			StringBuffer sb = new StringBuffer();
 			sb.append(prefixAddress(redisProperties.getHost())).append(":").append(redisProperties.getPort());
 			config.useSingleServer().setAddress(sb.toString()).setPassword(redisProperties.getPassword())
 					.setPingConnectionInterval(redisProperties.getConnectTimeout())
+					.setTimeout(redisProperties.getTimeout())
 					.setDatabase(redisProperties.getDatabase());
 		}
 		return Redisson.create(config);

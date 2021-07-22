@@ -6,6 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.context.annotation.Configuration;
 
+import com.course.common.cache.enums.LockModel;
+
 import lombok.Data;
 
 /**
@@ -30,20 +32,34 @@ public class RedisProperties {
 	 * 单机host
 	 */
 	private String host;
+
 	/**
 	 * 单机端口
 	 */
 	private Integer port = 6379;
-
+	/**
+	 * 客户端超时时间
+	 */
+	private Integer timeout = 3000;
 	/**
 	 * 超时（redisson超时报错）
 	 */
 	private Integer connectTimeout = 1000;
 
 	/**
-	 * 扫描（redisson超时报错）
+	 * 扫描redisson超时报错
 	 */
 	private Integer scanInterval = 5000;
+
+	/**
+	 * 监控dog超时时间
+	 */
+	private Integer lockWatchdogTimeout = 30000;
+
+	/**
+	 * 锁的模式 如果不设置 单个key默认可重入锁 多个key默认联锁
+	 */
+	private LockModel lockModel;
 
 	/**
 	 * redis集群，必须new对象，否则无法初始化

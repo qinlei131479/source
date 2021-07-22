@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course.common.cache.RedisTopic;
+import com.course.common.cache.annotation.Lock;
 import com.course.common.cache.utils.RedisUtil;
 import com.course.learn.redis.entity.Notice;
 
@@ -45,5 +46,21 @@ public class TestController {
 		}
 		rLock.unlock();
 		return "success lock";
+	}
+
+	@GetMapping("/notice/lock2")
+	@Lock(keys = "#notice.name", keyConstant = "|")
+	public Object lock2(Notice notice) throws InterruptedException {
+		log.error("rLock2 is success,{}", notice.getName());
+		Thread.sleep(5000);
+		return "success2 lock";
+	}
+
+	@GetMapping("/notice/lock3")
+	@Lock(keys = {"#notice.name","tesssss"})
+	public Object lock3(Notice notice) throws InterruptedException {
+		log.error("rLock3 is success,{}", notice.getName());
+		Thread.sleep(5000);
+		return "success3 lock";
 	}
 }

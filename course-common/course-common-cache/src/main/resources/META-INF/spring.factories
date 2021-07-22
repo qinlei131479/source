@@ -3,4 +3,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
  com.course.common.cache.utils.RedisUtil,\
  com.course.common.cache.properties.RedisProperties,\
  com.course.common.cache.config.RedissonConfig,\
- com.course.common.cache.aspect.LockAspect
+ com.course.common.cache.aspect.LockAspect,\
+ com.course.common.cache.aspect.MqAspect,\
+ com.course.common.cache.config.MqConfig

@@ -1,7 +1,6 @@
 package com.course.common.cache.config;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -57,8 +56,7 @@ public class RedissonConfig {
 			sb.append(prefixAddress(redisProperties.getHost())).append(":").append(redisProperties.getPort());
 			config.useSingleServer().setAddress(sb.toString()).setPassword(redisProperties.getPassword())
 					.setPingConnectionInterval(redisProperties.getConnectTimeout())
-					.setTimeout(redisProperties.getTimeout())
-					.setDatabase(redisProperties.getDatabase());
+					.setTimeout(redisProperties.getTimeout()).setDatabase(redisProperties.getDatabase());
 		}
 		return Redisson.create(config);
 	}
@@ -70,8 +68,7 @@ public class RedissonConfig {
 	 * @return
 	 */
 	private String[] listToArray(List<String> list) {
-		List<String> doneList = list.stream().map(address -> prefixAddress(address)).collect(Collectors.toList());
-		return doneList.toArray(new String[doneList.size()]);
+		return list.stream().map(address -> prefixAddress(address)).toArray(item -> new String[list.size()]);
 	}
 
 	/**

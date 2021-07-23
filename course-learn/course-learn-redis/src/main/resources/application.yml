@@ -34,7 +34,7 @@ redisson:
   password: ql1234
   database: 1
   # 切换模式更改值：SENTINEL哨兵，CLUSTER集群，SINGLE单例
-  model: CLUSTER
+  model: SINGLE
   single-config:
     address: 47.100.173.179:6379
   multiple-config:

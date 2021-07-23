@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * MQ消息切面
+ * 
  * @author qinlei
  * @date 2021/7/22 下午9:43
  */

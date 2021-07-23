@@ -9,11 +9,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.course.common.redission.properties.MultipleConfig;
 import com.course.common.redission.properties.RedissonProperties;
+import com.course.common.redission.properties.SingleConfig;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * redisson客户端注入
@@ -21,6 +24,7 @@ import lombok.RequiredArgsConstructor;
  * @author qinlei
  * @date 2021/7/18 下午3:18
  */
+@Slf4j
 @Configuration
 @ConditionalOnClass(RedissonProperties.class)
 @RequiredArgsConstructor
@@ -35,31 +39,74 @@ public class RedissonConfig {
 	public RedissonClient redissonClient() {
 		Config config = new Config();
 		config.setLockWatchdogTimeout(redissonProperties.getLockWatchdogTimeout());
-		RedissonProperties.Cluster cluster = null;
-		RedissonProperties.Sentinel sentinel = null;
-		if ((cluster = redissonProperties.getCluster()) != null && CollUtil.isNotEmpty(cluster.getNodes())) {
-			// 集群模式
-			config.useClusterServers().addNodeAddress(listToArray(cluster.getNodes()))
-					.setPassword(redissonProperties.getPassword())
-					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
-					.setScanInterval(redissonProperties.getScanInterval());
-
-		} else if ((sentinel = redissonProperties.getSentinel()) != null && CollUtil.isNotEmpty(sentinel.getNodes())) {
-			// 哨兵模式
-			config.useSentinelServers().addSentinelAddress(listToArray(sentinel.getNodes()))
-					.setCheckSentinelsList(false).setPassword(redissonProperties.getPassword())
-					.setMasterName(sentinel.getMaster())
-					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
-					.setDatabase(redissonProperties.getDatabase())
-					.setScanInterval(redissonProperties.getScanInterval());
-		} else {
-			// 单机模式
-			StringBuffer sb = new StringBuffer();
-			sb.append(prefixAddress(redissonProperties.getHost())).append(":").append(redissonProperties.getPort());
-			config.useSingleServer().setAddress(sb.toString()).setPassword(redissonProperties.getPassword())
-					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
-					.setTimeout(redissonProperties.getTimeout()).setDatabase(redissonProperties.getDatabase());
+		config.setCodec(ReflectUtil.newInstance(redissonProperties.getCodec()));
+		if (redissonProperties.getThreads() != null) {
+			config.setThreads(redissonProperties.getThreads());
 		}
+		if (redissonProperties.getNettyThreads() != null) {
+			config.setNettyThreads(redissonProperties.getNettyThreads());
+		}
+		MultipleConfig multipleConfig = redissonProperties.getMultipleConfig();
+		switch (redissonProperties.getModel()) {
+		// 哨兵模式
+		case SENTINEL:
+			config.useSentinelServers().addSentinelAddress(listToArray(multipleConfig.getNodes()))
+					.setCheckSentinelsList(false).setPassword(redissonProperties.getPassword())
+					.setMasterName(multipleConfig.getMasterName()).setDatabase(redissonProperties.getDatabase())
+					.setRetryAttempts(redissonProperties.getRetryAttempts())
+					.setRetryInterval(redissonProperties.getRetryInterval())
+					.setDnsMonitoringInterval(redissonProperties.getDnsMonitorInterval())
+					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
+					.setSubscriptionConnectionMinimumIdleSize(redissonProperties.getSubscriptionConnectionMinIdleSize())
+					.setSubscriptionConnectionPoolSize(redissonProperties.getSubscriptionConnectionPoolSize())
+					.setScanInterval(multipleConfig.getScanInterval());
+
+			break;
+		// 集群模式
+		case CLUSTER:
+			config.useClusterServers().addNodeAddress(listToArray(multipleConfig.getNodes()))
+					.setPassword(redissonProperties.getPassword())
+					.setRetryAttempts(redissonProperties.getRetryAttempts())
+					.setRetryInterval(redissonProperties.getRetryInterval())
+					.setDnsMonitoringInterval(redissonProperties.getDnsMonitorInterval())
+					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
+					.setSubscriptionConnectionMinimumIdleSize(redissonProperties.getSubscriptionConnectionMinIdleSize())
+					.setSubscriptionConnectionPoolSize(redissonProperties.getSubscriptionConnectionPoolSize())
+					.setReadMode(multipleConfig.getReadMode()).setSubscriptionMode(multipleConfig.getSubscriptionMode())
+					.setLoadBalancer(ReflectUtil.newInstance(multipleConfig.getLoadBalancer()))
+					.setScanInterval(multipleConfig.getScanInterval()).setTimeout(redissonProperties.getTimeout());
+
+			break;
+		// 云托管模式
+		case REPLICATED:
+			config.useReplicatedServers().addNodeAddress(listToArray(multipleConfig.getNodes()))
+					.setPassword(redissonProperties.getPassword())
+					.setRetryAttempts(redissonProperties.getRetryAttempts())
+					.setRetryInterval(redissonProperties.getRetryInterval())
+					.setDnsMonitoringInterval(redissonProperties.getDnsMonitorInterval())
+					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
+					.setSubscriptionConnectionMinimumIdleSize(redissonProperties.getSubscriptionConnectionMinIdleSize())
+					.setSubscriptionConnectionPoolSize(redissonProperties.getSubscriptionConnectionPoolSize())
+					.setReadMode(multipleConfig.getReadMode()).setSubscriptionMode(multipleConfig.getSubscriptionMode())
+					.setLoadBalancer(ReflectUtil.newInstance(multipleConfig.getLoadBalancer()))
+					.setScanInterval(multipleConfig.getScanInterval()).setTimeout(redissonProperties.getTimeout());
+			break;
+		// 单机模式
+		default:
+			SingleConfig singleConfig = redissonProperties.getSingleConfig();
+			config.useSingleServer().setAddress(prefixAddress(singleConfig.getAddress()))
+					.setPassword(redissonProperties.getPassword()).setDatabase(redissonProperties.getDatabase())
+					.setConnectionMinimumIdleSize(singleConfig.getConnectionMinIdleSize())
+					.setConnectionPoolSize(singleConfig.getConnectionPoolSize())
+					.setRetryAttempts(redissonProperties.getRetryAttempts())
+					.setRetryInterval(redissonProperties.getRetryInterval())
+					.setDnsMonitoringInterval(redissonProperties.getDnsMonitorInterval())
+					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
+					.setSubscriptionConnectionMinimumIdleSize(redissonProperties.getSubscriptionConnectionMinIdleSize())
+					.setSubscriptionConnectionPoolSize(redissonProperties.getSubscriptionConnectionPoolSize())
+					.setTimeout(redissonProperties.getTimeout());
+		}
+		log.info("redisson mode = {}", redissonProperties.getModel());
 		return Redisson.create(config);
 	}
 

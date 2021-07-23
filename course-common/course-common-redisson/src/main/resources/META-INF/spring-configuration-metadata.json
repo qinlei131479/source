@@ -3,15 +3,177 @@
   "groups": [
     {
       "sourceType": "com.course.common.redission.properties.RedissonProperties",
-      "name": "spring.redis",
+      "name": "redisson",
       "type": "com.course.common.redission.properties.RedissonProperties"
     }
   ],
   "properties": [
     {
       "sourceType": "com.course.common.redission.properties.RedissonProperties",
-      "name": "spring.redis.scan-interval",
+      "name": "redisson.password",
+      "description": "password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.database",
+      "description": "0",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.timeout",
+      "description": "3000 ms",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.connect-timeout",
+      "description": "1000 ms",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.lock-watchdog-timeout",
+      "description": "30000 ms",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.model",
+      "description": "com.course.common.redission.enums.Model",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.codec",
+      "description": "org.redisson.codec.JsonJacksonCodec",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.threads",
+      "description": "8",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.netty-threads",
+      "description": "8",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.lock-model",
+      "description": "com.course.common.redission.enums.LockModel",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.retry-attempts",
+      "description": "3",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.retry-interval",
+      "description": "1500 ms",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.subscription-connection-min-idle-size",
+      "description": "1",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.subscription-connection-pool-size",
+      "description": "50",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.dns-monitor-interval",
+      "description": "5000 ms",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.single-config.address",
+      "description": "",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.single-config.connection-min-idle-size",
+      "description": "32",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.single-config.connection-pool-size",
+      "description": "64",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.nodes",
+      "description": "nodes",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.master-name",
+      "description": "masterName",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.scan-interval",
       "description": "scan-interval",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.load-balancer",
+      "description": "org.redisson.connection.balancer.RoundRobinLoadBalancer",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.read-mode",
+      "description": "org.redisson.config.ReadMode",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.subscription-mode",
+      "description": "org.redisson.config.SubscriptionMode",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.slave-connection-min-idle-size",
+      "description": "32",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.slave-connection-pool-size",
+      "description": "64",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.master-connection-min-idle-size",
+      "description": "32",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "redisson.multiple-config.master-connection-pool-size",
+      "description": "64",
       "type": "java.lang.Integer"
     }
   ]

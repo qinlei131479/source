@@ -93,6 +93,6 @@ public class RedissonProperties {
 	 * 哨兵、集群、主从 配置，必须new对象，否则无法初始化
 	 */
 	@NestedConfigurationProperty
-	private MultipleConfig multipleConfig = new MultipleConfig();
+	private MultipleConfig multipleConfig;
 
 }

@@ -8,7 +8,4 @@ public interface RedisTopic {
 
 	String topic = "topicName";
 
-	String redisson_topic = "redissonTopic";
-
-	String redisson_pattern = "redissonPattern";
 }

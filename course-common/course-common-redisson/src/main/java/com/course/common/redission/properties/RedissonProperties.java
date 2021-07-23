@@ -1,4 +1,4 @@
-package com.course.common.cache.properties;
+package com.course.common.redission.properties;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.context.annotation.Configuration;
 
-import com.course.common.cache.enums.LockModel;
+import com.course.common.redission.enums.LockModel;
 
 import lombok.Data;
 
@@ -19,7 +19,7 @@ import lombok.Data;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "spring.redis")
-public class RedisProperties {
+public class RedissonProperties {
 	/**
 	 * 密码
 	 */

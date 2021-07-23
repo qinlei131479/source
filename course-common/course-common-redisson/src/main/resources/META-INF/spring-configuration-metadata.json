@@ -1,0 +1,18 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "spring.redis",
+      "type": "com.course.common.redission.properties.RedissonProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.course.common.redission.properties.RedissonProperties",
+      "name": "spring.redis.scan-interval",
+      "description": "scan-interval",
+      "type": "java.lang.Integer"
+    }
+  ]
+}

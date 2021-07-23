@@ -2,6 +2,7 @@ package com.course.learn.redis.controller;
 
 import java.util.concurrent.TimeUnit;
 
+import com.course.common.redission.annotation.Lock;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.course.common.cache.RedisTopic;
-import com.course.common.cache.annotation.Lock;
 import com.course.common.cache.utils.RedisUtil;
 import com.course.learn.redis.entity.Notice;
 

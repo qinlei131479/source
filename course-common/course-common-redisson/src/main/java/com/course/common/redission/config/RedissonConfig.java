@@ -1,4 +1,4 @@
-package com.course.common.cache.config;
+package com.course.common.redission.config;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.course.common.cache.properties.RedisProperties;
+import com.course.common.redission.properties.RedissonProperties;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
@@ -22,41 +22,43 @@ import lombok.RequiredArgsConstructor;
  * @date 2021/7/18 下午3:18
  */
 @Configuration
-@ConditionalOnClass(RedisProperties.class)
+@ConditionalOnClass(RedissonProperties.class)
 @RequiredArgsConstructor
 public class RedissonConfig {
 	/**
 	 * 注入的redis属性
 	 */
-	private final RedisProperties redisProperties;
+	private final RedissonProperties redissonProperties;
 	private final static String REDIS_PREFIX = "redis://";
 
 	@Bean
 	public RedissonClient redissonClient() {
 		Config config = new Config();
-		config.setLockWatchdogTimeout(redisProperties.getLockWatchdogTimeout());
-		RedisProperties.Cluster cluster = null;
-		RedisProperties.Sentinel sentinel = null;
-		if ((cluster = redisProperties.getCluster()) != null && CollUtil.isNotEmpty(cluster.getNodes())) {
+		config.setLockWatchdogTimeout(redissonProperties.getLockWatchdogTimeout());
+		RedissonProperties.Cluster cluster = null;
+		RedissonProperties.Sentinel sentinel = null;
+		if ((cluster = redissonProperties.getCluster()) != null && CollUtil.isNotEmpty(cluster.getNodes())) {
 			// 集群模式
 			config.useClusterServers().addNodeAddress(listToArray(cluster.getNodes()))
-					.setPassword(redisProperties.getPassword())
-					.setPingConnectionInterval(redisProperties.getConnectTimeout())
-					.setScanInterval(redisProperties.getScanInterval());
+					.setPassword(redissonProperties.getPassword())
+					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
+					.setScanInterval(redissonProperties.getScanInterval());
 
-		} else if ((sentinel = redisProperties.getSentinel()) != null && CollUtil.isNotEmpty(sentinel.getNodes())) {
+		} else if ((sentinel = redissonProperties.getSentinel()) != null && CollUtil.isNotEmpty(sentinel.getNodes())) {
 			// 哨兵模式
 			config.useSentinelServers().addSentinelAddress(listToArray(sentinel.getNodes()))
-					.setCheckSentinelsList(false).setPassword(redisProperties.getPassword())
-					.setMasterName(sentinel.getMaster()).setPingConnectionInterval(redisProperties.getConnectTimeout())
-					.setDatabase(redisProperties.getDatabase()).setScanInterval(redisProperties.getScanInterval());
+					.setCheckSentinelsList(false).setPassword(redissonProperties.getPassword())
+					.setMasterName(sentinel.getMaster())
+					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
+					.setDatabase(redissonProperties.getDatabase())
+					.setScanInterval(redissonProperties.getScanInterval());
 		} else {
 			// 单机模式
 			StringBuffer sb = new StringBuffer();
-			sb.append(prefixAddress(redisProperties.getHost())).append(":").append(redisProperties.getPort());
-			config.useSingleServer().setAddress(sb.toString()).setPassword(redisProperties.getPassword())
-					.setPingConnectionInterval(redisProperties.getConnectTimeout())
-					.setTimeout(redisProperties.getTimeout()).setDatabase(redisProperties.getDatabase());
+			sb.append(prefixAddress(redissonProperties.getHost())).append(":").append(redissonProperties.getPort());
+			config.useSingleServer().setAddress(sb.toString()).setPassword(redissonProperties.getPassword())
+					.setPingConnectionInterval(redissonProperties.getConnectTimeout())
+					.setTimeout(redissonProperties.getTimeout()).setDatabase(redissonProperties.getDatabase());
 		}
 		return Redisson.create(config);
 	}

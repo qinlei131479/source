@@ -1,4 +1,4 @@
-package com.course.common.cache.exception;
+package com.course.common.redission.exception;
 
 /**
  * @author qinlei

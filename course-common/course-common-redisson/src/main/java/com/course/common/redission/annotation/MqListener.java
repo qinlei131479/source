@@ -1,8 +1,9 @@
-package com.course.common.cache.annotation;
+package com.course.common.redission.annotation;
+
+import com.course.common.redission.enums.MqModel;
 
 import java.lang.annotation.*;
 
-import com.course.common.cache.enums.MqModel;
 
 /**
  * MQ监听消息

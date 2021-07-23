@@ -1,8 +1,11 @@
-package com.course.common.cache.aspect;
+package com.course.common.redission.aspect;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.course.common.redission.annotation.Lock;
+import com.course.common.redission.enums.LockModel;
+import com.course.common.redission.exception.LockException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,9 +23,6 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 
-import com.course.common.cache.annotation.Lock;
-import com.course.common.cache.enums.LockModel;
-import com.course.common.cache.exception.LockException;
 
 import cn.hutool.core.collection.CollUtil;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
-package com.course.common.cache.aspect;
+package com.course.common.redission.aspect;
 
+import com.course.common.redission.annotation.MqPublish;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -7,7 +8,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
 
-import com.course.common.cache.annotation.MqPublish;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

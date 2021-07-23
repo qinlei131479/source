@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+ com.course.common.redission.properties.RedissonProperties,\
+ com.course.common.redission.config.RedissonConfig,\
+ com.course.common.redission.aspect.LockAspect,\
+ com.course.common.redission.aspect.MqAspect,\
+ com.course.common.redission.config.MqConfig

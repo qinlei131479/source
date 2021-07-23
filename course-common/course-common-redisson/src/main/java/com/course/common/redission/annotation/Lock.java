@@ -1,9 +1,9 @@
-package com.course.common.cache.annotation;
+package com.course.common.redission.annotation;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
-import com.course.common.cache.enums.LockModel;
+import com.course.common.redission.enums.LockModel;
 
 /**
  * 分布式锁注解
@@ -17,16 +17,16 @@ import com.course.common.cache.enums.LockModel;
 public @interface Lock {
 
 	/**
-	 * 锁的模式:如果不设置,自动模式,当参数只有一个.使用 REENTRANT 参数多个 MULTIPLE
-	 */
-	LockModel lockModel() default LockModel.AUTO;
-
-	/**
 	 * 如果keys有多个,如果不设置,则使用 联锁
-	 * 
+	 *
 	 * @return
 	 */
 	String[] keys() default {};
+
+	/**
+	 * 锁的模式:如果不设置,自动模式,当参数只有一个.使用 REENTRANT 参数多个 MULTIPLE
+	 */
+	LockModel lockModel() default LockModel.AUTO;
 
 	/**
 	 * key的静态常量:当key的spel的值是LIST,数组时使用+号连接将会被spel认为这个变量是个字符串,只能产生一把锁,达不到我们的目的,<br/>

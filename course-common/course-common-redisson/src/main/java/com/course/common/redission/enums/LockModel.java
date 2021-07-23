@@ -1,4 +1,4 @@
-package com.course.common.cache.enums;
+package com.course.common.redission.enums;
 
 /**
  * 分布式锁-模式

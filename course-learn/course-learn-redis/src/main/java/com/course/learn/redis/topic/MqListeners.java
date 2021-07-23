@@ -1,10 +1,10 @@
 package com.course.learn.redis.topic;
 
+import com.course.common.redission.CommonTopic;
+import com.course.common.redission.annotation.MqListener;
+import com.course.common.redission.enums.MqModel;
 import org.springframework.stereotype.Component;
 
-import com.course.common.cache.RedisTopic;
-import com.course.common.cache.annotation.MqListener;
-import com.course.common.cache.enums.MqModel;
 import com.course.learn.redis.entity.Notice;
 
 import cn.hutool.json.JSONUtil;
@@ -27,7 +27,7 @@ public class MqListeners {
 	 * @param charSequence
 	 * @param notice
 	 */
-	@MqListener(name = RedisTopic.redisson_topic)
+	@MqListener(name = CommonTopic.redisson_topic)
 	public void customer(CharSequence charSequence, Notice notice, Object object) {
 		log.error("charSequence = {}", charSequence);
 		log.error("收到消息Notice = {},收到消息Object = {}", JSONUtil.toJsonStr(notice), object);
@@ -42,7 +42,7 @@ public class MqListeners {
 	 * @param charSequence
 	 * @param notice
 	 */
-	@MqListener(name = RedisTopic.redisson_pattern + "*", model = MqModel.PATTERN)
+	@MqListener(name = CommonTopic.redisson_pattern + "*", model = MqModel.PATTERN)
 	public void customer(CharSequence patten, CharSequence charSequence, Notice notice) {
 		log.error("charSequence = {}", charSequence);
 		log.error("收到消息Notice = {},收到消息patten = {}", JSONUtil.toJsonStr(notice), patten);

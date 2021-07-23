@@ -17,7 +17,10 @@
             <groupId>com.course</groupId>
             <artifactId>course-common-cache</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>course-common-redisson</artifactId>
+        </dependency>
 
         <!--lettuce.pool缓存连接池-->
         <dependency>

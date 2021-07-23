@@ -1,4 +1,4 @@
-package com.course.common.cache.enums;
+package com.course.common.redission.enums;
 
 /**
  * MQ监听消息匹配模式

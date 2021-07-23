@@ -18,6 +18,7 @@
         <module>course-common-job</module>
         <module>course-common-shardingjdbc</module>
         <module>course-common-cache</module>
+        <module>course-common-redisson</module>
     </modules>
 
 </project>

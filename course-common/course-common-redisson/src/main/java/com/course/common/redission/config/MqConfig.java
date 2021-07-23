@@ -1,7 +1,8 @@
-package com.course.common.cache.config;
+package com.course.common.redission.config;
 
 import java.lang.reflect.Method;
 
+import com.course.common.redission.annotation.MqListener;
 import org.redisson.api.RPatternTopic;
 import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
@@ -13,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
 
-import com.course.common.cache.annotation.MqListener;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.course.common.cache.RedisTopic;
-import com.course.common.cache.annotation.MqPublish;
+import com.course.common.redission.CommonTopic;
+import com.course.common.redission.annotation.MqPublish;
 import com.course.learn.redis.entity.Notice;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class SendMsgController {
 	 */
 	@GetMapping("/send/{name}/{val}")
 	public Object notice(@PathVariable String name, @PathVariable String val) {
-		RTopic topic = redissonClient.getTopic(RedisTopic.redisson_topic);
+		RTopic topic = redissonClient.getTopic(CommonTopic.redisson_topic);
 		topic.publish(new Notice(name, val));
 		return "success";
 	}
@@ -46,13 +46,13 @@ public class SendMsgController {
 	 * @return
 	 */
 	@GetMapping("/send2/{name}/{val}")
-	@MqPublish(name = RedisTopic.redisson_topic)
+	@MqPublish(name = CommonTopic.redisson_topic)
 	public Notice notice2(@PathVariable String name, @PathVariable String val) {
 		return new Notice(name, val);
 	}
 
 	@GetMapping("/send3/{name}/{val}")
-	@MqPublish(name = RedisTopic.redisson_pattern)
+	@MqPublish(name = CommonTopic.redisson_pattern)
 	public Notice notice3(@PathVariable String name, @PathVariable String val) {
 		return new Notice(name, val);
 	}

@@ -1,4 +1,4 @@
-package com.course.common.cache.annotation;
+package com.course.common.redission.annotation;
 
 import java.lang.annotation.*;
 

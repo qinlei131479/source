@@ -15,9 +15,8 @@
         <module>course-learn-java</module>
         <module>course-learn-mybatis</module>
         <module>course-learn-spring</module>
-        <module>course-learn-springboot</module>
         <module>course-learn-springmvc</module>
+        <module>course-learn-springboot</module>
         <module>course-learn-shardingJdbc</module>
-        <module>course-learn-redis</module>
     </modules>
 </project>

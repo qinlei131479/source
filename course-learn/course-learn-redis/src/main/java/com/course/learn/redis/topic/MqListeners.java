@@ -1,10 +1,10 @@
 package com.course.learn.redis.topic;
 
+import org.springframework.stereotype.Component;
+
 import com.course.common.redission.CommonTopic;
 import com.course.common.redission.annotation.MqListener;
 import com.course.common.redission.enums.MqModel;
-import org.springframework.stereotype.Component;
-
 import com.course.learn.redis.entity.Notice;
 
 import cn.hutool.json.JSONUtil;
@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
+@MqListener
 public class MqListeners {
 
 	/**

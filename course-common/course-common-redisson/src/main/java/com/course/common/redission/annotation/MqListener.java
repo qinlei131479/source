@@ -1,9 +1,8 @@
 package com.course.common.redission.annotation;
 
-import com.course.common.redission.enums.MqModel;
-
 import java.lang.annotation.*;
 
+import com.course.common.redission.enums.MqModel;
 
 /**
  * MQ监听消息
@@ -12,7 +11,7 @@ import java.lang.annotation.*;
  * @date 2021/7/22 下午9:37
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target({ ElementType.METHOD, ElementType.TYPE })
 @Documented
 public @interface MqListener {
 	/**
@@ -20,7 +19,7 @@ public @interface MqListener {
 	 * 
 	 * @return
 	 */
-	String name();
+	String name() default "topic";
 
 	/**
 	 * 匹配模式 <br />

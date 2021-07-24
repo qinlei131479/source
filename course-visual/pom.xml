@@ -12,8 +12,8 @@
     <artifactId>course-visual</artifactId>
 
     <modules>
-        <module>course-generator</module>
-        <module>course-xxx-job-admin</module>
+        <module>course-visual-generator</module>
+        <module>course-vusual-xxxJobAdmin</module>
     </modules>
 
 </project>

@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: dev,redis
   application:
     name: @artifactId@
   # 数据源
@@ -12,9 +12,6 @@ spring:
     username: root
     password: iflash
     url: jdbc:mysql://styn-mysql:3306/swine_main?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
-  redis:
-    host: styn-redis
-    database: 8
     #password:
 
 # mybaits-plus配置

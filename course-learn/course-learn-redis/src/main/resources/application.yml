@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: @artifactId@
   redis:
     #redis密码
     password: ql1234

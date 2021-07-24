@@ -35,7 +35,7 @@ public class InstanceConfig implements InitializingBean {
 	/**
 	 * 应用端口
 	 */
-	@Value("${server.port}")
+	@Value("${server.port:8080}")
 	private String appPort;
 	/**
 	 * 实例ip

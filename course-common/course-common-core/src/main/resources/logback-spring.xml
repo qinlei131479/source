@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false" scan="false">
-    <springProperty scop="context" name="application.name" source="spring.application.name" defaultValue=""/>
+    <!-- 项目名称，每个项目配置 -->
+    <springProperty scop="context" name="application.name" source="spring.application.name" defaultValue="appName"/>
+    <!-- 日志输出路径，正式环境可在yml或Properties中配置log.path -->
     <springProperty scop="context" name="log.path" source="log.path" defaultValue="/Users/qinlei/Downloads/logs"/>
     <!--    <property name="log.path" value="${log_path_prefix}/${applicationName}"/>-->
     <!-- 彩色日志格式 -->
@@ -13,12 +15,6 @@
                     converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
     <conversionRule conversionWord="wEx"
                     converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
-    <!-- Console log output -->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
 
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.path}/${application.name}/info.log</file>
@@ -63,6 +59,13 @@
         </filter>
     </appender>
 
+    <!-- Console log output -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
     <!--nacos 心跳 INFO 屏蔽-->
     <logger name="com.alibaba.nacos" level="OFF">
         <appender-ref ref="error"/>
@@ -75,4 +78,5 @@
         <!--        <appender-ref ref="debug"/>-->
         <appender-ref ref="error"/>
     </root>
+
 </configuration>

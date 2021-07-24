@@ -20,10 +20,12 @@
         <dependency>
             <groupId>com.course</groupId>
             <artifactId>course-common-cache</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.course</groupId>
             <artifactId>course-common-redisson</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!--lettuce.pool缓存连接池-->

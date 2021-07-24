@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>course-visual-generator</artifactId>
+    <artifactId>course-generator</artifactId>
 
     <dependencies>
         <dependency>

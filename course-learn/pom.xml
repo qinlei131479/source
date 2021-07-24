@@ -12,8 +12,7 @@
     <artifactId>course-learn</artifactId>
 
     <modules>
-        <module>course-learn-design</module>
-        <module>course-learn-jvm</module>
+        <module>course-learn-java</module>
         <module>course-learn-mybatis</module>
         <module>course-learn-mybatisplus</module>
         <module>course-learn-spring</module>

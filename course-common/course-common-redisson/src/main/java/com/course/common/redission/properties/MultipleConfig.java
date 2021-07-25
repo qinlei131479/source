@@ -50,19 +50,19 @@ public class MultipleConfig {
 	 * 多从节点的环境里，每个从服务节点里用于普通操作（非发布和订阅）的最小保持连接数（长连接）。<br>
 	 * 长期保持一定数量的连接有利于提高瞬时读取反映速度。
 	 */
-	private Integer slaveConnectionMinIdleSize = 32;
+	private Integer slaveConnectionMinIdleSize = 4;
 	/**
 	 * 多从节点的环境里，每个从服务节点里用于普通操作（非发布和订阅）连接的连接池最大容量。连接池的连接数量自动弹性伸缩。
 	 */
-	private Integer slaveConnectionPoolSize = 64;
+	private Integer slaveConnectionPoolSize = 8;
 	/**
 	 * 多节点的环境里，每个主节点的最小保持连接数（长连接）。长期保持一定数量的连接有利于提高瞬时写入反应速度。
 	 */
-	private Integer masterConnectionMinIdleSize = 32;
+	private Integer masterConnectionMinIdleSize = 4;
 	/**
 	 * 多主节点的环境里，每个主节点的连接池最大容量。连接池的连接数量自动弹性伸缩。
 	 */
-	private Integer masterConnectionPoolSize = 64;
+	private Integer masterConnectionPoolSize = 8;
 
 
 }

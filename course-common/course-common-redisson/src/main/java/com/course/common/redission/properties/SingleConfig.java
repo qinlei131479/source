@@ -17,10 +17,10 @@ public class SingleConfig {
 	/**
 	 * 最小保持连接数（长连接）。长期保持一定数量的连接有利于提高瞬时写入反应速度。
 	 */
-	private Integer connectionMinIdleSize = 32;
+	private Integer connectionMinIdleSize = 4;
 	/**
 	 * 连接池最大容量。连接池的连接数量自动弹性伸缩。
 	 */
-	private Integer connectionPoolSize = 64;
+	private Integer connectionPoolSize = 8;
 
 }

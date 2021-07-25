@@ -1,14 +1,14 @@
 package com.course.common.core.config;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
-import com.course.common.core.entity.Valid;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import com.course.common.core.entity.Req;
 import com.course.common.core.entity.Res;
-
-import java.util.List;
+import com.course.common.core.entity.Valid;
 
 /**
  * 全局Service
@@ -90,8 +90,10 @@ public interface BaseGlobalService<T> {
 
 	/**
 	 * 检查是否初始化方法
-	 *
+	 * 
 	 * @param point
+	 * @param req
+	 * @param validList
 	 * @return
 	 */
 	boolean checkActionStatusInit(ProceedingJoinPoint point, Req req, List<Valid> validList);

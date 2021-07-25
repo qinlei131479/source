@@ -34,7 +34,7 @@ public class RedissonProperties {
 	/**
 	 * 超时（redisson超时报错）
 	 */
-	private Integer connectTimeout = 1000;
+	private Integer connectTimeout = 5000;
 	/**
 	 * 监控dog超时时间
 	 */
@@ -50,11 +50,11 @@ public class RedissonProperties {
 	/**
 	 * 这个线程池数量被所有RTopic对象监听器，RRemoteService调用者和RExecutorService任务共同共享
 	 */
-	private Integer threads = 8;
+	private Integer threads = 4;
 	/**
 	 * 这个线程池数量是在一个Redisson实例内，被其创建的所有分布式数据类型和服务，以及底层客户端所一同共享的线程池里保存的线程数量
 	 */
-	private Integer nettyThreads = 8;
+	private Integer nettyThreads = 4;
 
 	/**
 	 * 锁的模式:REENTRANT(可重入锁),FAIR(公平锁),MULTIPLE(联锁),REDLOCK(红锁),READ(读锁),
@@ -78,7 +78,7 @@ public class RedissonProperties {
 	/**
 	 * 用于发布和订阅连接的连接池最大容量。连接池的连接数量自动弹性伸缩
 	 */
-	private Integer subscriptionConnectionPoolSize = 50;
+	private Integer subscriptionConnectionPoolSize = 4;
 
 	/**
 	 * 监测DNS的变化情况的时间间隔

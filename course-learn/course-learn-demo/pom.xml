@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>course-learn-springboot</artifactId>
+    <artifactId>course-learn-demo</artifactId>
 
     <dependencies>
         <dependency>

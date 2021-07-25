@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.course.common.cache.utils.RedisUtil;
-import com.course.springboot.CourseApplicaition;
+import com.course.springboot.DemoApplicaition;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2021/7/24 下午6:43
  */
 @Slf4j
-@SpringBootTest(classes = CourseApplicaition.class)
+@SpringBootTest(classes = DemoApplicaition.class)
 public class RedisTests {
 
 	@Resource

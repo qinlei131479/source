@@ -2,6 +2,8 @@ server:
   port: 8888
 
 spring:
+  freemarker:
+    check-template-location: false
   profiles:
     active: dev,redis
   application:
@@ -16,7 +18,7 @@ spring:
 
 # mybaits-plus配置
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath*:/mapper/*Mapper.xml
   global-config:
     banner: false
     db-config:

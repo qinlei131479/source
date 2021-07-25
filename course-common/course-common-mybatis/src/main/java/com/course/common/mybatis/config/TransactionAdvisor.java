@@ -6,6 +6,7 @@ import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
@@ -21,7 +22,7 @@ import lombok.RequiredArgsConstructor;
  * @date 2021/6/23 下午5:28
  */
 @Aspect
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class TransactionAdvisor {
 

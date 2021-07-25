@@ -34,7 +34,7 @@ public class RedissonProperties {
 	/**
 	 * 超时（redisson超时报错）
 	 */
-	private Integer connectTimeout = 5000;
+	private Integer connectTimeout = 10000;
 	/**
 	 * 监控dog超时时间
 	 */

@@ -1,4 +1,8 @@
 spring:
+#  data:
+#    redis:
+#      repositories:
+#        enabled: false
   redis:
     #redis密码
     password: ql1234

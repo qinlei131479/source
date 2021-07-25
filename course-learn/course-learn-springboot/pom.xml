@@ -12,40 +12,15 @@
     <artifactId>course-learn-springboot</artifactId>
 
     <dependencies>
-        <!--lettuce.pool缓存连接池-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.course</groupId>
-            <artifactId>course-common-redisson</artifactId>
+            <artifactId>course-biz-sys</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.course</groupId>
-            <artifactId>course-common-job</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.course</groupId>
-            <artifactId>course-common-cache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.course</groupId>
-            <artifactId>course-common-mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-devtools</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -60,6 +35,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork><!--必须添加这个配置-->
+                    <includeSystemScope>true</includeSystemScope>
                 </configuration>
             </plugin>
         </plugins>

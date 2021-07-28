@@ -16,6 +16,8 @@
         <module>course-learn</module>
         <module>course-visual</module>
         <module>course-biz</module>
+        <module>course-gateway</module>
+        <module>course-auth</module>
     </modules>
 
     <properties>
@@ -32,7 +34,28 @@
         <xxl-job.version>2.2.0</xxl-job.version>
         <sharding-sphere.version>4.0.0-RC1</sharding-sphere.version>
         <redisson-version>3.16.0</redisson-version>
+        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.6.RELEASE</spring-cloud-alibaba.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- springboot web服务 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- springboot web服务测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -47,6 +70,22 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring cloud 依赖 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--spring cloud alibaba-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -109,6 +148,50 @@
             </releases>
         </repository>
     </repositories>
+
+    <!-- 多环境配置 -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profile.active>dev</profile.active>
+                <service.nacos.host>styn-register</service.nacos.host>
+                <service.nacos.port>8848</service.nacos.port>
+                <service.nacos.namespace>ff7c4efc-b6fc-4f37-8f0c-a96e5fc1a445</service.nacos.namespace>
+                <service.dataId.prefix>course-application</service.dataId.prefix>
+                <service.group>COURSE_GROUP</service.group>
+                <service.log.root>/Users/qinlei/Downloads/logs</service.log.root>
+            </properties>
+            <activation>
+                <jdk>[1.8,)</jdk>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <profile.active>uat</profile.active>
+                <service.nacos.host>styn-register</service.nacos.host>
+                <service.nacos.port>8848</service.nacos.port>
+                <service.nacos.namespace>ff7c4efc-b6fc-4f37-8f0c-a96e5fc1a445</service.nacos.namespace>
+                <service.dataId.prefix>course-application</service.dataId.prefix>
+                <service.group>COURSE_GROUP</service.group>
+                <service.log.root>/opt/data/logs</service.log.root>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profile.active>prod</profile.active>
+                <service.nacos.host>styn-register</service.nacos.host>
+                <service.nacos.port>8848</service.nacos.port>
+                <service.nacos.namespace>ff7c4efc-b6fc-4f37-8f0c-a96e5fc1a445</service.nacos.namespace>
+                <service.dataId.prefix>course-application</service.dataId.prefix>
+                <service.group>COURSE_GROUP</service.group>
+                <service.log.root>/opt/data/logs</service.log.root>
+            </properties>
+        </profile>
+    </profiles>
 
     <!-- 项目构建 -->
     <build>

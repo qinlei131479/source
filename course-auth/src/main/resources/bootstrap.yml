@@ -1,0 +1,29 @@
+spring:
+  # 设置项目名称
+  application:
+    name: @project.artifactId@
+  # 设置active环境
+  profiles:
+    active: @profile.active@
+  # nacos服务注册和配置
+  cloud:
+    nacos:
+      discovery:
+        server-addr: @service.nacos.host@:@service.nacos.port@
+        #        group: @service.group@
+        namespace: @service.nacos.namespace@
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        #        group:  ${spring.cloud.nacos.discovery.group}
+        file-extension: yml
+        shared-configs[0]:
+          #          group: ${spring.cloud.nacos.discovery.group}
+          dataId: @service.dataId.prefix@-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          refresh: true
+# 日志根路径配置
+log:
+  path: @service.log.root@
+
+
+

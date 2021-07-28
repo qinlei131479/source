@@ -8,6 +8,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.validation.BindingResult;
@@ -24,7 +25,6 @@ import com.course.common.core.utils.RequestUtil;
 import com.course.common.core.utils.ValidUtil;
 
 import cn.hutool.core.collection.CollUtil;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -36,14 +36,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Aspect
 @Configuration
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 public class GlobalControllerAspect implements Ordered {
 	@Override
 	public int getOrder() {
 		return Ordered.HIGHEST_PRECEDENCE + 2;
 	}
 
-	private final BaseGlobalService baseGlobalService;
+	@Autowired(required = false)
+	private BaseGlobalService baseGlobalService;
 
 	/**
 	 * 定义切点Pointcut

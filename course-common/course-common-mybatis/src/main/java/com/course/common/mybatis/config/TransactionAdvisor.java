@@ -1,19 +1,16 @@
 package com.course.common.mybatis.config;
 
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
-
-import lombok.RequiredArgsConstructor;
 
 /**
  * spring 统一事务管理
@@ -23,13 +20,10 @@ import lombok.RequiredArgsConstructor;
  */
 @Aspect
 @Component
-@RequiredArgsConstructor
 public class TransactionAdvisor {
 
-	private final TransactionManager transactionManager;
-
 	@Bean
-	public Advisor txAdviceAdvisor() {
+	public DefaultPointcutAdvisor txAdviceAdvisor(TransactionManager transactionManager) {
 		// 需要事务
 		DefaultTransactionAttribute required = new DefaultTransactionAttribute();
 		required.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);

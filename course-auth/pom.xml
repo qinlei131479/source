@@ -13,6 +13,11 @@
     <description>oauth2权限认证</description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>course-common-core</artifactId>
+        </dependency>
+
         <!-- nacos服务注册与发现 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -44,6 +49,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <!--解决Spring Cloud LoadBalancer is currently working with the default cache -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>2.8.8</version>
         </dependency>
     </dependencies>
 

@@ -3,7 +3,7 @@
     <!-- 项目名称，每个项目配置 -->
     <springProperty scop="context" name="application.name" source="spring.application.name" defaultValue="appName"/>
     <!-- 日志输出路径，正式环境可在yml或Properties中配置log.path -->
-    <springProperty scop="context" name="log.path" source="log.path" defaultValue="/Users/qinlei/Downloads/logs"/>
+    <springProperty scop="context" name="log.path" source="logging.file.path" defaultValue="/Users/qinlei/Downloads/logs"/>
     <!--    <property name="log.path" value="${log_path_prefix}/${applicationName}"/>-->
     <!-- 彩色日志格式 -->
     <property name="CONSOLE_LOG_PATTERN"

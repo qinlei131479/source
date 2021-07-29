@@ -59,6 +59,20 @@ public class RedisUtil {
 	}
 
 	/**
+	 * 普通缓存放入(过期时间)
+	 */
+	public void set(String key, Object value, long timeout) {
+		set(key, value, timeout, TimeUnit.SECONDS);
+	}
+
+	/**
+	 * 普通缓存放入(过期时间+时间单位)
+	 */
+	public void set(String key, Object value, long timeout, TimeUnit unit) {
+		redisTemplate.opsForValue().set(key, value, timeout, unit);
+	}
+
+	/**
 	 * 指定缓存失效时间
 	 *
 	 * @param key：键
@@ -78,7 +92,7 @@ public class RedisUtil {
 	public Long rightPushApiLogList(String apiLog) {
 
 		if (apiLog != null && apiLog.length() > 0) {
-			return redisTemplate.boundListOps(RedisKeyEnum.apilog_list.getKey()).rightPush(apiLog);
+			return redisTemplate.boundListOps(RedisKeyEnum.apiLogList.getKey()).rightPush(apiLog);
 		}
 		return null;
 	}

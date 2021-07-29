@@ -16,7 +16,12 @@ public class HelloController {
 	private final RemoteClient remoteClient;
 
 	@GetMapping("/feign")
-	public String test() {
+	public String feign() {
 		return remoteClient.helloNacos();
+	}
+
+	@GetMapping("/test")
+	public String test() {
+		return "hello name";
 	}
 }

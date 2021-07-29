@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        # oauth2授权、鉴权
+        - id: course-auth
+          uri: lb://course-auth
+          predicates:
+            - Path=/auth/**
+      default-filters:
+        - StripPrefix=1

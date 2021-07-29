@@ -1,13 +1,14 @@
-package com.course.gateway.util;
+package com.course.common.core.utils;
 
-import cn.hutool.core.codec.Base64;
-import com.course.gateway.exception.CheckedException;
+import java.nio.charset.StandardCharsets;
+
+import com.course.common.core.exception.CheckedException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
-import lombok.SneakyThrows;
 
-import java.nio.charset.StandardCharsets;
+import cn.hutool.core.codec.Base64;
+import lombok.SneakyThrows;
 
 /**
  * Web工具类

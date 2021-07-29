@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.course</groupId>
-            <artifactId>course-common-core</artifactId>
+            <artifactId>course-common-web</artifactId>
         </dependency>
         <!-- springboot web服务 -->
         <dependency>
@@ -33,12 +33,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
             <!--和spring-cloud-starter-loadbalancer包冲突，否则造成loadbalancer失效  -->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-                </exclusion>
-            </exclusions>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.cloud</groupId>-->
+<!--                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
         <!-- nacos服务配置 -->
         <dependency>
@@ -46,26 +46,26 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
         <!-- 因为Springcloud3.0版本与spring-cloud-alibaba版本不兼容，所以需要添加，后续alibaba修复后可删除 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-bootstrap</artifactId>-->
+<!--        </dependency>-->
         <!-- 微服务相互调用openfeign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!-- 微服务负载均衡 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-loadbalancer</artifactId>-->
+<!--        </dependency>-->
         <!--解决Spring Cloud LoadBalancer is currently working with the default cache -->
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-            <version>${caffeine.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.ben-manes.caffeine</groupId>-->
+<!--            <artifactId>caffeine</artifactId>-->
+<!--            <version>${caffeine.version}</version>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>

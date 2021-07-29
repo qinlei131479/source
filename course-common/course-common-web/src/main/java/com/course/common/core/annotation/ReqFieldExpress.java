@@ -1,4 +1,4 @@
-package com.course.common.core.valid;
+package com.course.common.core.annotation;
 
 import java.lang.annotation.*;
 

@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.course</groupId>
-            <artifactId>course-common-core</artifactId>
+            <artifactId>course-common-web</artifactId>
         </dependency>
         <!--mybatis-->
         <dependency>

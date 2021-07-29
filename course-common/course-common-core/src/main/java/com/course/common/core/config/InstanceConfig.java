@@ -1,4 +1,4 @@
-package com.course.common.core.component;
+package com.course.common.core.config;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

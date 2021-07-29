@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import com.course.common.core.annotation.ValidExpress;
 import com.course.common.core.entity.Req;
-import com.course.common.core.valid.ReqFieldExpress;
+import com.course.common.core.annotation.ReqFieldExpress;
 import com.course.biz.sys.enums.ApiRunModeEnum;
 
 import lombok.Data;

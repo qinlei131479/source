@@ -24,4 +24,9 @@ public class HelloController {
 	public String test() {
 		return "hello name";
 	}
+
+	@GetMapping("/")
+	public String test2() {
+		return "hello name 333";
+	}
 }

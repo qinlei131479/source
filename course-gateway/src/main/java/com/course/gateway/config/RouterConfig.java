@@ -1,8 +1,10 @@
 package com.course.gateway.config;
 
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
@@ -27,5 +29,11 @@ public class RouterConfig {
 	public RouterFunction routerFunction() {
 		return RouterFunctions.route(
 				RequestPredicates.path("/code").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), imageCodeHandler);
+	}
+
+	@Bean
+	@LoadBalanced
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 }

@@ -12,15 +12,15 @@ import java.util.function.BiFunction;
 
 import javax.validation.Constraint;
 
-import com.course.common.core.annotation.ValidExpress;
-import com.course.common.core.entity.Valid;
-import com.course.common.core.entity.ValidArg;
-import com.course.common.core.entity.ValidItem;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.validation.annotation.Validated;
 
+import com.course.common.core.annotation.ValidExpress;
 import com.course.common.core.entity.Req;
+import com.course.common.core.entity.Valid;
+import com.course.common.core.entity.ValidArg;
+import com.course.common.core.entity.ValidItem;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
@@ -141,7 +141,7 @@ public class ValidUtil {
 						if (item != null) {
 							validItemList.add(item);
 						}
-					} else if (a.annotationType().getName().equals(javax.validation.Valid.class.getName())) {
+					} else if (a.annotationType().getName().equals(Valid.class.getName())) {
 						// 子属性有Valid
 						ret.addAll(buildValidList(fields[i].getName() + ".", fields[i].getType(), group));
 					}

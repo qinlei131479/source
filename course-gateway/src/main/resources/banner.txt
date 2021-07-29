@@ -1,3 +1,0 @@
-Spring Boot Version: ${spring-boot.version}
-Spring Cloud Version: ${spring-cloud.version}
-Spring Cloud Alibaba Version: ${spring-cloud-alibaba.version}

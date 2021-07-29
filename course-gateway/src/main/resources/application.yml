@@ -1,6 +1,16 @@
 spring:
+  redis:
+    #redis密码
+    password: ql1234
+    # 单机配置host和port参数
+    host: 47.100.173.179
+    port: 6379
+    database: 1
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: false
       routes:
         # oauth2授权、鉴权
         - id: course-auth
@@ -9,3 +19,5 @@ spring:
             - Path=/auth/**
       default-filters:
         - StripPrefix=1
+
+

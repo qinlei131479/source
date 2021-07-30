@@ -22,9 +22,15 @@ spring:
           #          group: ${spring.cloud.nacos.discovery.group}
           dataId: ${service.dataId.prefix}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
           refresh: true
+
+    loadbalancer:
+      ribbon:
+        enabled: false
 # 日志根路径配置
 log:
   path: ${service.log.root}
+
+
 
 
 

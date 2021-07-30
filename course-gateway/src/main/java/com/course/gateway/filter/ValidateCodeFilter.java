@@ -1,7 +1,5 @@
 package com.course.gateway.filter;
 
-import com.course.common.core.exception.ValidateCodeException;
-import com.course.common.core.utils.WebUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -14,6 +12,8 @@ import org.springframework.stereotype.Component;
 import com.course.common.cache.enums.RedisKeyEnum;
 import com.course.common.cache.utils.RedisUtil;
 import com.course.common.core.entity.Res;
+import com.course.common.core.exception.ValidateCodeException;
+import com.course.common.core.utils.WebUtil;
 import com.course.gateway.constant.CommonConstant;
 import com.course.gateway.properties.GatewayConfigProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,7 +47,10 @@ public class ValidateCodeFilter extends AbstractGatewayFilterFactory {
 			if (!StrUtil.containsAnyIgnoreCase(request.getURI().getPath(), CommonConstant.OAUTH_TOKEN_URL)) {
 				return chain.filter(exchange);
 			}
-
+			// 未开启验证功能，直接向下执行
+			if (!configProperties.getCodeValidate()) {
+				return chain.filter(exchange);
+			}
 			// 刷新token，直接向下执行
 			String grantType = request.getQueryParams().getFirst(CommonConstant.GRANT_TYPE);
 			if (StrUtil.equals(CommonConstant.REFRESH_TOKEN, grantType)) {
@@ -60,9 +63,8 @@ public class ValidateCodeFilter extends AbstractGatewayFilterFactory {
 				if (configProperties.getIgnoreClients().contains(clientInfos[0])) {
 					return chain.filter(exchange);
 				}
-
 				// 校验验证码
-				// checkCode(request);
+				checkCode(request);
 			} catch (Exception e) {
 				ServerHttpResponse response = exchange.getResponse();
 				response.setStatusCode(HttpStatus.PRECONDITION_REQUIRED);

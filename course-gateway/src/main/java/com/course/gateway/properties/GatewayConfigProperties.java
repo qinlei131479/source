@@ -39,5 +39,9 @@ public class GatewayConfigProperties {
 	 * 验证码过期时间（单位：秒）{@link com.course.gateway.handler.ImageCodeHandler}
 	 */
 	private Integer timeout = 60;
+	/**
+	 * 开启验证码校验
+	 */
+	private Boolean codeValidate = false;
 
 }

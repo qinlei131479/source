@@ -38,7 +38,6 @@ public class RequestGlobalFilter implements GlobalFilter, Ordered {
 		String rawPath = request.getURI().getRawPath();
 		String newPath = "/" + Arrays.stream(StringUtils.tokenizeToStringArray(rawPath, "/")).skip(1L)
 				.collect(Collectors.joining("/"));
-		log.error("new path:{}", newPath);
 		ServerHttpRequest newRequest = request.mutate().path(newPath).build();
 		exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, newRequest.getURI());
 

@@ -3,6 +3,8 @@ package com.course.auth.config;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.course.common.core.entity.Res;
+
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -21,8 +23,8 @@ public class HelloController {
 	}
 
 	@GetMapping("/test")
-	public String test() {
-		return "hello name";
+	public Res test(String name) {
+		return Res.succ("hello name," + name);
 	}
 
 	@GetMapping("/")

@@ -1,7 +1,8 @@
 package com.course.gateway.handler;
 
+import java.util.Optional;
+
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FastByteArrayOutputStream;
@@ -12,6 +13,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.course.common.cache.enums.RedisKeyEnum;
 import com.course.common.cache.utils.RedisUtil;
+import com.course.common.core.entity.Res;
 import com.course.gateway.properties.GatewayConfigProperties;
 import com.pig4cloud.captcha.ArithmeticCaptcha;
 
@@ -41,18 +43,19 @@ public class ImageCodeHandler implements HandlerFunction<ServerResponse> {
 		String result = captcha.text();
 
 		// 保存验证码信息
-		String randomStr = serverRequest.queryParam("randomStr").get();
-		// redisTemplate.setKeySerializer(new StringRedisSerializer());
-		String key = RedisKeyEnum.validCode.getKey(randomStr);
+		Optional<String> randomStr = serverRequest.queryParam("randomStr");
+		if (!randomStr.isPresent()) {
+			return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+					.bodyValue(Res.fail("randomStr is not null"));
+		}
+
+		String key = RedisKeyEnum.validCode.getKey(randomStr.get());
 		redisUtil.set(key, result, configProperties.getTimeout());
-		// redisTemplate.opsForValue().set(key, result,
-		// SecurityConstants.CODE_TIME, TimeUnit.SECONDS);
 
 		// 转换流信息写出
 		FastByteArrayOutputStream os = new FastByteArrayOutputStream();
 		captcha.out(os);
-
-		return ServerResponse.status(HttpStatus.OK).contentType(MediaType.IMAGE_JPEG)
+		return ServerResponse.ok().contentType(MediaType.IMAGE_JPEG)
 				.body(BodyInserters.fromResource(new ByteArrayResource(os.toByteArray())));
 	}
 }

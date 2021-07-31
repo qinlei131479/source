@@ -14,5 +14,6 @@
 
     <modules>
         <module>course-biz-sys</module>
+        <module>course-biz-manager</module>
     </modules>
 </project>

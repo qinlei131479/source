@@ -1,4 +1,4 @@
-package com.course.auth.config;
+package com.course.auth.controller;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

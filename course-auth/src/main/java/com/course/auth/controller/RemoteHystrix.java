@@ -1,4 +1,4 @@
-package com.course.auth.config;
+package com.course.auth.controller;
 
 import org.springframework.stereotype.Component;
 

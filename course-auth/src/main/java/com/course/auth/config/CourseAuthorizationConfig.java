@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCo
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +39,8 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	private final ClientDetailsService clientDetailsService;
 	private final UserDetailsService userDetailsService;
 	private final AuthenticationManager authenticationManager;
+	private final TokenStore tokenStore;
+	private final JwtAccessTokenConverter accessTokenConverter;
 
 	/**
 	 * 1、配置客户端:可通过数据库加载
@@ -114,7 +116,9 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		// client信息管理
 		services.setClientDetailsService(clientDetailsService);
 		// 令牌存储方式
-		services.setTokenStore(tokenStore());
+		services.setTokenStore(tokenStore);
+		// 采用JWT模式需要配置增强器
+		services.setTokenEnhancer(accessTokenConverter);
 		// 允许令牌token自动刷新
 		services.setSupportRefreshToken(true);
 		// 令牌有效期，2小时
@@ -122,16 +126,6 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		// 刷新令牌有效期
 		services.setRefreshTokenValiditySeconds(259200);
 		return services;
-	}
-
-	/**
-	 * token存储位置
-	 *
-	 * @return
-	 */
-	@Bean
-	public TokenStore tokenStore() {
-		return new InMemoryTokenStore();
 	}
 
 	/**

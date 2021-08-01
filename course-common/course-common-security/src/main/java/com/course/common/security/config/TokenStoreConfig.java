@@ -1,24 +1,27 @@
-package com.course.auth.config;
+package com.course.common.security.config;
 
-import com.course.auth.propertites.SecurityPropertites;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import com.course.common.security.propertites.SecurityPropertites;
+
+import lombok.RequiredArgsConstructor;
+
 /**
- * TokenStore 相关配置
- * 
+ * spring Security安全框架配置(认证、资源服务端配置)
+ *
  * @author qinlei
- * @date 2021/7/31 下午10:32
+ * @date 2021/7/31 下午2:13
  */
 @Configuration
 @RequiredArgsConstructor
 public class TokenStoreConfig {
 
 	private final SecurityPropertites securityPropertites;
+
 	/**
 	 * token存储位置
 	 *
@@ -34,7 +37,7 @@ public class TokenStoreConfig {
 
 	/**
 	 * JwtAccessToken注入
-	 * 
+	 *
 	 * @return
 	 */
 	@Bean
@@ -43,4 +46,5 @@ public class TokenStoreConfig {
 		converter.setSigningKey(securityPropertites.getJwtSigningKey());
 		return converter;
 	}
+
 }

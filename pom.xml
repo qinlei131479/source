@@ -81,6 +81,11 @@
             <!-- course核心包依赖 -->
             <dependency>
                 <groupId>com.course</groupId>
+                <artifactId>course-common-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.course</groupId>
                 <artifactId>course-common-job</artifactId>
                 <version>${project.version}</version>
             </dependency>

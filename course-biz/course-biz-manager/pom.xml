@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.course</groupId>
-            <artifactId>course-common-web</artifactId>
+            <artifactId>course-common-security</artifactId>
         </dependency>
         <!-- springboot web服务 -->
         <dependency>
@@ -28,33 +28,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-            <version>${spring-cloud-security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-security</artifactId>
-            <version>${spring-cloud-security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-jwt</artifactId>
-            <version>${spring-security-jwt.version}</version>
-        </dependency>
 
         <!-- nacos服务注册与发现 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
             <!--和spring-cloud-starter-loadbalancer包冲突，否则造成loadbalancer失效  -->
-            <!--            <exclusions>-->
-            <!--                <exclusion>-->
-            <!--                    <groupId>org.springframework.cloud</groupId>-->
-            <!--                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
-            <!--                </exclusion>-->
-            <!--            </exclusions>-->
         </dependency>
         <!-- nacos服务配置 -->
         <dependency>

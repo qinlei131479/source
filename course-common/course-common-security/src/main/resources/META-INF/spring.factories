@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.course.common.security.propertites.SecurityPropertites,\
+  com.course.common.security.config.TokenStoreConfig

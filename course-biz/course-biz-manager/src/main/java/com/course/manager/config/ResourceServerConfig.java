@@ -1,6 +1,5 @@
 package com.course.manager.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -8,8 +7,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * 资源服务器配置
@@ -19,14 +18,17 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  */
 @Configuration
 @EnableResourceServer
+@RequiredArgsConstructor
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+
+	private final TokenStore tokenStore;
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		// 使用远程服务验证令牌服务
 		// 设置无状态模式
 		// resources.tokenServices(tokenServices()).stateless(true);
-		resources.tokenStore(tokenStore()).stateless(true);
+		resources.tokenStore(tokenStore).stateless(true);
 	}
 
 	@Override
@@ -49,28 +51,4 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	// services.setCheckTokenEndpointUrl("http://localhost:8898/oauth/check_token");
 	// return services;
 	// }
-	/**
-	 * token存储位置
-	 *
-	 * @return
-	 */
-	@Bean
-	public TokenStore tokenStore() {
-		// 内存模式
-		// return new InMemoryTokenStore();
-		// JWT模式
-		return new JwtTokenStore(accessTokenConverter());
-	}
-
-	/**
-	 * JwtAccessToken注入
-	 *
-	 * @return
-	 */
-	@Bean
-	public JwtAccessTokenConverter accessTokenConverter() {
-		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-		converter.setSigningKey("course");
-		return converter;
-	}
 }

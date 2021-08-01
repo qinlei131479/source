@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -18,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,7 +39,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 
 	private final PasswordEncoder passwordEncoder;
 	private final ClientDetailsService clientDetailsService;
-	private final UserDetailsService userDetailsService;
+//	private final UserDetailsService userDetailsService;
 	private final AuthenticationManager authenticationManager;
 	private final TokenStore tokenStore;
 	private final JwtAccessTokenConverter accessTokenConverter;
@@ -75,13 +77,14 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
 				// 定制授权页面
-				.pathMapping("/oauth/confirm_access", "/customer/confirm_access")
+				// .pathMapping("/oauth/confirm_access",
+				// "/customer/confirm_access")
 				// 认证管理器
 				.authenticationManager(authenticationManager)
 				// 令牌存储方式
 				.tokenServices(tokenServices())
 				// 密码模式用户信息管理
-				.userDetailsService(userDetailsService)
+				.userDetailsService(userDetailsService())
 				// 授权码
 				.authorizationCodeServices(authorizationCodeServices())
 				// 允许访问模式
@@ -137,4 +140,13 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	public AuthorizationCodeServices authorizationCodeServices() {
 		return new InMemoryAuthorizationCodeServices();
 	}
+
+	@Bean
+	public UserDetailsService userDetailsService() {
+		InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager(
+				User.withUsername("admin").password(passwordEncoder.encode("123456")).authorities("admin").build(),
+				User.withUsername("user").password(passwordEncoder.encode("123456")).authorities("user").build());
+		return userDetailsManager;
+	}
+	
 }

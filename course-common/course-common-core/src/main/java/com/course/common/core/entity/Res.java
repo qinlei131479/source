@@ -2,9 +2,9 @@ package com.course.common.core.entity;
 
 import java.util.Map;
 
-import com.course.common.core.exception.BaseRuntimeException;
 import com.course.common.core.enums.IResponseEnum;
 import com.course.common.core.enums.ResCommonEnum;
+import com.course.common.core.exception.BaseRuntimeException;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.Data;
@@ -146,6 +146,26 @@ public class Res<T> {
 	 */
 	public static <T extends Object> Res<T> fail(IResponseEnum responseEnum) {
 		return build(responseEnum, null);
+	}
+
+	/**
+	 * 失败 - 没有权限
+	 *
+	 * @param <T>
+	 * @return
+	 */
+	public static <T extends Object> Res<T> noPower() {
+		return build(ResCommonEnum.NO_POWER, null);
+	}
+
+	/**
+	 * 失败 - 没有登录
+	 *
+	 * @param <T>
+	 * @return
+	 */
+	public static <T extends Object> Res<T> noLogin() {
+		return build(ResCommonEnum.NO_LOGIN, null);
 	}
 
 	/**

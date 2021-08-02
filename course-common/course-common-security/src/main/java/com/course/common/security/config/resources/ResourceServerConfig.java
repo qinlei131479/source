@@ -29,7 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().anyRequest().permitAll().and()
+		http.csrf().disable().authorizeRequests().anyRequest().authenticated().and()
 				// 不需要管session模式验证，只需要token验证成功即可
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}

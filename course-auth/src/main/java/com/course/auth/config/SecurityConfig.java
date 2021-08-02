@@ -1,5 +1,7 @@
 package com.course.auth.config;
 
+import java.io.PrintWriter;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,6 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.course.auth.handler.LoginFailHandler;
+import com.course.auth.handler.LoginSuccessHandler;
+import com.course.common.core.constant.CommonConstants;
+import com.course.common.core.entity.Res;
+
+import cn.hutool.json.JSONUtil;
+import lombok.RequiredArgsConstructor;
+
 /**
  * spring Security安全框架配置(认证、资源服务端配置)
  *
@@ -17,12 +27,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+	private final LoginSuccessHandler loginSuccessHandler;
+	private final LoginFailHandler loginFailHandler;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// 链式配置拦截策略
-		http.csrf().and().cors().disable().authorizeRequests().anyRequest().permitAll();
+		http.csrf().and().cors().disable().authorizeRequests().anyRequest().authenticated();
+		http.formLogin().successHandler(loginSuccessHandler).failureHandler(loginFailHandler);
+		http.exceptionHandling().accessDeniedHandler((request, response, accessDeniedException) -> {
+			response.setContentType(CommonConstants.CONTENT_TYPE);
+			PrintWriter writer = response.getWriter();
+			writer.write(JSONUtil.toJsonStr(Res.noPower()));
+			writer.flush();
+			writer.close();
+		});
 	}
 
 	@Bean

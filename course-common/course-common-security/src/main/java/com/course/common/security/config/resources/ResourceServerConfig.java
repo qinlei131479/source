@@ -1,23 +1,19 @@
-package com.course.manager.config;
+package com.course.common.security.config.resources;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * 资源服务器配置
- * 
  * @author qinlei
- * @date 2021/7/31 下午6:41
+ * @date 2021/8/2 下午1:23
  */
-@Configuration
-@EnableResourceServer
+@Slf4j
 @RequiredArgsConstructor
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
@@ -40,7 +36,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	/**
 	 * 注入远程验证token令牌服务
-	 * 
+	 *
 	 * @return
 	 */
 	// @Bean

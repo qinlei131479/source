@@ -1,11 +1,12 @@
 package com.course.auth.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -13,12 +14,14 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+import com.course.auth.services.ClientDetailsServiceImpl;
+import com.course.common.security.constant.SecurityConstant;
 import com.course.common.security.enums.TokenStoreTypeEnum;
 import com.course.common.security.propertites.SecurityPropertites;
 
@@ -50,10 +53,10 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	private final TokenStore tokenStore;
 	private final JwtAccessTokenConverter accessTokenConverter;
 	/**
-	 * 客户端注入
+	 * 客户端数据源注入
 	 */
 	private final ClientDetailsService clientDetailsService;
-	private final PasswordEncoder passwordEncoder;
+	private final DataSource dataSource;
 
 	/**
 	 * 1、配置客户端:可通过数据库加载
@@ -63,19 +66,26 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 */
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		// 内存模式配置
-		clients.inMemory().withClient(securityPropertites.getClientId())
-				// client秘钥
-				.secret(passwordEncoder.encode("test"))
-				// 允许的授权类型
-				.authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit",
-						"refresh_token")
-				// 允许的授权范围
-				.scopes("all")
-				// 跳转授权页面
-				// .autoApprove(false)
-				// 回调地址
-				.redirectUris("https://www.baidu.com");
+		// 1、jdbc数据源模式注入客户端
+		ClientDetailsServiceImpl clientDetailsService = new ClientDetailsServiceImpl(dataSource);
+		clientDetailsService.setSelectClientDetailsSql(SecurityConstant.DEFAULT_SELECT_STATEMENT);
+		clientDetailsService.setFindClientDetailsSql(SecurityConstant.DEFAULT_FIND_STATEMENT);
+		clients.withClientDetails(clientDetailsService);
+//		clients.inMemory().withClient(securityPropertites.getClientId()).redirectUris()
+		// 2、内存模式配置
+		// clients.inMemory().withClient(securityPropertites.getClientId())
+		// // client秘钥
+		// .secret(passwordEncoder.encode("test"))
+		// // 允许的授权类型
+		// .authorizedGrantTypes("authorization_code", "password",
+		// "client_credentials", "implicit",
+		// "refresh_token")
+		// // 允许的授权范围
+		// .scopes("all")
+		// // 跳转授权页面
+		// // .autoApprove(false)
+		// // 回调地址
+		// .redirectUris("https://www.baidu.com");
 	}
 
 	/**
@@ -136,10 +146,10 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		}
 		// 允许令牌token自动刷新
 		services.setSupportRefreshToken(true);
-		// 令牌有效期，2小时
-		services.setAccessTokenValiditySeconds(securityPropertites.getAccessTokenSeconds());
-		// 刷新令牌有效期
-		services.setRefreshTokenValiditySeconds(securityPropertites.getRefreshTokenSeconds());
+		// // 令牌有效期，2小时
+		// services.setAccessTokenValiditySeconds(securityPropertites.getAccessTokenSeconds());
+		// // 刷新令牌有效期
+		// services.setRefreshTokenValiditySeconds(securityPropertites.getRefreshTokenSeconds());
 		return services;
 	}
 
@@ -150,7 +160,14 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 */
 	@Bean
 	public AuthorizationCodeServices authorizationCodeServices() {
-		return new InMemoryAuthorizationCodeServices();
+		// 内存模式
+		// return new InMemoryAuthorizationCodeServices();
+		// jdbc模式
+		JdbcAuthorizationCodeServices codeServices = new JdbcAuthorizationCodeServices(dataSource);
+		codeServices.setInsertAuthenticationSql(SecurityConstant.CODE_STATEMENT_INSERT);
+		codeServices.setSelectAuthenticationSql(SecurityConstant.CODE_STATEMENT_SELECT);
+		codeServices.setDeleteAuthenticationSql(SecurityConstant.CODE_STATEMENT_DELETE);
+		return codeServices;
 	}
 
 }

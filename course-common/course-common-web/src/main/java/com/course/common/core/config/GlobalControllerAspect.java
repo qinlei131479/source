@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 全局参数绑定异常处理、日志记录
- * 
+ *
  * @author qinlei
  * @date 2021/6/24 下午4:59
  */
@@ -66,18 +66,18 @@ public class GlobalControllerAspect implements Ordered {
 		long beginTime = System.currentTimeMillis();
 		String[] path_action = RequestUtil.calApiUrl(request);
 		String apiPath = path_action[0];
-		Object user = baseGlobalService.getUser(request);
+		Object user = null;//baseGlobalService.getUser(request);
 		Object res = null;
 		Req req = null;
 		Throwable error = null;
 		try {
 			List<Valid> validList = null;
 			// 检查权限
-			Res checkRes = baseGlobalService.checkPower(point, request, user, apiPath);
-			api = checkRes.getData();
-			if (checkRes.checkNotSucc()) {
-				return res = checkRes;
-			}
+//			Res checkRes = baseGlobalService.checkPower(point, request, user, apiPath);
+//			api = checkRes.getData();
+//			if (checkRes.checkNotSucc()) {
+//				return res = checkRes;
+//			}
 			// 判断是否需要保存日志
 			ValidArg arg = ValidUtil.getArgAndAnnotation.apply(point, RequestBody.class);
 			if (arg != null) {
@@ -85,7 +85,7 @@ public class GlobalControllerAspect implements Ordered {
 			}
 			if (req != null) {
 				// 处理校验，初始化状态下，获取validList，非初始化，返回报错信息
-				isInit = baseGlobalService.checkActionStatusInit(point, req, validList);
+				isInit =true; baseGlobalService.checkActionStatusInit(point, req, validList);
 				if (!isInit) {
 					BindingResult bindingResult = ValidUtil.getArgByClass(point, BindingResult.class);
 					if (bindingResult != null) {
@@ -105,13 +105,13 @@ public class GlobalControllerAspect implements Ordered {
 				}
 			}
 			// 自动填充createUserId，updateUserId
-			if (user != null && req != null && isInit == false) {
-				Object userId = baseGlobalService.getUserId(request);
-				if (userId != null) {
-					HuToolUtil.setFieldValueIfExist(req, "createUserId", userId);
-					HuToolUtil.setFieldValueIfExist(req, "updateUserId", userId);
-				}
-			}
+//			if (user != null && req != null && isInit == false) {
+//				Object userId = baseGlobalService.getUserId(request);
+//				if (userId != null) {
+//					HuToolUtil.setFieldValueIfExist(req, "createUserId", userId);
+//					HuToolUtil.setFieldValueIfExist(req, "updateUserId", userId);
+//				}
+//			}
 			// 执行方法
 			res = point.proceed();
 			// 设置表单验证列表
@@ -135,7 +135,7 @@ public class GlobalControllerAspect implements Ordered {
 			return res = Res.exception("系统异常");
 		} finally {
 			// 记录日志
-			baseGlobalService.saveLog(api, user, apiPath, req, request, res, error, isInit, beginTime);
+			//baseGlobalService.saveLog(api, user, apiPath, req, request, res, error, isInit, beginTime);
 		}
 		return res;
 	}

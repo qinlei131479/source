@@ -1,7 +1,5 @@
 package com.course.common.core.entity;
 
-import javax.validation.GroupSequence;
-
 import com.course.common.core.utils.HuToolUtil;
 
 import lombok.Data;
@@ -14,9 +12,6 @@ import lombok.Data;
  */
 @Data
 public class Req<T> {
-	@GroupSequence({ Create.class, Update.class })
-	public interface GroupCreateUpdate {
-	}
 
 	public interface Create {
 	}

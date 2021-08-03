@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import com.course.common.security.enums.TokenStoreTypeEnum;
 
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * security 属性配置
@@ -18,7 +21,7 @@ import lombok.Data;
  */
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "security.oauth2")
+@ConfigurationProperties(prefix = "course.security.oauth2")
 public class SecurityPropertites {
 	/**
 	 * TokenStore采用JWT是需要配置，默认course
@@ -52,4 +55,5 @@ public class SecurityPropertites {
 	 * 刷新令牌有效期: 1天 = 60 * 60 * 24
 	 */
 	private Integer refreshTokenSeconds = 86400;
+
 }

@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+import com.course.common.security.enums.TokenStoreTypeEnum;
 import com.course.common.security.propertites.SecurityPropertites;
 
 import lombok.RequiredArgsConstructor;
@@ -63,7 +64,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		// 内存模式配置
-		clients.inMemory().withClient("test")
+		clients.inMemory().withClient(securityPropertites.getClientId())
 				// client秘钥
 				.secret(passwordEncoder.encode("test"))
 				// 允许的授权类型
@@ -129,8 +130,10 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		services.setClientDetailsService(clientDetailsService);
 		// 令牌存储方式
 		services.setTokenStore(tokenStore);
-		// 采用JWT模式需要配置增强器
-		services.setTokenEnhancer(accessTokenConverter);
+		if (TokenStoreTypeEnum.jwt.equals(securityPropertites.getTokenStoreType())) {
+			// 采用JWT模式需要配置增强器
+			services.setTokenEnhancer(accessTokenConverter);
+		}
 		// 允许令牌token自动刷新
 		services.setSupportRefreshToken(true);
 		// 令牌有效期，2小时

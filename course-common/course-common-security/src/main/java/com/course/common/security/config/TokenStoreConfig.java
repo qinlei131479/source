@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
+import com.course.common.cache.enums.RedisKeyEnum;
 import com.course.common.security.propertites.SecurityPropertites;
 
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,9 @@ public class TokenStoreConfig {
 		switch (securityPropertites.getTokenStoreType()) {
 		case redis:
 			log.error("redis");
-			return new RedisTokenStore(redisConnectionFactory);
+			RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
+			redisTokenStore.setPrefix(RedisKeyEnum.OAUTH_PREFIX);
+			return redisTokenStore;
 		case jwt:
 			log.error("jwt");
 			return new JwtTokenStore(accessTokenConverter());
@@ -84,7 +87,7 @@ public class TokenStoreConfig {
 	 * @return
 	 */
 	@Bean
-	@ConditionalOnProperty(prefix = "security.oauth2", name = "storeType", havingValue = "jwt", matchIfMissing = true)
+	@ConditionalOnProperty(prefix = "course.security.oauth2", name = "tokenStoreType", havingValue = "jwt", matchIfMissing = true)
 	public JwtAccessTokenConverter accessTokenConverter() {
 		log.error("JwtAccessTokenConverter");
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();

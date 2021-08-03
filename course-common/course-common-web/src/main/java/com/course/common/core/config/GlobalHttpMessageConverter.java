@@ -2,6 +2,7 @@ package com.course.common.core.config;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,14 +13,19 @@ import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
 
 import com.course.common.core.constant.CommonConstants;
 import com.course.common.core.entity.Req;
 import com.course.common.core.enums.RequestAttrEnum;
 import com.course.common.core.utils.RequestUtil;
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -39,7 +45,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class GlobalHttpMessageConverter extends AbstractHttpMessageConverter<Object> {
+
+	protected final ObjectMapper objectMapper;
 
 	@Override
 	protected boolean supports(Class<?> clazz) {
@@ -48,7 +57,7 @@ public class GlobalHttpMessageConverter extends AbstractHttpMessageConverter<Obj
 
 	@Override
 	public List<MediaType> getSupportedMediaTypes() {
-		return Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON);
+		return Arrays.asList(MediaType.APPLICATION_JSON);
 	}
 
 	/**
@@ -97,9 +106,16 @@ public class GlobalHttpMessageConverter extends AbstractHttpMessageConverter<Obj
 	@Override
 	protected void writeInternal(Object o, HttpOutputMessage outputMessage)
 			throws IOException, HttpMessageNotWritableException {
+		// 暂时处理DefaultOAuth2AccessToken结果值
+		if (o.getClass().getName().endsWith("DefaultOAuth2AccessToken")) {
+			OutputStream outputStream = StreamUtils.nonClosing(outputMessage.getBody());
+			JsonGenerator generator = this.objectMapper.getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
+			objectMapper.writer().writeValue(generator, o);
+			return;
+		}
 		String result = "";
 		if (o != null) {
-			if (o.getClass().equals(String.class)) {
+			if (o instanceof String) {
 				result = o.toString();
 			} else {
 				result = JSONUtil.toJsonStr(o);

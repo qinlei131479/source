@@ -14,10 +14,6 @@ public interface CommonConstants {
 	String UTF8 = "UTF-8";
 
 	/**
-	 * JSON 资源
-	 */
-	String CONTENT_TYPE = "application/json; charset=utf-8";
-	/**
 	 * xml字符串的开始
 	 */
 	String XML_PRE = "<";

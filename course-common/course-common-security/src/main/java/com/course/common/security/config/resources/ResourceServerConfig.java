@@ -1,10 +1,14 @@
 package com.course.common.security.config.resources;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+
+import com.course.common.security.enums.TokenStoreTypeEnum;
+import com.course.common.security.propertites.SecurityPropertites;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,33 +22,30 @@ import lombok.extern.slf4j.Slf4j;
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	private final TokenStore tokenStore;
+	private final ResourceServerTokenServices serverTokenServices;
+	private final SecurityPropertites securityPropertites;
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-		// 使用远程服务验证令牌服务
+		// JWT模式不需要远程调用
+		if (securityPropertites.getTokenStoreType().equals(TokenStoreTypeEnum.jwt)) {
+			resources.tokenStore(tokenStore);
+		} else {
+			// 使用远程服务验证令牌服务
+			resources.tokenServices(serverTokenServices);
+		}
 		// 设置无状态模式
-		// resources.tokenServices(tokenServices()).stateless(true);
-		resources.tokenStore(tokenStore).stateless(true);
+		resources.stateless(true);
 	}
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().anyRequest().authenticated().and()
+		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
+				.authorizeRequests();
+		securityPropertites.getIgnoreUrls().forEach(url -> registry.antMatchers(url).permitAll());
+		http.csrf().and().cors().disable().authorizeRequests().anyRequest().authenticated().and()
 				// 不需要管session模式验证，只需要token验证成功即可
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				.sessionManagement().disable();
 	}
 
-	/**
-	 * 注入远程验证token令牌服务
-	 *
-	 * @return
-	 */
-	// @Bean
-	// public ResourceServerTokenServices tokenServices() {
-	// RemoteTokenServices services = new RemoteTokenServices();
-	// services.setClientId("test");
-	// services.setClientSecret("test");
-	// services.setCheckTokenEndpointUrl("http://localhost:8898/oauth/check_token");
-	// return services;
-	// }
 }

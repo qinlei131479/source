@@ -60,7 +60,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 				// 允许的授权范围
 				.scopes("all")
 				// 跳转授权页面
-				.autoApprove(false)
+//				.autoApprove(false)
 				// 回调地址
 				.redirectUris("https://www.baidu.com");
 	}

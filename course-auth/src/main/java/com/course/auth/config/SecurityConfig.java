@@ -1,7 +1,5 @@
 package com.course.auth.config;
 
-import java.io.PrintWriter;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,8 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.course.auth.handler.LoginFailHandler;
 import com.course.auth.handler.LoginSuccessHandler;
-import com.course.common.core.constant.CommonConstants;
 import com.course.common.core.entity.Res;
+import com.course.common.core.utils.WebUtil;
 
 import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
@@ -39,11 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().and().cors().disable().authorizeRequests().anyRequest().authenticated();
 		http.formLogin().successHandler(loginSuccessHandler).failureHandler(loginFailHandler);
 		http.exceptionHandling().accessDeniedHandler((request, response, accessDeniedException) -> {
-			response.setContentType(CommonConstants.CONTENT_TYPE);
-			PrintWriter writer = response.getWriter();
-			writer.write(JSONUtil.toJsonStr(Res.noPower()));
-			writer.flush();
-			writer.close();
+			WebUtil.responseWriteJson(response, JSONUtil.toJsonStr(Res.noPower()));
 		});
 	}
 

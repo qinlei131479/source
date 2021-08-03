@@ -71,21 +71,15 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		clientDetailsService.setSelectClientDetailsSql(SecurityConstant.DEFAULT_SELECT_STATEMENT);
 		clientDetailsService.setFindClientDetailsSql(SecurityConstant.DEFAULT_FIND_STATEMENT);
 		clients.withClientDetails(clientDetailsService);
-//		clients.inMemory().withClient(securityPropertites.getClientId()).redirectUris()
-		// 2、内存模式配置
+		// 2、内存模式配置:
 		// clients.inMemory().withClient(securityPropertites.getClientId())
-		// // client秘钥
-		// .secret(passwordEncoder.encode("test"))
-		// // 允许的授权类型
+		// client秘钥、授权范围、跳转授权页面
+		// .secret(passwordEncoder.encode("test")).scopes("all").autoApprove(false)
+		// .redirectUris("https://www.baidu.com")
+		// 允许的授权类型
 		// .authorizedGrantTypes("authorization_code", "password",
 		// "client_credentials", "implicit",
-		// "refresh_token")
-		// // 允许的授权范围
-		// .scopes("all")
-		// // 跳转授权页面
-		// // .autoApprove(false)
-		// // 回调地址
-		// .redirectUris("https://www.baidu.com");
+		// "refresh_token");
 	}
 
 	/**
@@ -146,10 +140,6 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		}
 		// 允许令牌token自动刷新
 		services.setSupportRefreshToken(true);
-		// // 令牌有效期，2小时
-		// services.setAccessTokenValiditySeconds(securityPropertites.getAccessTokenSeconds());
-		// // 刷新令牌有效期
-		// services.setRefreshTokenValiditySeconds(securityPropertites.getRefreshTokenSeconds());
 		return services;
 	}
 

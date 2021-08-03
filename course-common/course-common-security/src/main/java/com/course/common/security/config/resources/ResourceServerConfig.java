@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	private final TokenStore tokenStore;
+
 	private final ResourceServerTokenServices serverTokenServices;
 	private final SecurityPropertites securityPropertites;
 
@@ -43,7 +44,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
 				.authorizeRequests();
 		securityPropertites.getIgnoreUrls().forEach(url -> registry.antMatchers(url).permitAll());
-		http.csrf().and().cors().disable().authorizeRequests().anyRequest().authenticated().and()
+		http.csrf().disable().cors().disable().authorizeRequests().anyRequest().authenticated().and()
 				// 不需要管session模式验证，只需要token验证成功即可
 				.sessionManagement().disable();
 	}

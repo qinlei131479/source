@@ -44,5 +44,12 @@ public class SecurityPropertites {
 	 * 校验token远程地址
 	 */
 	private String checkTokenUrl = "http://localhost:8898/oauth/check_token";
-
+	/**
+	 * 令牌有效期，2小时 = 60 * 60 * 2
+	 */
+	private Integer accessTokenSeconds = 7200;
+	/**
+	 * 刷新令牌有效期: 1天 = 60 * 60 * 24
+	 */
+	private Integer refreshTokenSeconds = 86400;
 }

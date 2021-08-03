@@ -19,6 +19,8 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+import com.course.common.security.propertites.SecurityPropertites;
+
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -35,12 +37,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
-	private final PasswordEncoder passwordEncoder;
-	private final ClientDetailsService clientDetailsService;
-	private final UserDetailsService userDetailsService;
+	private final SecurityPropertites securityPropertites;
+	/**
+	 * 用户认证
+	 */
 	private final AuthenticationManager authenticationManager;
+	private final UserDetailsService userDetailsService;
+	/**
+	 * token存储位置和token增强
+	 */
 	private final TokenStore tokenStore;
 	private final JwtAccessTokenConverter accessTokenConverter;
+	/**
+	 * 客户端注入
+	 */
+	private final ClientDetailsService clientDetailsService;
+	private final PasswordEncoder passwordEncoder;
 
 	/**
 	 * 1、配置客户端:可通过数据库加载
@@ -60,7 +72,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 				// 允许的授权范围
 				.scopes("all")
 				// 跳转授权页面
-//				.autoApprove(false)
+				// .autoApprove(false)
 				// 回调地址
 				.redirectUris("https://www.baidu.com");
 	}
@@ -75,8 +87,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
 				// 定制授权页面
-				// .pathMapping("/oauth/confirm_access",
-				// "/customer/confirm_access")
+				// .pathMapping("/oauth/confirm_access","/customer/confirm_access")
 				// 认证管理器
 				.authenticationManager(authenticationManager)
 				// 令牌存储方式
@@ -123,9 +134,9 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		// 允许令牌token自动刷新
 		services.setSupportRefreshToken(true);
 		// 令牌有效期，2小时
-		services.setAccessTokenValiditySeconds(7200);
+		services.setAccessTokenValiditySeconds(securityPropertites.getAccessTokenSeconds());
 		// 刷新令牌有效期
-		services.setRefreshTokenValiditySeconds(259200);
+		services.setRefreshTokenValiditySeconds(securityPropertites.getRefreshTokenSeconds());
 		return services;
 	}
 

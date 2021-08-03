@@ -1,16 +1,22 @@
 package com.course.common.security.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import com.course.common.security.propertites.SecurityPropertites;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * spring Security安全框架配置(认证、资源服务端配置)
@@ -20,9 +26,11 @@ import lombok.RequiredArgsConstructor;
  */
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class TokenStoreConfig {
 
 	private final SecurityPropertites securityPropertites;
+	private final RedisConnectionFactory redisConnectionFactory;
 
 	/**
 	 * token存储位置<br>
@@ -35,19 +43,16 @@ public class TokenStoreConfig {
 	 */
 	@Bean
 	public TokenStore tokenStore() {
-		return new JwtTokenStore(accessTokenConverter());
-	}
-
-	/**
-	 * JwtAccessToken注入
-	 *
-	 * @return
-	 */
-	@Bean
-	public JwtAccessTokenConverter accessTokenConverter() {
-		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-		converter.setSigningKey(securityPropertites.getJwtSigningKey());
-		return converter;
+		switch (securityPropertites.getTokenStoreType()) {
+		case redis:
+			log.error("redis");
+			return new RedisTokenStore(redisConnectionFactory);
+		case jwt:
+			log.error("jwt");
+			return new JwtTokenStore(accessTokenConverter());
+		default:
+			return new InMemoryTokenStore();
+		}
 	}
 
 	/**
@@ -57,10 +62,33 @@ public class TokenStoreConfig {
 	 */
 	@Bean
 	public ResourceServerTokenServices tokenServices() {
-		RemoteTokenServices services = new RemoteTokenServices();
-		services.setClientId(securityPropertites.getClientId());
-		services.setClientSecret(securityPropertites.getClientSecret());
-		services.setCheckTokenEndpointUrl(securityPropertites.getCheckTokenUrl());
-		return services;
+		switch (securityPropertites.getTokenStoreType()) {
+		case jwt:
+			log.error("RemoteTokenServices jwt");
+			DefaultTokenServices jwtServices = new DefaultTokenServices();
+			jwtServices.setTokenStore(tokenStore());
+			return jwtServices;
+		default:
+			log.error("RemoteTokenServices default");
+			RemoteTokenServices services = new RemoteTokenServices();
+			services.setClientId(securityPropertites.getClientId());
+			services.setClientSecret(securityPropertites.getClientSecret());
+			services.setCheckTokenEndpointUrl(securityPropertites.getCheckTokenUrl());
+			return services;
+		}
+	}
+
+	/**
+	 * JwtAccessToken注入
+	 *
+	 * @return
+	 */
+	@Bean
+	@ConditionalOnProperty(prefix = "security.oauth2", name = "storeType", havingValue = "jwt", matchIfMissing = true)
+	public JwtAccessTokenConverter accessTokenConverter() {
+		log.error("JwtAccessTokenConverter");
+		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+		converter.setSigningKey(securityPropertites.getJwtSigningKey());
+		return converter;
 	}
 }

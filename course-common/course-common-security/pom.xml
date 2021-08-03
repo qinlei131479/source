@@ -31,9 +31,15 @@
             <artifactId>spring-security-jwt</artifactId>
             <version>${spring-security-jwt.version}</version>
         </dependency>
+        <!-- web公共加载 -->
         <dependency>
             <groupId>com.course</groupId>
             <artifactId>course-common-web</artifactId>
+        </dependency>
+        <!-- redis缓存 -->
+        <dependency>
+            <groupId>com.course</groupId>
+            <artifactId>course-common-cache</artifactId>
         </dependency>
     </dependencies>
 

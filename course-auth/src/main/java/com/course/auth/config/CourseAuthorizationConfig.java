@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -57,6 +58,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 */
 	private final ClientDetailsService clientDetailsService;
 	private final DataSource dataSource;
+	private final PasswordEncoder passwordEncoder;
 
 	/**
 	 * 1、配置客户端:可通过数据库加载
@@ -70,6 +72,8 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		ClientDetailsServiceImpl clientDetailsService = new ClientDetailsServiceImpl(dataSource);
 		clientDetailsService.setSelectClientDetailsSql(SecurityConstant.DEFAULT_SELECT_STATEMENT);
 		clientDetailsService.setFindClientDetailsSql(SecurityConstant.DEFAULT_FIND_STATEMENT);
+		//注入加密方式
+		clientDetailsService.setPasswordEncoder(passwordEncoder);
 		clients.withClientDetails(clientDetailsService);
 		// 2、内存模式配置:
 		// clients.inMemory().withClient(securityPropertites.getClientId())
@@ -134,8 +138,8 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		services.setClientDetailsService(clientDetailsService);
 		// 令牌存储方式
 		services.setTokenStore(tokenStore);
+		// 采用JWT模式需要配置增强器
 		if (TokenStoreTypeEnum.jwt.equals(securityPropertites.getTokenStoreType())) {
-			// 采用JWT模式需要配置增强器
 			services.setTokenEnhancer(accessTokenConverter);
 		}
 		// 允许令牌token自动刷新
@@ -150,9 +154,9 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 */
 	@Bean
 	public AuthorizationCodeServices authorizationCodeServices() {
-		// 内存模式
+		// 1、内存模式
 		// return new InMemoryAuthorizationCodeServices();
-		// jdbc模式
+		// 2、jdbc模式
 		JdbcAuthorizationCodeServices codeServices = new JdbcAuthorizationCodeServices(dataSource);
 		codeServices.setInsertAuthenticationSql(SecurityConstant.CODE_STATEMENT_INSERT);
 		codeServices.setSelectAuthenticationSql(SecurityConstant.CODE_STATEMENT_SELECT);

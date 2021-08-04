@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: @project.artifactId@
+  profiles:
+    active: @profile.active@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${service.nacos.host}:${service.nacos.port}
+        namespace: ${service.nacos.namespace}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${service.nacos.namespace}
+        file-extension: yml
+        shared-configs[0]:
+          dataId: ${service.dataId.prefix}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          refresh: true
+
+# 日志根路径配置
+log:
+  path: ${service.log.root}

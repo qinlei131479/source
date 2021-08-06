@@ -87,7 +87,7 @@ public class TokenStoreConfig {
 	 * @return
 	 */
 	@Bean
-	@ConditionalOnProperty(prefix = "course.security.oauth2", name = "tokenStoreType", havingValue = "jwt", matchIfMissing = true)
+	@ConditionalOnProperty(prefix = "course.security.oauth2", name = "token-store-type", havingValue = "jwt")
 	public JwtAccessTokenConverter accessTokenConverter() {
 		log.error("JwtAccessTokenConverter");
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();

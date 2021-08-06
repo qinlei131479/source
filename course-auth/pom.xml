@@ -64,12 +64,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
-        <!--解决Spring Cloud LoadBalancer is currently working with the default cache -->
-<!--        <dependency>-->
-<!--            <groupId>com.github.ben-manes.caffeine</groupId>-->
-<!--            <artifactId>caffeine</artifactId>-->
-<!--            <version>${caffeine.version}</version>-->
-<!--        </dependency>-->
+
     </dependencies>
 
 </project>

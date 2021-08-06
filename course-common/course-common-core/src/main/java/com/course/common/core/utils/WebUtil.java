@@ -4,15 +4,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.course.common.core.enums.RequestHeaderEnum;
 import com.course.common.core.exception.CheckedException;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -27,10 +32,64 @@ import lombok.extern.slf4j.Slf4j;
 public class WebUtil {
 
 	private final static String BASIC = "Basic ";
+	private static final String BEARER_TYPE = "Bearer";
+
+	/**
+	 * 获取Request的header - token
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static String getHeader_token(HttpServletRequest request) {
+		if (request != null) {
+			String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+			if (StrUtil.isNotBlank(authorization)) {
+				return authorization.replace(BEARER_TYPE, StrUtil.EMPTY).trim();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 获取Request的header -CONTENT_TYPE 判断是否是json方式传递数据
+	 *
+	 * @param request
+	 * @return
+	 */
+	public static boolean isApplicationJson(HttpServletRequest request) {
+		String contentType = request.getHeader(HttpHeaders.CONTENT_TYPE);
+		if (StrUtil.isNotBlank(contentType) && contentType.startsWith(MediaType.APPLICATION_JSON.toString())) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 获取Request的header -ACTION_STATUS
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static boolean checkActionStatusInit(HttpServletRequest request) {
+		String actionStatus = getHeader(request, RequestHeaderEnum.ACTION_STATUS);
+		return ("init".equals(actionStatus));
+	}
+
+	/**
+	 * 获取Request的header -key
+	 * 
+	 * @param request
+	 * @param key
+	 * @return
+	 */
+	public static String getHeader(HttpServletRequest request, RequestHeaderEnum key) {
+		return (request == null) ? null : request.getHeader(key.getCode());
+	}
 
 	/**
 	 * 从request 获取CLIENT_ID
-	 *
+	 * 
+	 * @param request
 	 * @return
 	 */
 	@SneakyThrows
@@ -100,5 +159,14 @@ public class WebUtil {
 				writer.close();
 			}
 		}
+	}
+
+	/**
+	 * 获取 HttpServletResponse
+	 *
+	 * @return {HttpServletResponse}
+	 */
+	public static HttpServletResponse getResponse() {
+		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
 	}
 }

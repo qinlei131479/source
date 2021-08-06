@@ -2,6 +2,7 @@ package com.course.auth.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -52,7 +53,8 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 * token存储位置和token增强
 	 */
 	private final TokenStore tokenStore;
-	private final JwtAccessTokenConverter accessTokenConverter;
+	@Autowired(required = false)
+	JwtAccessTokenConverter accessTokenConverter;
 	/**
 	 * 客户端数据源注入
 	 */
@@ -72,7 +74,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		ClientDetailsServiceImpl clientDetailsService = new ClientDetailsServiceImpl(dataSource);
 		clientDetailsService.setSelectClientDetailsSql(SecurityConstant.DEFAULT_SELECT_STATEMENT);
 		clientDetailsService.setFindClientDetailsSql(SecurityConstant.DEFAULT_FIND_STATEMENT);
-		//注入加密方式
+		// 注入加密方式
 		clientDetailsService.setPasswordEncoder(passwordEncoder);
 		clients.withClientDetails(clientDetailsService);
 		// 2、内存模式配置:
@@ -96,7 +98,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
 				// 定制授权页面
-				// .pathMapping("/oauth/confirm_access","/customer/confirm_access")
+				.pathMapping("/oauth/confirm_access", "/token/confirm_access")
 				// 认证管理器
 				.authenticationManager(authenticationManager)
 				// 令牌存储方式

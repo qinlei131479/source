@@ -7,16 +7,22 @@ package com.course.common.security.constant;
  * @date 2021/8/2 下午1:17
  */
 public interface SecurityConstant {
-
 	/**
-	 * 默认登录URL
+	 * 自定义登录url
 	 */
-	String OAUTH_TOKEN_URL = "/oauth/token";
-
+	String LOGIN_PAGE = "/user/login";
 	/**
-	 * grant_type
+	 * 自定义登录执行url
 	 */
-	String REFRESH_TOKEN = "refresh_token";
+	String LOGIN_PROCESS_URL = "/user/doLogin";
+	/**
+	 * 自定义退出url
+	 */
+	String LOGOUT_URL = "/user/logout";
+	/**
+	 * 不需要鉴权的url，认证服务器
+	 */
+	String[] permitAllUrls = { "/user/login", "/user/doLogin", "/user/logout", "/actuator/**" };
 
 	/**
 	 * {bcrypt} 加密的特征码

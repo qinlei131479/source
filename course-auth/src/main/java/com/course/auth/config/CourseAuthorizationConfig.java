@@ -2,7 +2,6 @@ package com.course.auth.config;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -53,8 +52,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 * token存储位置和token增强
 	 */
 	private final TokenStore tokenStore;
-	@Autowired(required = false)
-	JwtAccessTokenConverter accessTokenConverter;
+	private final JwtAccessTokenConverter accessTokenConverter;
 	/**
 	 * 客户端数据源注入
 	 */

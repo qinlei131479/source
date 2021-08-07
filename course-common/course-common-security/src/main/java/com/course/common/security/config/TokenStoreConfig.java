@@ -1,6 +1,5 @@
 package com.course.common.security.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -17,7 +16,6 @@ import com.course.common.cache.enums.RedisKeyEnum;
 import com.course.common.security.propertites.SecurityPropertites;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * spring Security安全框架配置(认证、资源服务端配置)
@@ -27,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Configuration
 @RequiredArgsConstructor
-@Slf4j
 public class TokenStoreConfig {
 
 	private final SecurityPropertites securityPropertites;
@@ -46,50 +43,22 @@ public class TokenStoreConfig {
 	public TokenStore tokenStore() {
 		switch (securityPropertites.getTokenStoreType()) {
 		case redis:
-			log.error("redis");
 			RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
 			redisTokenStore.setPrefix(RedisKeyEnum.OAUTH_PREFIX);
 			return redisTokenStore;
 		case jwt:
-			log.error("jwt");
 			return new JwtTokenStore(accessTokenConverter());
 		default:
 			return new InMemoryTokenStore();
 		}
 	}
-
-	/**
-	 * 注入远程验证token令牌服务
-	 *
-	 * @return
-	 */
-	@Bean
-	public ResourceServerTokenServices tokenServices() {
-		switch (securityPropertites.getTokenStoreType()) {
-		case jwt:
-			log.error("RemoteTokenServices jwt");
-			DefaultTokenServices jwtServices = new DefaultTokenServices();
-			jwtServices.setTokenStore(tokenStore());
-			return jwtServices;
-		default:
-			log.error("RemoteTokenServices default");
-			RemoteTokenServices services = new RemoteTokenServices();
-			services.setClientId(securityPropertites.getClientId());
-			services.setClientSecret(securityPropertites.getClientSecret());
-			services.setCheckTokenEndpointUrl(securityPropertites.getCheckTokenUrl());
-			return services;
-		}
-	}
-
 	/**
 	 * JwtAccessToken注入
 	 *
 	 * @return
 	 */
 	@Bean
-	@ConditionalOnProperty(prefix = "course.security.oauth2", name = "token-store-type", havingValue = "jwt")
 	public JwtAccessTokenConverter accessTokenConverter() {
-		log.error("JwtAccessTokenConverter");
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
 		converter.setSigningKey(securityPropertites.getJwtSigningKey());
 		return converter;

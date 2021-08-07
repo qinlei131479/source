@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<html>
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport"
@@ -40,7 +39,7 @@
     </form>
 </div>
 <footer>
-    <p>support by</p>
+    <p>support by BigKnife</p>
 </footer>
 </body>
 </html>

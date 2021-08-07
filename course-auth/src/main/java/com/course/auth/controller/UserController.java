@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.course.common.security.entity.CourseUser;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.course.common.core.entity.Res;
+import com.course.common.security.entity.CourseUser;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,6 @@ import lombok.RequiredArgsConstructor;
  * @date 2021/8/5 下午9:40
  */
 @Controller
-@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -44,7 +43,7 @@ public class UserController {
 	 *            表单登录失败处理回调的错误信息
 	 * @return ModelAndView
 	 */
-	@GetMapping("/login")
+	@GetMapping("/user/login")
 	public ModelAndView login(ModelAndView modelAndView, @RequestParam(required = false) String error) {
 		modelAndView.setViewName("login");
 		modelAndView.addObject("error", error);
@@ -59,7 +58,7 @@ public class UserController {
 	 *            表单登录失败处理回调的错误信息
 	 * @return ModelAndView
 	 */
-	@GetMapping("/index")
+	@GetMapping(value = { "/user/index", "/" })
 	public ModelAndView index(ModelAndView modelAndView, @RequestParam(required = false) String error) {
 		modelAndView.setViewName("index");
 		CourseUser user = (CourseUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -75,8 +74,9 @@ public class UserController {
 	 * @param modelAndView
 	 * @return
 	 */
-	@GetMapping("/confirm_access")
+	@GetMapping("/user/confirm_access")
 	public ModelAndView confirm(HttpServletRequest request, HttpSession session, ModelAndView modelAndView) {
+		// 只能从request获取，若从ClientDetails获取，造成错误：error=access_denied&error_description=User%20denied%20access
 		Map<String, Object> scopeList = (Map<String, Object>) request.getAttribute("scopes");
 		modelAndView.addObject("scopeList", scopeList.keySet());
 
@@ -84,10 +84,9 @@ public class UserController {
 		if (auth != null) {
 			AuthorizationRequest authorizationRequest = (AuthorizationRequest) auth;
 			ClientDetails clientDetails = clientDetailsService.loadClientByClientId(authorizationRequest.getClientId());
-			modelAndView.addObject("app", clientDetails.getAdditionalInformation());
-			modelAndView.addObject("user", SecurityContextHolder.getContext().getAuthentication());
+			modelAndView.addObject("app", clientDetails);
+			modelAndView.addObject("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		}
-
 		modelAndView.setViewName("confirm");
 		return modelAndView;
 	}
@@ -99,7 +98,7 @@ public class UserController {
 	 *            Authorization
 	 * @return
 	 */
-	@DeleteMapping("/logout")
+	@DeleteMapping("/user/logout")
 	public Res<Object> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
 		if (StrUtil.isBlank(authHeader)) {
 			return Res.succ();
@@ -114,7 +113,7 @@ public class UserController {
 	 * @param token
 	 * @return
 	 */
-	@DeleteMapping("/token/{token}")
+	@DeleteMapping("/user/token/{token}")
 	public Res<Object> removeToken(@PathVariable("token") String token) {
 		OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
 		if (accessToken != null && StrUtil.isNotBlank(accessToken.getValue())) {

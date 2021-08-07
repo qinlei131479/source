@@ -13,6 +13,10 @@ import org.springframework.stereotype.Component;
 import com.course.common.core.entity.Res;
 import com.course.common.core.utils.WebUtil;
 
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.http.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  *
  * 自定义登录失败返回json
@@ -20,11 +24,19 @@ import com.course.common.core.utils.WebUtil;
  * @author qinlei
  * @date 2021/8/2 下午4:04
  */
+@Slf4j
 @Component
 public class LoginFailHandler implements AuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException e) throws IOException, ServletException {
-		WebUtil.responseWriteJson(response, Res.fail(e.getMessage()));
+		if (WebUtil.isApplicationJson(request)) {
+			WebUtil.responseWriteJson(response, Res.fail(e.getMessage()));
+		} else {
+			log.error("表单登录失败:{}", e.getLocalizedMessage());
+			String uri = HttpUtil.encodeParams(String.format("/user/login?error=%s", e.getMessage()),
+					CharsetUtil.CHARSET_UTF_8);
+			response.sendRedirect(uri);
+		}
 	}
 }

@@ -17,7 +17,7 @@
             <a class="navbar-brand" href="#">开放平台</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
-            <p class="navbar-text navbar-right">${user.username}</p>
+            <p class="navbar-text navbar-right">${user.username!'test'}</p>
         </div>
     </div>
 </nav>
@@ -25,12 +25,13 @@
     <form id='confirmationForm' name='confirmationForm' action="/oauth/authorize" method='post'>
         <input name='user_oauth_approval' value='true' type='hidden'/>
         <p>
-            <a href="${app.website!''}" target="_blank">${app.appName!'未定义应用名称'}</a> 将获得以下权限：</p>
+            <a href="${app.website!''}" target="_blank">${app.clientId!'未定义应用名称'}</a> 将获得以下权限：</p>
         <ul class="list-group">
             <li class="list-group-item"> <span>
               <#list scopeList as scope>
                   <input type="hidden" name="${scope}" value="true"/>
-                  <input type="checkbox" disabled checked="checked"/><label>${scope}</label>
+                  <input type="checkbox" disabled checked="checked"/><label><p>${scope}</p></label>
+                  <br>
               </#list>
         </ul>
         <p class="help-block">授权后表明你已同意 <a>服务协议</a></p>

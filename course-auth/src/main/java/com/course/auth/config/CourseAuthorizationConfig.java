@@ -98,7 +98,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
 				// 定制授权页面
-				.pathMapping("/oauth/confirm_access", "/token/confirm_access")
+				.pathMapping("/oauth/confirm_access", "/user/confirm_access")
 				// 认证管理器
 				.authenticationManager(authenticationManager)
 				// 令牌存储方式

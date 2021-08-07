@@ -4,11 +4,12 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.course.common.core.enums.RequestAttrEnum;
-import com.course.common.core.enums.RequestHeaderEnum;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import com.course.common.core.enums.RequestAttrEnum;
+import com.course.common.core.enums.RequestHeaderEnum;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -55,8 +56,20 @@ public class RequestUtil {
 		}
 		// 这种接口url，只有前面部分为接口地址：/apifront/weixincallback/msg/{appid}
 		String[] sp = requestUri.split("\\/");
-		String path = sp[0] + "/" + sp[1] + "/" + sp[2];
-		String action = sp[2];
+		String path = null;
+		String action = null;
+		switch (sp.length) {
+		case 1:
+			path = sp[0];
+			break;
+		case 2:
+			path = sp[0] + "/" + sp[1];
+			break;
+		case 3:
+			path = sp[0] + "/" + sp[1] + "/" + sp[2];
+			action = sp[2];
+			break;
+		}
 		return new String[] { path, action };
 	}
 

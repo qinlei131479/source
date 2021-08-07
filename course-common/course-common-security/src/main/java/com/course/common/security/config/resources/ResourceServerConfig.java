@@ -1,6 +1,5 @@
 package com.course.common.security.config.resources;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -26,12 +25,17 @@ import lombok.extern.slf4j.Slf4j;
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	private final TokenStore tokenStore;
+	private final ResourceAuthExceptionEntryPoint resourceAuthExceptionEntryPoint;
+	private final ResourceAccessDeniedHandler resourceAccessDeniedHandler;
+	private final ResourseBearerTokenExtractor resourseBearerTokenExtractor;
 
 	private final SecurityPropertites securityPropertites;
 	private final PermitAllUrlProperties permitAllUrlProperties;
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+		resources.authenticationEntryPoint(resourceAuthExceptionEntryPoint).tokenExtractor(resourseBearerTokenExtractor)
+				.accessDeniedHandler(resourceAccessDeniedHandler);
 		// JWT模式不需要远程调用
 		if (securityPropertites.getTokenStoreType().equals(TokenStoreTypeEnum.jwt)) {
 			resources.tokenStore(tokenStore);

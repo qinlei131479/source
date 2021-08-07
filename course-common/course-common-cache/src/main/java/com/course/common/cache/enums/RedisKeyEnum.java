@@ -45,6 +45,11 @@ public enum RedisKeyEnum {
 	 */
 	public static final String CONFIG_KEY = PROJECT_PREFIX + "config";
 
+	/**
+	 * 缓存key，系统配置
+	 */
+	public static final String PLATFORM_API_KEY = PROJECT_PREFIX + "api";
+
 	public String getKey() {
 		return PROJECT_PREFIX + this.code;
 	}

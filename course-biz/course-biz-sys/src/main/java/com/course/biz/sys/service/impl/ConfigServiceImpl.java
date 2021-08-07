@@ -2,20 +2,20 @@ package com.course.biz.sys.service.impl;
 
 import java.util.Date;
 
-import com.course.common.cache.enums.RedisKeyEnum;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.course.common.core.entity.Res;
-import com.course.common.mybatis.service.impl.UpServiceImpl;
 import com.course.biz.sys.entity.Config;
 import com.course.biz.sys.entity.config.ApiConfig;
 import com.course.biz.sys.enums.ApiRunModeEnum;
 import com.course.biz.sys.enums.ConfigEnum;
 import com.course.biz.sys.mapper.ConfigMapper;
 import com.course.biz.sys.service.ConfigService;
+import com.course.common.cache.enums.RedisKeyEnum;
+import com.course.common.core.entity.Res;
+import com.course.common.mybatis.service.impl.UpServiceImpl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.json.JSONUtil;
@@ -28,6 +28,10 @@ import cn.hutool.json.JSONUtil;
  */
 @Service
 public class ConfigServiceImpl extends UpServiceImpl<ConfigMapper, Config> implements ConfigService {
+	/**
+	 * 缓存key值
+	 */
+	private final static String API_CONFIG = "apiConfig";
 
 	@Override
 	@Cacheable(value = RedisKeyEnum.CONFIG_KEY, key = "#code", unless = "#result == null")
@@ -62,7 +66,7 @@ public class ConfigServiceImpl extends UpServiceImpl<ConfigMapper, Config> imple
 	}
 
 	@Override
-	@CacheEvict(value = RedisKeyEnum.CONFIG_KEY, key = "'" + RedisKeyEnum.CONFIG_APICONFIG_KEY + "'")
+	@CacheEvict(value = RedisKeyEnum.CONFIG_KEY, key = "'" + API_CONFIG + "'")
 	public void updateApiVersion_local(String version) {
 		Config req = this.baseMapper
 				.selectOne(Wrappers.<Config> query().lambda().eq(Config::getCode, ConfigEnum.apiConfig.getCode()));
@@ -77,7 +81,7 @@ public class ConfigServiceImpl extends UpServiceImpl<ConfigMapper, Config> imple
 	}
 
 	@Override
-	@CacheEvict(value = RedisKeyEnum.CONFIG_KEY, key = "'" + RedisKeyEnum.CONFIG_APICONFIG_KEY + "'")
+	@CacheEvict(value = RedisKeyEnum.CONFIG_KEY, key = "'" + API_CONFIG + "'")
 	public void updateApiVersion_product() {
 		Config req = this.baseMapper
 				.selectOne(Wrappers.<Config> query().lambda().eq(Config::getCode, ConfigEnum.apiConfig.getCode()));

@@ -58,7 +58,7 @@ public class WebUtil {
 	 */
 	public static boolean isApplicationJson(HttpServletRequest request) {
 		String contentType = request.getHeader(HttpHeaders.CONTENT_TYPE);
-		if (StrUtil.isNotBlank(contentType) && contentType.startsWith(MediaType.APPLICATION_JSON.toString())) {
+		if (StrUtil.isNotBlank(contentType) && contentType.startsWith(MediaType.APPLICATION_JSON_VALUE)) {
 			return true;
 		}
 		return false;

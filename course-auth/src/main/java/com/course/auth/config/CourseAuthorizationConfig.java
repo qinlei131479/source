@@ -48,6 +48,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 */
 	private final AuthenticationManager authenticationManager;
 	private final UserDetailsService userDetailsService;
+	private final CourseWebResponseExceptionTranslator courseWebResponseExceptionTranslator;
 	/**
 	 * token存储位置和token增强
 	 */
@@ -106,7 +107,9 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 				// 授权码
 				.authorizationCodeServices(authorizationCodeServices())
 				// 允许访问模式
-				.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
+				.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
+				// 自定义异常栈解析
+				.exceptionTranslator(courseWebResponseExceptionTranslator);
 	}
 
 	/**

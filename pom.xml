@@ -8,16 +8,15 @@
     <artifactId>course</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <description>学习课程</description>
-    <name>${project.artifactId}</name>
+    <description>course最新技术demo</description>
 
     <modules>
         <module>course-common</module>
-        <module>course-learn</module>
-        <module>course-visual</module>
-        <module>course-biz</module>
         <module>course-gateway</module>
         <module>course-auth</module>
+        <module>course-visual</module>
+        <module>course-biz</module>
+        <module>course-learn</module>
     </modules>
 
     <properties>

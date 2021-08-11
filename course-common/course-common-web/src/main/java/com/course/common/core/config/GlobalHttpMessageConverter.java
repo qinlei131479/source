@@ -2,7 +2,6 @@ package com.course.common.core.config;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,14 +12,12 @@ import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StreamUtils;
 
 import com.course.common.core.constant.CommonConstants;
 import com.course.common.core.entity.Req;
+import com.course.common.core.entity.Res;
 import com.course.common.core.enums.RequestAttrEnum;
 import com.course.common.core.utils.RequestUtil;
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.hutool.core.util.StrUtil;
@@ -50,9 +47,15 @@ public class GlobalHttpMessageConverter extends AbstractHttpMessageConverter<Obj
 
 	protected final ObjectMapper objectMapper;
 
+	/**
+	 * 返回结果类判断是否继续向下执行
+	 * 
+	 * @param clazz
+	 * @return
+	 */
 	@Override
 	protected boolean supports(Class<?> clazz) {
-		return true;
+		return String.class.isAssignableFrom(clazz) || Res.class.isAssignableFrom(clazz);
 	}
 
 	@Override
@@ -106,13 +109,6 @@ public class GlobalHttpMessageConverter extends AbstractHttpMessageConverter<Obj
 	@Override
 	protected void writeInternal(Object o, HttpOutputMessage outputMessage)
 			throws IOException, HttpMessageNotWritableException {
-		// 暂时处理DefaultOAuth2AccessToken结果值
-		if (o.getClass().getName().endsWith("DefaultOAuth2AccessToken")) {
-			OutputStream outputStream = StreamUtils.nonClosing(outputMessage.getBody());
-			JsonGenerator generator = this.objectMapper.getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
-			objectMapper.writer().writeValue(generator, o);
-			return;
-		}
 		String result = "";
 		if (o != null) {
 			if (o instanceof String) {

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <artifactId>course-auth</artifactId>
-    <description>oauth2权限认证</description>
+    <description>oauth2权限认证 集成spring security oauth2.0</description>
 
     <dependencies>
         <!--JDBC相关-->

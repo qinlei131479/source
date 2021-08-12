@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Controller
 @RequiredArgsConstructor
-public class UserController {
+public class TokenController {
 
 	private final ClientDetailsService clientDetailsService;
 	private final TokenStore tokenStore;
@@ -43,7 +43,7 @@ public class UserController {
 	 *            表单登录失败处理回调的错误信息
 	 * @return ModelAndView
 	 */
-	@GetMapping("/user/login")
+	@GetMapping("/token/login")
 	public ModelAndView login(ModelAndView modelAndView, @RequestParam(required = false) String error) {
 		modelAndView.setViewName("login");
 		modelAndView.addObject("error", error);
@@ -58,7 +58,7 @@ public class UserController {
 	 *            表单登录失败处理回调的错误信息
 	 * @return ModelAndView
 	 */
-	@GetMapping(value = { "/user/index", "/" })
+	@GetMapping(value = { "/token/index", "/" })
 	public ModelAndView index(ModelAndView modelAndView, @RequestParam(required = false) String error) {
 		modelAndView.setViewName("index");
 		CourseUser user = (CourseUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -74,7 +74,7 @@ public class UserController {
 	 * @param modelAndView
 	 * @return
 	 */
-	@GetMapping("/user/confirm_access")
+	@GetMapping("/token/confirm_access")
 	public ModelAndView confirm(HttpServletRequest request, HttpSession session, ModelAndView modelAndView) {
 		// 只能从request获取，若从ClientDetails获取，造成错误：error=access_denied&error_description=User%20denied%20access
 		Map<String, Object> scopeList = (Map<String, Object>) request.getAttribute("scopes");
@@ -98,7 +98,7 @@ public class UserController {
 	 *            Authorization
 	 * @return
 	 */
-	@DeleteMapping("/user/logout")
+	@DeleteMapping("/token/logout")
 	public Res<Object> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
 		if (StrUtil.isBlank(authHeader)) {
 			return Res.succ();
@@ -113,7 +113,7 @@ public class UserController {
 	 * @param token
 	 * @return
 	 */
-	@DeleteMapping("/user/token/{token}")
+	@DeleteMapping("/token/{token}")
 	public Res<Object> removeToken(@PathVariable("token") String token) {
 		OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
 		if (accessToken != null && StrUtil.isNotBlank(accessToken.getValue())) {

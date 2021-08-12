@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import com.course.auth.services.ClientDetailsServiceImpl;
-import com.course.common.core.constant.SecurityConstant;
+import com.course.common.core.constant.SecurityConstants;
 import com.course.common.security.enums.TokenStoreTypeEnum;
 import com.course.common.security.propertites.SecurityPropertites;
 
@@ -71,8 +71,8 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		// 1、jdbc数据源模式注入客户端
 		ClientDetailsServiceImpl clientDetailsService = new ClientDetailsServiceImpl(dataSource);
-		clientDetailsService.setSelectClientDetailsSql(SecurityConstant.DEFAULT_SELECT_STATEMENT);
-		clientDetailsService.setFindClientDetailsSql(SecurityConstant.DEFAULT_FIND_STATEMENT);
+		clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
+		clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
 		// 注入加密方式
 		clientDetailsService.setPasswordEncoder(passwordEncoder);
 		clients.withClientDetails(clientDetailsService);
@@ -97,7 +97,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
 				// 定制授权页面
-				.pathMapping("/oauth/confirm_access", "/user/confirm_access")
+				.pathMapping("/oauth/confirm_access", "/token/confirm_access")
 				// 认证管理器
 				.authenticationManager(authenticationManager)
 				// 令牌存储方式
@@ -161,9 +161,9 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		// return new InMemoryAuthorizationCodeServices();
 		// 2、jdbc模式
 		JdbcAuthorizationCodeServices codeServices = new JdbcAuthorizationCodeServices(dataSource);
-		codeServices.setInsertAuthenticationSql(SecurityConstant.CODE_STATEMENT_INSERT);
-		codeServices.setSelectAuthenticationSql(SecurityConstant.CODE_STATEMENT_SELECT);
-		codeServices.setDeleteAuthenticationSql(SecurityConstant.CODE_STATEMENT_DELETE);
+		codeServices.setInsertAuthenticationSql(SecurityConstants.CODE_STATEMENT_INSERT);
+		codeServices.setSelectAuthenticationSql(SecurityConstants.CODE_STATEMENT_SELECT);
+		codeServices.setDeleteAuthenticationSql(SecurityConstants.CODE_STATEMENT_DELETE);
 		return codeServices;
 	}
 

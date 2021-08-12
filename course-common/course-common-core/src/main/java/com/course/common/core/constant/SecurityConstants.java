@@ -6,23 +6,23 @@ package com.course.common.core.constant;
  * @author qinlei
  * @date 2021/8/2 下午1:17
  */
-public interface SecurityConstant {
+public interface SecurityConstants {
 	/**
 	 * 自定义登录url
 	 */
-	String LOGIN_PAGE = "/user/login";
+	String LOGIN_PAGE = "/token/login";
 	/**
 	 * 自定义登录执行url
 	 */
-	String LOGIN_PROCESS_URL = "/user/doLogin";
+	String LOGIN_PROCESS_URL = "/token/doLogin";
 	/**
 	 * 自定义退出url
 	 */
-	String LOGOUT_URL = "/user/logout";
+	String LOGOUT_URL = "/token/logout";
 	/**
 	 * 不需要鉴权的url，认证服务器
 	 */
-	String[] permitAllUrls = { "/user/login", "/user/doLogin", "/user/logout", "/actuator/**" };
+	String[] permitAllUrls = { LOGIN_PAGE, LOGIN_PROCESS_URL, LOGOUT_URL, "/actuator/**" };
 
 	/**
 	 * {bcrypt} 加密的特征码

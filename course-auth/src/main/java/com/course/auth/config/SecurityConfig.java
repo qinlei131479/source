@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.course.auth.handler.LoginFailHandler;
 import com.course.auth.handler.LoginSuccessHandler;
-import com.course.common.core.constant.SecurityConstant;
+import com.course.common.core.constant.SecurityConstants;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,13 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// 链式配置拦截策略
-		http.formLogin().loginPage(SecurityConstant.LOGIN_PAGE).loginProcessingUrl(SecurityConstant.LOGIN_PROCESS_URL)
+		http.formLogin().loginPage(SecurityConstants.LOGIN_PAGE).loginProcessingUrl(SecurityConstants.LOGIN_PROCESS_URL)
 				// 配置登录成功或失败处理器
 				.successHandler(loginSuccessHandler).failureHandler(loginFailHandler)
 				// 配置登出url
-				.and().logout().logoutUrl(SecurityConstant.LOGOUT_URL).logoutSuccessUrl("/")
+				.and().logout().logoutUrl(SecurityConstants.LOGOUT_URL).logoutSuccessUrl("/")
 				// 配置不需要验证的url
-				.and().authorizeRequests().antMatchers(SecurityConstant.permitAllUrls).permitAll().anyRequest()
+				.and().authorizeRequests().antMatchers(SecurityConstants.permitAllUrls).permitAll().anyRequest()
 				.authenticated()
 				// 禁用csrf
 				.and().csrf().disable();

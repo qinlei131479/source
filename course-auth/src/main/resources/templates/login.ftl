@@ -13,7 +13,7 @@
 
 <body class="sign_body">
 <div class="container form-margin-top">
-    <form class="form-signin" action="/user/doLogin" method="post">
+    <form class="form-signin" action="/token/doLogin" method="post">
         <h2 class="form-signin-heading" align="center">统一认证系统</h2>
         <input type="text" name="username" class="form-control form-margin-top" placeholder="账号" required autofocus>
         <input type="password" name="password" class="form-control" placeholder="密码" required>

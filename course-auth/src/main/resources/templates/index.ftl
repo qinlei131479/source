@@ -12,7 +12,7 @@
 </head>
 
 <body class="sign_body">
-登录成功！,${user.username!''},<a href="/user/logout">登出</a>
+登录成功！,${user.username!''},<a href="/token/logout">登出</a>
 <footer>
     <p>support by BigKnife</p>
 </footer>

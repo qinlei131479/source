@@ -100,6 +100,9 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 */
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+		accessTokenConverter.setUserTokenConverter(new UserCheckTokenAuthenticationConverter());
+
 		endpoints
 				// 定制授权页面
 				.pathMapping("/oauth/confirm_access", "/token/confirm_access")
@@ -113,6 +116,8 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 				.authorizationCodeServices(authorizationCodeServices())
 				// 允许访问模式
 				.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
+				// 自定义访问token转换器
+				.accessTokenConverter(accessTokenConverter)
 				// 自定义异常栈解析
 				.exceptionTranslator(courseWebResponseExceptionTranslator);
 	}

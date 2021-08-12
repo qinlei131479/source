@@ -1,18 +1,22 @@
 package com.course.auth.controller;
 
+import java.security.Principal;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,6 +38,41 @@ public class TokenController {
 
 	private final ClientDetailsService clientDetailsService;
 	private final TokenStore tokenStore;
+	private final TokenEndpoint tokenEndpoint;
+
+	@GetMapping("/oauth/token")
+	@ResponseBody
+	public Object getAccessToken(Principal principal, @RequestParam Map<String, String> parameters)
+			throws HttpRequestMethodNotSupportedException {
+		return this.result(principal, parameters);
+	}
+
+	@PostMapping("/oauth/token")
+	@ResponseBody
+	public Object postAccessToken(Principal principal, @RequestParam Map<String, String> parameters)
+			throws HttpRequestMethodNotSupportedException {
+		return this.result(principal, parameters);
+	}
+
+	/**
+	 * 包装返回数据
+	 *
+	 * @param principal
+	 * @param parameters
+	 * @return
+	 * @throws HttpRequestMethodNotSupportedException
+	 */
+	public Object result(Principal principal, @RequestParam Map<String, String> parameters)
+			throws HttpRequestMethodNotSupportedException {
+		ResponseEntity<OAuth2AccessToken> accessToken = tokenEndpoint.getAccessToken(principal, parameters);
+		OAuth2AccessToken body = accessToken.getBody();
+		Map<String, Object> customMap = body.getAdditionalInformation();
+		customMap.put("accessToken", body.getValue());
+		// customMap.put("scope", body.getScope());
+		customMap.put("expiresIn", body.getExpiresIn());
+		customMap.put("refreshToken", body.getRefreshToken().getValue());
+		return Res.succ(customMap);
+	}
 
 	/**
 	 * 认证页面

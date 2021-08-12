@@ -36,11 +36,6 @@
             <groupId>com.course</groupId>
             <artifactId>course-common-web</artifactId>
         </dependency>
-        <!-- redis缓存 -->
-        <dependency>
-            <groupId>com.course</groupId>
-            <artifactId>course-common-cache</artifactId>
-        </dependency>
         <!--解决Spring Cloud LoadBalancer is currently working with the default cache -->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>

@@ -1,4 +1,4 @@
-package com.course.common.cache.utils;
+package com.course.common.core.redis;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -15,8 +15,7 @@ import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
-import com.course.common.cache.RedisTopic;
-import com.course.common.cache.enums.RedisKeyEnum;
+import com.course.common.core.enums.RedisKeyEnum;
 
 /**
  * 缓存工具类Redis

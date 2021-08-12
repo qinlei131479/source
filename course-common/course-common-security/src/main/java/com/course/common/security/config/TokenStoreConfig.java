@@ -1,5 +1,6 @@
 package com.course.common.security.config;
 
+import com.course.common.core.enums.RedisKeyEnum;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -12,7 +13,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
-import com.course.common.cache.enums.RedisKeyEnum;
 import com.course.common.security.propertites.SecurityPropertites;
 
 import lombok.RequiredArgsConstructor;

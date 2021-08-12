@@ -16,10 +16,7 @@
         <dependency>
             <groupId>com.course</groupId>
             <artifactId>course-common-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.course</groupId>
-            <artifactId>course-common-cache</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <!--验证码 源码： https://github.com/pig-mesh/easy-captcha-->
         <dependency>

@@ -105,11 +105,7 @@
                 <artifactId>course-common-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-common-cache</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.course</groupId>
                 <artifactId>course-common-mybatis</artifactId>

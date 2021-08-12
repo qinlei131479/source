@@ -21,18 +21,17 @@
         <dependency>
             <groupId>com.course</groupId>
             <artifactId>course-common-redisson</artifactId>
+            <version>${project.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.course</groupId>-->
-<!--            <artifactId>course-common-job</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.course</groupId>
-            <artifactId>course-common-cache</artifactId>
+            <artifactId>course-common-web</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.course</groupId>
             <artifactId>course-common-mybatis</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

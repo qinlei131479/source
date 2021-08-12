@@ -1,4 +1,4 @@
-package com.course.common.cache;
+package com.course.common.core.redis;
 
 /**
  * @author qinlei

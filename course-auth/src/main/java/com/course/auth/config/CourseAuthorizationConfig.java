@@ -100,9 +100,6 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 	 */
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-		accessTokenConverter.setUserTokenConverter(new UserCheckTokenAuthenticationConverter());
-
 		endpoints
 				// 定制授权页面
 				.pathMapping("/oauth/confirm_access", "/token/confirm_access")
@@ -117,7 +114,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 				// 允许访问模式
 				.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
 				// 自定义访问token转换器
-				.accessTokenConverter(accessTokenConverter)
+				.accessTokenConverter(new UserCheckTokenAuthenticationConverter())
 				// 自定义异常栈解析
 				.exceptionTranslator(courseWebResponseExceptionTranslator);
 	}
@@ -188,10 +185,12 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		return (accessToken, authentication) -> {
 			final Map<String, Object> additionalInfo = new HashMap<>(4);
 			CourseUser courseUser = (CourseUser) authentication.getUserAuthentication().getPrincipal();
-			additionalInfo.put(SecurityConstants.DETAILS_LICENSE, "made in course");
-			additionalInfo.put(SecurityConstants.DETAILS_USER_ID, courseUser.getUserId());
-			additionalInfo.put(SecurityConstants.DETAILS_USERNAME, courseUser.getUsername());
-			additionalInfo.put(SecurityConstants.DETAILS_DEPT_ID, courseUser.getDeptId());
+			if (courseUser != null) {
+				additionalInfo.put(SecurityConstants.DETAILS_LICENSE, "made in course");
+				additionalInfo.put(SecurityConstants.DETAILS_USER_ID, courseUser.getUserId());
+				additionalInfo.put(SecurityConstants.DETAILS_USERNAME, courseUser.getUsername());
+				additionalInfo.put(SecurityConstants.DETAILS_DEPT_ID, courseUser.getDeptId());
+			}
 			((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
 			return accessToken;
 		};

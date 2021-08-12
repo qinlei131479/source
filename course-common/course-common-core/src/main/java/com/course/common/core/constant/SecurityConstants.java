@@ -55,17 +55,17 @@ public interface SecurityConstants {
 	/**
 	 * 查询授权码
 	 */
-	String CODE_STATEMENT_SELECT = "select code, authentication from tb_oauth_code where code = ?";
+	String CODE_STATEMENT_SELECT = "select code, authentication from tb_oauthcode where code = ?";
 
 	/**
 	 * 插入授权码
 	 */
-	String CODE_STATEMENT_INSERT = "insert into tb_oauth_code (code, authentication) values (?, ?)";
+	String CODE_STATEMENT_INSERT = "insert into tb_oauthcode (code, authentication) values (?, ?)";
 
 	/**
 	 * 删除授权码
 	 */
-	String CODE_STATEMENT_DELETE = "delete from tb_oauth_code where code = ?";
+	String CODE_STATEMENT_DELETE = "delete from tb_oauthcode where code = ?";
 
 	/**
 	 * 用户ID字段

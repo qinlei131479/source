@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.course.auth.handler.LoginFailHandler;
 import com.course.auth.handler.LoginSuccessHandler;
-import com.course.common.security.constant.SecurityConstant;
+import com.course.common.core.constant.SecurityConstant;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

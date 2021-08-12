@@ -13,47 +13,20 @@
     <description>后台管理系统</description>
 
     <dependencies>
-        <dependency>
-            <groupId>com.course</groupId>
-            <artifactId>course-common-security</artifactId>
-        </dependency>
-        <!-- springboot web服务 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- springboot web服务测试 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- nacos服务注册与发现 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <!--和spring-cloud-starter-loadbalancer包冲突，否则造成loadbalancer失效  -->
         </dependency>
         <!-- nacos服务配置 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-        <!-- 因为Springcloud3.0版本与spring-cloud-alibaba版本不兼容，所以需要添加，后续alibaba修复后可删除 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-        <!-- 微服务相互调用openfeign -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- 微服务负载均衡 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+            <groupId>com.course</groupId>
+            <artifactId>course-common-security</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

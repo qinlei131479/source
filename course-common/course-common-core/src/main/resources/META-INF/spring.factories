@@ -1,4 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
  com.course.common.core.redis.RedisTemplateConfig,\
- com.course.common.core.redis.RedisUtil
+ com.course.common.core.redis.RedisUtil,\
+ com.course.common.core.config.SpringContextHolder,\
+ com.course.common.core.config.JacksonConfig,\
+ com.course.common.core.config.InstanceConfig
 

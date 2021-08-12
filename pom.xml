@@ -39,26 +39,64 @@
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <spring-cloud-security.version>2.2.5.RELEASE</spring-cloud-security.version>
         <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
-        <!--        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>-->
-        <!--        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>-->
-        <!--        <spring-cloud-alibaba.version>2.2.6.RELEASE</spring-cloud-alibaba.version>-->
         <caffeine.version>2.8.8</caffeine.version>
         <jaxb.version>2.3.0</jaxb.version>
         <captcha.version>2.2.0</captcha.version>
     </properties>
 
     <dependencies>
-
+        <!-- 因为Springcloud2020版本与spring-cloud-alibaba版本不兼容，所以需要添加，后续alibaba修复后可删除 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <!-- 微服务负载均衡 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <!--解决Spring Cloud LoadBalancer is currently working with the default cache -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
+        </dependency>
+        <!-- 微服务相互调用openfeign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- jdk1.8 升级jdk11需要兼容的 -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <!-- springboot web服务 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- springboot web服务测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
-            <!--数据库-->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
             <!-- spring boot 依赖 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -82,57 +120,6 @@
                 <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- course核心包依赖 -->
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-common-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-common-job</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-common-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-common-web</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-common-mybatis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-common-shardingjdbc</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-common-redisson</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- 业务公共模块 -->
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-biz-sys</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- course learn依赖包，正式环境无用 -->
-            <dependency>
-                <groupId>com.course</groupId>
-                <artifactId>course-learn-spring</artifactId>
-                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

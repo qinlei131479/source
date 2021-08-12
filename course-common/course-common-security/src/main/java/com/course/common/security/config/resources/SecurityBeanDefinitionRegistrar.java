@@ -5,7 +5,7 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
-import com.course.common.security.constant.SecurityConstant;
+import com.course.common.core.constant.SecurityConstant;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -17,6 +17,7 @@
         <dependency>
             <groupId>com.course</groupId>
             <artifactId>course-common-mybatis</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>

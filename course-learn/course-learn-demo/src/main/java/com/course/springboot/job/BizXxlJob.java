@@ -10,7 +10,7 @@
 //import org.springframework.stereotype.Component;
 //
 //import com.course.common.core.entity.Res;
-//import com.course.common.core.utils.SpringContextHolder;
+//import com.course.common.core.config.SpringContextHolder;
 //import com.course.biz.sys.entity.ApiLog;
 //import com.course.biz.sys.service.ApiLogService;
 //import com.xxl.job.core.biz.model.ReturnT;

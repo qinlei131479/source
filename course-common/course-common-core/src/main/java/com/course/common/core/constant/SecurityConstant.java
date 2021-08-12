@@ -1,4 +1,4 @@
-package com.course.common.security.constant;
+package com.course.common.core.constant;
 
 /**
  * 配置Security相关常用属性

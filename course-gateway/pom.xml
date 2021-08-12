@@ -10,13 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <artifactId>course-gateway</artifactId>
-    <description>Gateway 微服务网关</description>
+    <description>Gateway 微服务网关 集成spring cloud Gateway</description>
 
     <dependencies>
+        <!-- nacos服务注册与发现 -->
         <dependency>
-            <groupId>com.course</groupId>
-            <artifactId>course-common-core</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!-- nacos服务配置 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
         <!--验证码 源码： https://github.com/pig-mesh/easy-captcha-->
         <dependency>
@@ -29,25 +34,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-        <!-- nacos服务注册与发现 -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!-- nacos服务配置 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-        <!-- 因为Springcloud2020版本与spring-cloud-alibaba版本不兼容，所以需要添加，后续alibaba修复后可删除 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-        <!-- 微服务负载均衡，最新版 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+            <groupId>com.course</groupId>
+            <artifactId>course-common-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,4 +1,4 @@
-package com.course.common.core.utils;
+package com.course.common.core.config;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;

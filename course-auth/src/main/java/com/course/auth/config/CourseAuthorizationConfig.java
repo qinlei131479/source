@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import com.course.auth.services.ClientDetailsServiceImpl;
-import com.course.common.security.constant.SecurityConstant;
+import com.course.common.core.constant.SecurityConstant;
 import com.course.common.security.enums.TokenStoreTypeEnum;
 import com.course.common.security.propertites.SecurityPropertites;
 

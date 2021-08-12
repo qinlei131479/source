@@ -15,6 +15,7 @@
         <dependency>
             <groupId>com.course</groupId>
             <artifactId>course-common-mybatis</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <!--测试依赖-->
         <dependency>

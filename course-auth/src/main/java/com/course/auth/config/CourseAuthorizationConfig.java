@@ -114,7 +114,7 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 				// 允许访问模式
 				.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
 				// 自定义访问token转换器
-				.accessTokenConverter(new UserCheckTokenAuthenticationConverter())
+				.accessTokenConverter(new CourseAuthenticationConverter())
 				// 自定义异常栈解析
 				.exceptionTranslator(courseWebResponseExceptionTranslator);
 	}

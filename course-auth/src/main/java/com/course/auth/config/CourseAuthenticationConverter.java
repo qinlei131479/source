@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2021/8/12 下午5:42
  */
 @Slf4j
-public class UserCheckTokenAuthenticationConverter extends DefaultAccessTokenConverter {
+public class CourseAuthenticationConverter extends DefaultAccessTokenConverter {
 
 	@Override
 	public Map<String, ?> convertAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {

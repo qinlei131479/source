@@ -3,6 +3,7 @@ package com.course.common.security.entity;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
 import lombok.Getter;
@@ -22,6 +23,13 @@ public class CourseUser extends User {
 	@Getter
 	@Setter
 	private String userName;
+	@Getter
+	@Setter
+	private Long deptId;
+
+	public CourseUser(String username, String password, boolean accountNonLocked) {
+		this(username, password, true, true, true, accountNonLocked, AuthorityUtils.createAuthorityList(new String[0]));
+	}
 
 	public CourseUser(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,

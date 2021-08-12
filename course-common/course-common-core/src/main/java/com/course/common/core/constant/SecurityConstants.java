@@ -66,4 +66,24 @@ public interface SecurityConstants {
 	 * 删除授权码
 	 */
 	String CODE_STATEMENT_DELETE = "delete from tb_oauth_code where code = ?";
+
+	/**
+	 * 用户ID字段
+	 */
+	String DETAILS_USER_ID = "userId";
+
+	/**
+	 * 用户名字段
+	 */
+	String DETAILS_USERNAME = "userName";
+
+	/**
+	 * 用户部门字段
+	 */
+	String DETAILS_DEPT_ID = "deptId";
+
+	/**
+	 * 协议字段
+	 */
+	String DETAILS_LICENSE = "license";
 }

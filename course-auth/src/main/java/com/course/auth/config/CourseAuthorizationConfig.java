@@ -1,5 +1,10 @@
 package com.course.auth.config;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -8,6 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -16,13 +22,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import com.course.auth.services.ClientDetailsServiceImpl;
 import com.course.common.core.constant.SecurityConstants;
+import com.course.common.security.entity.CourseUser;
 import com.course.common.security.enums.TokenStoreTypeEnum;
 import com.course.common.security.propertites.SecurityPropertites;
 
@@ -141,10 +146,15 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		services.setClientDetailsService(clientDetailsService);
 		// 令牌存储方式
 		services.setTokenStore(tokenStore);
+		TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+		List<TokenEnhancer> delegates = new ArrayList<>();
 		// 采用JWT模式需要配置增强器
 		if (TokenStoreTypeEnum.jwt.equals(securityPropertites.getTokenStoreType())) {
-			services.setTokenEnhancer(accessTokenConverter);
+			delegates.add(accessTokenConverter);
 		}
+		delegates.add(tokenEnhancer());
+		enhancerChain.setTokenEnhancers(delegates);
+		services.setTokenEnhancer(enhancerChain);
 		// 允许令牌token自动刷新
 		services.setSupportRefreshToken(true);
 		return services;
@@ -164,7 +174,21 @@ public class CourseAuthorizationConfig extends AuthorizationServerConfigurerAdap
 		codeServices.setInsertAuthenticationSql(SecurityConstants.CODE_STATEMENT_INSERT);
 		codeServices.setSelectAuthenticationSql(SecurityConstants.CODE_STATEMENT_SELECT);
 		codeServices.setDeleteAuthenticationSql(SecurityConstants.CODE_STATEMENT_DELETE);
+		// 3、redis模式
 		return codeServices;
 	}
 
+	@Bean
+	public TokenEnhancer tokenEnhancer() {
+		return (accessToken, authentication) -> {
+			final Map<String, Object> additionalInfo = new HashMap<>(4);
+			CourseUser courseUser = (CourseUser) authentication.getUserAuthentication().getPrincipal();
+			additionalInfo.put(SecurityConstants.DETAILS_LICENSE, "made in course");
+			additionalInfo.put(SecurityConstants.DETAILS_USER_ID, courseUser.getUserId());
+			additionalInfo.put(SecurityConstants.DETAILS_USERNAME, courseUser.getUsername());
+			additionalInfo.put(SecurityConstants.DETAILS_DEPT_ID, courseUser.getDeptId());
+			((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
+			return accessToken;
+		};
+	}
 }

@@ -14,6 +14,7 @@ import com.course.common.core.entity.Res;
 import com.course.common.core.utils.WebUtil;
 import com.course.common.security.entity.CourseUser;
 
+import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -39,7 +40,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		} else {
 			request.getSession().setAttribute("user", authentication);
 			super.onAuthenticationSuccess(request, response, authentication);
-			log.error("表单登录成功:{}", user);
+			log.error("表单登录成功:{}", JSONUtil.toJsonStr(user));
 			// 获取请求参数中是否包含 回调地址
 			// String redirectUrl = request.getParameter(REDIRECT_URI);
 			// redirectUrl = StrUtil.isNotBlank(redirectUrl) ?

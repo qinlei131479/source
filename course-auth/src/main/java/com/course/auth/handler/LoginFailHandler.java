@@ -34,7 +34,7 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 			WebUtil.responseWriteJson(response, Res.fail(e.getMessage()));
 		} else {
 			log.error("表单登录失败:{}", e.getLocalizedMessage());
-			String uri = HttpUtil.encodeParams(String.format("/user/login?error=%s", e.getMessage()),
+			String uri = HttpUtil.encodeParams(String.format("/token/login?error=%s", e.getMessage()),
 					CharsetUtil.CHARSET_UTF_8);
 			response.sendRedirect(uri);
 		}

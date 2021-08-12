@@ -1,5 +1,6 @@
 package com.course.auth.exception;
 
+import com.course.auth.config.OAuth2ExceptionSerializer;
 import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

@@ -1,5 +1,6 @@
-package com.course.auth.exception;
+package com.course.auth.config;
 
+import com.course.auth.exception.CourseOAuth2Exception;
 import com.course.common.core.enums.ResCommonEnum;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -24,11 +25,10 @@ public class OAuth2ExceptionSerializer extends StdSerializer<CourseOAuth2Excepti
 	@Override
 	@SneakyThrows
 	public void serialize(CourseOAuth2Exception value, JsonGenerator gen, SerializerProvider provider) {
-		log.error("value = {}", value);
 		gen.writeStartObject();
 		gen.writeObjectField("code", ResCommonEnum.FAIL.getCode());
 		gen.writeStringField("msg", value.getMessage());
-		gen.writeStringField("obj", value.getErrorCode());
+		gen.writeStringField("detail", value.getErrorCode());
 		gen.writeEndObject();
 	}
 }

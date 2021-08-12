@@ -1,5 +1,6 @@
 package com.course.auth.exception;
 
+import com.course.auth.config.OAuth2ExceptionSerializer;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

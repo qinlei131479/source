@@ -2,6 +2,7 @@ package com.course.biz.sys.service.impl;
 
 import java.util.Date;
 
+import com.course.common.core.enums.RedisKeyEnum;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,6 @@ import com.course.biz.sys.enums.ApiRunModeEnum;
 import com.course.biz.sys.enums.ConfigEnum;
 import com.course.biz.sys.mapper.ConfigMapper;
 import com.course.biz.sys.service.ConfigService;
-import com.course.common.cache.enums.RedisKeyEnum;
 import com.course.common.core.entity.Res;
 import com.course.common.mybatis.service.impl.UpServiceImpl;
 

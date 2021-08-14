@@ -3,6 +3,8 @@ package com.course.springboot.controller;
 import java.util.concurrent.TimeUnit;
 
 import com.course.common.core.entity.Res;
+import com.course.common.core.redis.RedisTopic;
+import com.course.common.core.redis.RedisUtil;
 import org.redisson.api.RLock;
 import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
@@ -10,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.course.common.cache.RedisTopic;
-import com.course.common.cache.utils.RedisUtil;
 import com.course.common.redission.CommonTopic;
 import com.course.common.redission.annotation.Lock;
 import com.course.common.redission.annotation.MqPublish;

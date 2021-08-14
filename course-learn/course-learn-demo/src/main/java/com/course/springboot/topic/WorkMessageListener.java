@@ -1,11 +1,11 @@
 package com.course.springboot.topic;
 
 import com.course.common.core.entity.Res;
+import com.course.common.core.redis.RedisUtil;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.stereotype.Component;
 
-import com.course.common.cache.utils.RedisUtil;
 import com.course.springboot.entity.User;
 
 import cn.hutool.json.JSONUtil;

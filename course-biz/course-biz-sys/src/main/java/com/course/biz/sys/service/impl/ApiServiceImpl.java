@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import com.course.biz.sys.mapper.MenuApiMapper;
 import com.course.biz.sys.mapper.MenuMapper;
-import com.course.common.cache.enums.RedisKeyEnum;
+import com.course.common.core.enums.RedisKeyEnum;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

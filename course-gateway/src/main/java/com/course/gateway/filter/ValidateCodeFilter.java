@@ -1,5 +1,7 @@
 package com.course.gateway.filter;
 
+import com.course.common.core.enums.RedisKeyEnum;
+import com.course.common.core.redis.RedisUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -9,8 +11,6 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 
-import com.course.common.cache.enums.RedisKeyEnum;
-import com.course.common.cache.utils.RedisUtil;
 import com.course.common.core.entity.Res;
 import com.course.common.core.exception.ValidateCodeException;
 import com.course.common.core.utils.WebUtil;

@@ -2,6 +2,8 @@ package com.course.gateway.handler;
 
 import java.util.Optional;
 
+import com.course.common.core.enums.RedisKeyEnum;
+import com.course.common.core.redis.RedisUtil;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -11,8 +13,6 @@ import org.springframework.web.reactive.function.server.HandlerFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import com.course.common.cache.enums.RedisKeyEnum;
-import com.course.common.cache.utils.RedisUtil;
 import com.course.common.core.entity.Res;
 import com.course.gateway.properties.GatewayConfigProperties;
 import com.pig4cloud.captcha.ArithmeticCaptcha;

@@ -6,10 +6,10 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 
+import com.course.common.core.redis.RedisUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.course.common.cache.utils.RedisUtil;
 import com.course.springboot.DemoApplicaition;
 
 import lombok.extern.slf4j.Slf4j;

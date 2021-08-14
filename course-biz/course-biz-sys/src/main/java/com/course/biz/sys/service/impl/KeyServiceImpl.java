@@ -1,11 +1,11 @@
 package com.course.biz.sys.service.impl;
 
+import com.course.common.core.redis.RedisUtil;
 import org.springframework.stereotype.Service;
 
 import com.course.biz.sys.entity.Key;
 import com.course.biz.sys.mapper.KeyMapper;
 import com.course.biz.sys.service.KeyService;
-import com.course.common.cache.utils.RedisUtil;
 import com.course.common.core.enums.FlagEnum;
 import com.course.common.mybatis.service.impl.UpServiceImpl;
 

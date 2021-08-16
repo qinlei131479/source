@@ -507,4 +507,17 @@ public class HuToolUtil {
 		}
 		return null;
 	}
+
+	/**
+	 * json字符串 to Java Bean
+	 *
+	 * @param object
+	 * @return
+	 */
+	public static <T extends Object> T objectToBean(Object object, Class<T> beanClass) {
+		if (object == null) {
+			return null;
+		}
+		return JSONUtil.toBean(JSONUtil.toJsonStr(object), beanClass);
+	}
 }

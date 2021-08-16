@@ -4,10 +4,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.*;
+import org.springframework.web.client.RestTemplate;
 
 import com.course.common.security.enums.TokenStoreTypeEnum;
 import com.course.common.security.propertites.PermitAllUrlProperties;
@@ -31,6 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	private final SecurityPropertites securityPropertites;
 	private final PermitAllUrlProperties permitAllUrlProperties;
+	private final RestTemplate lbRestTemplate;
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -70,9 +69,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			return jwtServices;
 		default:
 			RemoteTokenServices services = new RemoteTokenServices();
+			services.setRestTemplate(lbRestTemplate);
 			services.setClientId(securityPropertites.getClientId());
 			services.setClientSecret(securityPropertites.getClientSecret());
 			services.setCheckTokenEndpointUrl(securityPropertites.getTokenInfoUrl());
+			DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+			UserAuthenticationConverter userTokenConverter = new ResourceUserAuthenticationConverter();
+			accessTokenConverter.setUserTokenConverter(userTokenConverter);
+			services.setAccessTokenConverter(accessTokenConverter);
 			return services;
 		}
 	}

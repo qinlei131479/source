@@ -34,11 +34,11 @@ public class SecurityPropertites {
 	/**
 	 * 客户端秘钥
 	 */
-	private String clientSecret = "test";
+	private String clientSecret = "$2a$10$IKx0VHAJ7OX4hrZybz8KZuik4ErGM.wCJK5u25EP7P.UA0KyfG8.e";
 
 	/**
 	 * 校验token远程地址
 	 */
-	private String tokenInfoUrl = "http://localhost:8898/oauth/check_token";
+	private String tokenInfoUrl = "http://course-auth/oauth/check_token";
 
 }

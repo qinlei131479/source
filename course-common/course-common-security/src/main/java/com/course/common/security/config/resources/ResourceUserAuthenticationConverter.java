@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,6 +11,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.util.StringUtils;
 
+import com.course.common.core.utils.HuToolUtil;
+import com.course.common.security.entity.Account;
 import com.course.common.security.entity.CourseUser;
 import com.course.common.security.utils.SecurityUtils;
 
@@ -27,11 +28,12 @@ import lombok.extern.slf4j.Slf4j;
 public class ResourceUserAuthenticationConverter implements UserAuthenticationConverter {
 
 	private static final String N_A = "N/A";
-	private ResourceServerProperties resourceServerProperties;
+	// private ResourceServerProperties resourceServerProperties;
 
-	public ResourceUserAuthenticationConverter(ResourceServerProperties resourceServerProperties) {
-		this.resourceServerProperties = resourceServerProperties;
-	}
+	// public ResourceUserAuthenticationConverter(ResourceServerProperties
+	// resourceServerProperties) {
+	// this.resourceServerProperties = resourceServerProperties;
+	// }
 
 	@Override
 	public Map<String, ?> convertUserAuthentication(Authentication authentication) {
@@ -57,7 +59,8 @@ public class ResourceUserAuthenticationConverter implements UserAuthenticationCo
 			CourseUser courseUser = new CourseUser((String) map.get(USERNAME), N_A, true, true, true, true,
 					authorities);
 			// 复制扩展信息
-			SecurityUtils.copyObjToUser(map, courseUser);
+			Account account = HuToolUtil.objectToBean(map, Account.class);
+			SecurityUtils.copyObjToUser(account, courseUser);
 			return new UsernamePasswordAuthenticationToken(courseUser, N_A, authorities);
 		}
 		return null;

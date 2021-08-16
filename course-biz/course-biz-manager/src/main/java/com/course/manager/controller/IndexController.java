@@ -1,5 +1,6 @@
 package com.course.manager.controller;
 
+import com.course.common.security.utils.SecurityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ public class IndexController {
 
 	@PostMapping("/user/getUser")
 	public Object index() {
-		return Res.succ(SecurityContextHolder.getContext().getAuthentication());
+		return Res.succ(SecurityUtils.getUser());
 	}
 
 }

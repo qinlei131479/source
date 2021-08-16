@@ -25,7 +25,7 @@ public class SecurityPropertites {
 	/**
 	 * tokenStore存储方式，默认jwt
 	 */
-	private TokenStoreTypeEnum tokenStoreType = TokenStoreTypeEnum.jwt;
+	private TokenStoreTypeEnum tokenStoreType = TokenStoreTypeEnum.redis;
 
 	/**
 	 * 客户端id

@@ -2,12 +2,12 @@ package com.course.auth.services;
 
 import javax.sql.DataSource;
 
-import com.course.common.core.enums.RedisKeyEnum;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 
+import com.course.common.core.enums.RedisKeyEnum;
 
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class ClientDetailsServiceImpl extends JdbcClientDetailsService {
 	public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
 		ClientDetails details = super.loadClientByClientId(clientId);
 		log.error(JSONUtil.toJsonStr(details));
-		details.getRegisteredRedirectUri();
+		// details.getRegisteredRedirectUri();
 		return details;
 	}
 }
